@@ -77,9 +77,9 @@ public class Edge {
 		if (getClass() != obj.getClass())
 			return false;
 		Edge other = (Edge) obj;
-		if (directed.booleanValue() == false) {
+		if (!directed) {
 			if ((source.equals(other.getSource()) && target.equals(other.getTarget()))
-					|| (source.equals(other.getSource()) && target.equals(other.getSource()))) {
+					|| (source.equals(other.getTarget()) && target.equals(other.getSource()))) {
 				return true;
 			} else {
 				return false;

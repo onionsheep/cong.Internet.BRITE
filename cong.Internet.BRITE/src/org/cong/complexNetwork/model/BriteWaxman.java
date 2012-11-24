@@ -29,7 +29,7 @@ public class BriteWaxman {
 				rand = java.util.concurrent.ThreadLocalRandom.current().nextDouble();
 				euclideanDistance = britePlane.EuclideanDistanceBetween(u.getCoordinate(), v.getCoordinate());
 				probability = probability(alpha, beta, euclideanDistance, maxEuclideanDistance);
-				if (rand < probability) {
+				if (rand <= probability) {
 					graph.connect(u, v);
 				}
 			}

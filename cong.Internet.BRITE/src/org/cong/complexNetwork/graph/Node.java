@@ -60,6 +60,14 @@ public class Node {
 		return id;
 	}
 
+	public Set<Node> getConnectedNodes() {
+		return connectedNodes;
+	}
+
+	public Integer getDegree() {
+		return degree;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 1009;

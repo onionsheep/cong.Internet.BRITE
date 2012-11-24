@@ -40,20 +40,29 @@ public class BritePlane {
 		return node;
 	}
 
+	public BriteNode addOneRandomNode(){
+		Boolean result = true;
+		BriteNode node = null;
+		while(result){
+			node = this.randomNode();
+			result = !this.graph.getNodes().add(node);
+		}
+		return node;
+	}
+
 	public boolean addRandomNode(){
-		BriteNode node = this.randomNode();
-		return this.graph.getNodes().add(node);
+		return this.graph.getNodes().add(randomNode());
 	}
 	
-	public void addRandomNodes(Integer count){
+	public void addRandomNodes(Integer count) {
 		Integer i = 0;
-		while(i < count){
-			if(this.addRandomNode()){
+		while (i < count) {
+			if (this.addRandomNode()) {
 				i++;
 			}
 		}
 	}
-	
+
 	public Double MaxEuclideanDistance() {
 		Double maxDis = 0.0;
 		Set<BriteNode> nodes = graph.getNodes();
@@ -94,5 +103,5 @@ public class BritePlane {
 	public BriteGraph getGraph() {
 		return graph;
 	}
-	
+
 }

@@ -2,7 +2,7 @@ package org.cong.complexNetwork.graph;
 
 public class BriteEdge extends Edge{
 
-	public BriteEdge(Node source, Node target) {
+	public BriteEdge(BriteNode source, BriteNode target) {
 		super(source, target);
 	}
 
