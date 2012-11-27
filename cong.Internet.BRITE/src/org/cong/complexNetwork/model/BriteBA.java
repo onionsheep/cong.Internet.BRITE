@@ -20,7 +20,7 @@ public class BriteBA {
 		Double rand = 0.0;
 		Boolean result;
 		Double probability = 0.0;
-		BriteGraph graph = britePlane.getGraph();
+		BriteGraph graph = britePlane.getBriteGraph();
 		Set<BriteNode> nodes = graph.getNodes();
 		for (Integer i = 0; i < nodeCount; i++) {
 			BriteNode newNode = britePlane.addOneRandomNode();

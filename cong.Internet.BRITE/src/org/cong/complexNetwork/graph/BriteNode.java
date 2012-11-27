@@ -1,17 +1,16 @@
 package org.cong.complexNetwork.graph;
 
 public class BriteNode extends Node {
-	protected BriteCoordinate	coordinate;
+	protected BriteCoordinate	briteCoordinate;
 
-	public BriteNode(String id, BriteCoordinate coordinate) {
+	public BriteNode(String id, BriteCoordinate briteCoordinate) {
 		super(id);
-		this.coordinate = coordinate;
+		this.briteCoordinate = briteCoordinate;
 	}
 
-	public BriteCoordinate getCoordinate() {
-		return coordinate;
+	public BriteCoordinate getBriteCoordinate() {
+		return briteCoordinate;
 	}
-
 
 	@Override
 	public int hashCode() {

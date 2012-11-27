@@ -8,6 +8,7 @@ public class Node {
 	protected Double		weight;
 	protected Integer		degree;
 	protected Set<Node>	connectedNodes;
+	protected Coordinate coordinate; 
 
 	/**
 	 * id is a String that can identify a Node. one Node, one id. Warn:Nothing
@@ -16,20 +17,25 @@ public class Node {
 	 * @param id
 	 * @param weight
 	 */
-	public Node(String id, Double weight) {
+	public Node(String id, Double weight, Coordinate coordinate) {
 		this.id = id;
 		this.weight = weight;
 		this.connectedNodes = new HashSet<>();
 		this.degree = 0;
+		this.coordinate = coordinate;
 	}
 
+	public Node(String id, Coordinate coordinate){
+		this(id, 0.0, coordinate);
+	}
+	
 	/**
 	 * weight default = 0, treat as a weightless Node
 	 * 
 	 * @param id
 	 */
 	public Node(String id) {
-		this(id, 0.0);
+		this(id, 0.0, null);
 	}
 
 	public boolean connectNode(Node node) {
@@ -66,6 +72,10 @@ public class Node {
 
 	public Integer getDegree() {
 		return degree;
+	}
+	
+	public Coordinate getCoordinate() {
+		return coordinate;
 	}
 
 	@Override

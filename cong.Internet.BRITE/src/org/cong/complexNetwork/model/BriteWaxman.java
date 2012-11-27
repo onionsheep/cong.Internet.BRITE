@@ -19,7 +19,7 @@ public class BriteWaxman {
 		Double probability = 0.0;
 		Double euclideanDistance = null;
 		Double maxEuclideanDistance = britePlane.MaxEuclideanDistance();
-		BriteGraph graph = britePlane.getGraph();
+		BriteGraph graph = britePlane.getBriteGraph();
 		Set<BriteNode> nodes = graph.getNodes();
 		Set<BriteNode> nodesRemain = new HashSet<>();
 		nodesRemain.addAll(nodes);
@@ -27,7 +27,7 @@ public class BriteWaxman {
 			nodesRemain.remove(u);
 			for (BriteNode v : nodesRemain) {
 				rand = java.util.concurrent.ThreadLocalRandom.current().nextDouble();
-				euclideanDistance = britePlane.EuclideanDistanceBetween(u.getCoordinate(), v.getCoordinate());
+				euclideanDistance = britePlane.EuclideanDistanceBetween(u.getBriteCoordinate(), v.getBriteCoordinate());
 				probability = probability(alpha, beta, euclideanDistance, maxEuclideanDistance);
 				if (rand <= probability) {
 					graph.connect(u, v);

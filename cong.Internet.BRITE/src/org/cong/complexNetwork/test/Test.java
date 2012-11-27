@@ -24,14 +24,14 @@ public class Test {
 		BritePlane bp = new BritePlane(100000, 100000);
 		bp.addRandomNodes(100);
 		BriteWaxman.generateEdges(bp, 0.6, 0.3);
-		System.out.println("Nodes " + bp.getGraph().getNodes().size());
-		System.out.println("Edges " + bp.getGraph().getEdges().size());
+		System.out.println("Nodes " + bp.getBriteGraph().getNodes().size());
+		System.out.println("Edges " + bp.getBriteGraph().getEdges().size());
 		
 		BriteBA.generateEdges(bp, 5, 900);
-		System.out.println("Nodes " + bp.getGraph().getNodes().size());
-		System.out.println("Edges " + bp.getGraph().getEdges().size());
+		System.out.println("Nodes " + bp.getBriteGraph().getNodes().size());
+		System.out.println("Edges " + bp.getBriteGraph().getEdges().size());
 		
-		Set<BriteNode> nodes = bp.getGraph().getNodes();
+		Set<BriteNode> nodes = bp.getBriteGraph().getNodes();
 		Integer dSum = 0;
 		for (BriteNode n : nodes) {
 			dSum += n.getDegree();
@@ -40,7 +40,7 @@ public class Test {
 		System.out.println(dSum);
 		
 		
-		Gexf gexf = bp.getGraph().toGexf();
+		Gexf gexf = bp.getBriteGraph().toGexf();
 		System.out.println("generating file...");
 		StaxGraphWriter graphWriter = new StaxGraphWriter();
 		File f = new File("test_waxman.gexf");

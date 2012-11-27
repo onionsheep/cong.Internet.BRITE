@@ -6,17 +6,17 @@ import java.util.Set;
 import org.cong.complexNetwork.graph.BriteCoordinate;
 import org.cong.complexNetwork.graph.BriteGraph;
 import org.cong.complexNetwork.graph.BriteNode;
-import org.cong.complexNetwork.graph.Coordinate;
 
-public class BritePlane {
+public class BritePlane extends Plane {
 	protected Integer			hs;
 	protected Integer			ls;
-	protected BriteGraph	graph;
+	protected BriteGraph	briteGraph;
 
 	public BritePlane(Integer hs, Integer ls) {
+		super(hs * ls, hs * ls);
 		this.hs = hs;
 		this.ls = ls;
-		this.graph = new BriteGraph();
+		this.briteGraph = new BriteGraph();
 	}
 
 	public Double EuclideanDistanceBetween(BriteCoordinate u, BriteCoordinate v) {
@@ -40,20 +40,20 @@ public class BritePlane {
 		return node;
 	}
 
-	public BriteNode addOneRandomNode(){
+	public BriteNode addOneRandomNode() {
 		Boolean result = true;
 		BriteNode node = null;
-		while(result){
+		while (result) {
 			node = this.randomNode();
-			result = !this.graph.getNodes().add(node);
+			result = !this.briteGraph.getNodes().add(node);
 		}
 		return node;
 	}
 
-	public boolean addRandomNode(){
-		return this.graph.getNodes().add(randomNode());
+	public boolean addRandomNode() {
+		return this.briteGraph.getNodes().add(randomNode());
 	}
-	
+
 	public void addRandomNodes(Integer count) {
 		Integer i = 0;
 		while (i < count) {
@@ -65,13 +65,13 @@ public class BritePlane {
 
 	public Double MaxEuclideanDistance() {
 		Double maxDis = 0.0;
-		Set<BriteNode> nodes = graph.getNodes();
+		Set<BriteNode> nodes = briteGraph.getNodes();
 		Set<BriteNode> nodesRemain = new HashSet<>();
 		nodesRemain.addAll(nodes);
 		for (BriteNode node : nodes) {
 			nodesRemain.remove(node);
 			for (BriteNode node2 : nodesRemain) {
-				Double dis = this.EuclideanDistanceBetween(node.getCoordinate(), node2.getCoordinate());
+				Double dis = this.EuclideanDistanceBetween(node.getBriteCoordinate(), node2.getBriteCoordinate());
 				if (maxDis < dis) {
 					maxDis = dis;
 				}
@@ -80,15 +80,16 @@ public class BritePlane {
 		return maxDis;
 	}
 
-	public Double MaxEuclideanDistance2() {
-		Double maxDis = 0.0;
-		Set<BriteNode> nodes = graph.getNodes();
-		Set<Coordinate> nodesCordinates = new HashSet<>();
-		for (BriteNode node : nodes) {
-
-		}
-		return maxDis;
-	}
+	// TODO: write a better function to calculate the max distance
+	// public Double MaxEuclideanDistance2() {
+	// Double maxDis = 0.0;
+	// Set<BriteNode> nodes = graph.getNodes();
+	// Set<Coordinate> nodesCordinates = new HashSet<>();
+	// for (BriteNode node : nodes) {
+	//
+	// }
+	// return maxDis;
+	// }
 
 	public Integer getHs() {
 		return hs;
@@ -98,8 +99,8 @@ public class BritePlane {
 		return ls;
 	}
 
-	public BriteGraph getGraph() {
-		return graph;
+	public BriteGraph getBriteGraph() {
+		return briteGraph;
 	}
 
 }
