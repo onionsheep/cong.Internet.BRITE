@@ -21,15 +21,15 @@ public class Test {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		BritePlane bp = new BritePlane(10000, 10000);
+		BritePlane bp = new BritePlane(100000, 100000);
 		bp.addRandomNodes(100);
-		BriteWaxman.generateEdges(bp, 0.6, 0.2);
-		System.out.println(bp.getGraph().getNodes().size());
-		System.out.println(bp.getGraph().getEdges().size());
+		BriteWaxman.generateEdges(bp, 0.6, 0.3);
+		System.out.println("Nodes " + bp.getGraph().getNodes().size());
+		System.out.println("Edges " + bp.getGraph().getEdges().size());
 		
 		BriteBA.generateEdges(bp, 5, 900);
-		System.out.println(bp.getGraph().getNodes().size());
-		System.out.println(bp.getGraph().getEdges().size());
+		System.out.println("Nodes " + bp.getGraph().getNodes().size());
+		System.out.println("Edges " + bp.getGraph().getEdges().size());
 		
 		Set<BriteNode> nodes = bp.getGraph().getNodes();
 		Integer dSum = 0;
@@ -41,6 +41,7 @@ public class Test {
 		
 		
 		Gexf gexf = bp.getGraph().toGexf();
+		System.out.println("generating file...");
 		StaxGraphWriter graphWriter = new StaxGraphWriter();
 		File f = new File("test_waxman.gexf");
 		Writer out;

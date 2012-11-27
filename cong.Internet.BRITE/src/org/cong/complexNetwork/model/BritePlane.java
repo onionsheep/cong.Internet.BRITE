@@ -83,9 +83,7 @@ public class BritePlane {
 	public Double MaxEuclideanDistance2() {
 		Double maxDis = 0.0;
 		Set<BriteNode> nodes = graph.getNodes();
-
 		Set<Coordinate> nodesCordinates = new HashSet<>();
-
 		for (BriteNode node : nodes) {
 
 		}

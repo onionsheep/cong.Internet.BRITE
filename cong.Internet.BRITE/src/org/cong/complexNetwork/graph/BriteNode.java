@@ -1,7 +1,5 @@
 package org.cong.complexNetwork.graph;
 
-import java.util.Set;
-
 public class BriteNode extends Node {
 	protected BriteCoordinate	coordinate;
 

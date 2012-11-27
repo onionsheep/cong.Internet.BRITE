@@ -24,7 +24,7 @@ public class TestBA {
 		testBA1();
 	}
 
-	private static void testBriteNodeEquals() {
+	public static void testBriteNodeEquals() {
 		BriteCoordinate c0 = new BriteCoordinate(0, 1, 2, 3);
 		BriteCoordinate c1 = new BriteCoordinate(1, 1, 2, 3);
 		BriteCoordinate c2 = new BriteCoordinate(2, 1, 2, 3);
