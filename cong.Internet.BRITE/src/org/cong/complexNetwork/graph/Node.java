@@ -3,7 +3,14 @@ package org.cong.complexNetwork.graph;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import org.cong.complexNetwork.test.Test;
+
 public class Node {
+	
+	public static Logger	logger	= LogManager.getLogger(Node.class);
+	
 	protected String		id;
 	protected Double		weight;
 	protected Integer		degree;

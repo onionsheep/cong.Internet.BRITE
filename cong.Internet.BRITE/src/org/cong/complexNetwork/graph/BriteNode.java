@@ -29,10 +29,10 @@ public class BriteNode extends Node {
 		if (getClass() != obj.getClass())
 			return false;
 		BriteNode other = (BriteNode) obj;
-		if (coordinate == null) {
-			if (other.coordinate != null)
+		if (briteCoordinate == null) {
+			if (other.briteCoordinate != null)
 				return false;
-		} else if (!coordinate.equals(other.coordinate))
+		} else if (!briteCoordinate.equals(other.briteCoordinate))
 			return false;
 		return true;
 	}
@@ -40,8 +40,8 @@ public class BriteNode extends Node {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("BriteNode [coordinate=");
-		builder.append(coordinate);
+		builder.append("BriteNode [briteCoordinate=");
+		builder.append(briteCoordinate);
 		builder.append(", connectedNodes=");
 		builder.append("omited");
 		builder.append(", degree=");

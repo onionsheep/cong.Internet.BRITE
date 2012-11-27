@@ -2,10 +2,15 @@ package org.cong.complexNetwork.model;
 
 import java.util.Set;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.cong.complexNetwork.graph.BriteGraph;
 import org.cong.complexNetwork.graph.BriteNode;
 
 public class BriteBA {
+	
+	public static Logger logger = LogManager.getLogger(BriteBA.class);
+	
 	public static Double probability(BriteNode i, Set<BriteNode> nodes) {
 		Double probability = null;
 		Integer sumOfDegree = 0;
@@ -23,12 +28,12 @@ public class BriteBA {
 		BriteGraph graph = britePlane.getBriteGraph();
 		Set<BriteNode> nodes = graph.getBriteNodes();
 		for (Integer i = 0; i < nodeCount; i++) {
-			BriteNode newNode = britePlane.addOneRandomNode();
+			BriteNode newNode = britePlane.randomNodeNoDuplication();
 			Integer m = 0;
 			while(m < oneNodeEdge){
 				rand = java.util.concurrent.ThreadLocalRandom.current().nextDouble();
 				probability = 0.0;
-				for(BriteNode oldNode : nodes){
+				for(BriteNode oldNode : nodes){					
 					probability += probability(oldNode, nodes);
 					if (rand <= probability) {
 						result = false;
@@ -40,6 +45,7 @@ public class BriteBA {
 					}
 				}
 			}
+			graph.getNodes().add(newNode);
 		}
 	}
 }

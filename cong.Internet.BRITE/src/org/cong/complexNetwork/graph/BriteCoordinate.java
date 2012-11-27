@@ -56,27 +56,12 @@ public class BriteCoordinate {
 		if (getClass() != obj.getClass())
 			return false;
 		BriteCoordinate other = (BriteCoordinate) obj;
-		if (hx == null) {
-			if (other.hx != null)
-				return false;
-		} else if (!hx.equals(other.hx))
+		
+		if(hx.equals(other.hx) && hy.equals(other.hy) && lx.equals(other.lx) && ly.equals(other.ly)){
+			return true;
+		}else{
 			return false;
-		if (hy == null) {
-			if (other.hy != null)
-				return false;
-		} else if (!hy.equals(other.hy))
-			return false;
-		if (lx == null) {
-			if (other.lx != null)
-				return false;
-		} else if (!lx.equals(other.lx))
-			return false;
-		if (ly == null) {
-			if (other.ly != null)
-				return false;
-		} else if (!ly.equals(other.ly))
-			return false;
-		return true;
+		}
 	}
 	@Override
 	public String toString() {

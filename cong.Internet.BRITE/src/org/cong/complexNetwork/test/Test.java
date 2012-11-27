@@ -7,10 +7,12 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.util.HashSet;
 import java.util.Set;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.cong.complexNetwork.graph.BriteGraph;
 import org.cong.complexNetwork.graph.BriteNode;
 import org.cong.complexNetwork.model.BriteBA;
 import org.cong.complexNetwork.model.BritePlane;
@@ -26,26 +28,37 @@ public static Logger logger = LogManager.getLogger(Test.class);
 		BritePlane bp = new BritePlane(100000, 100000);
 		bp.addRandomNodes(100);
 		BriteWaxman.generateEdges(bp, 0.6, 0.3);
+		
 		logger.debug("Nodes " + bp.getBriteGraph().getNodes().size());
 		logger.debug("Edges " + bp.getBriteGraph().getEdges().size());
 		
-		BriteBA.generateEdges(bp, 5, 900);
+		BriteBA.generateEdges(bp, 5, 200);
 		logger.debug("Nodes " + bp.getBriteGraph().getNodes().size());
 		logger.debug("Edges " + bp.getBriteGraph().getEdges().size());
 		
 		Set<BriteNode> nodes = bp.getBriteGraph().getBriteNodes();
-		Integer dSum = 0;
+		Integer dSum0 = 0;
+		Integer dSum1 = 0;
 		for (BriteNode n : nodes) {
-			dSum += n.getDegree();
+			dSum0 += n.getDegree();
+			dSum1 += n.getConnectedNodes().size(); 
 		}
 
+		
+		logger.debug("t1 " + BriteGraph.t1);
+		logger.debug("t2 " + BriteGraph.t2);
+		
 		//System.out.println(dSum);
-		logger.debug("Sum of Degree " + dSum);
+		logger.debug("Sum of Degree0 " + dSum0);
+		logger.debug("Sum of Degree1 " + dSum1);
+		
+		
+		
 		
 		Gexf gexf = bp.getBriteGraph().toGexf();
 		logger.debug("generating file...");
 		StaxGraphWriter graphWriter = new StaxGraphWriter();
-		File f = new File("test_waxman.gexf");
+		File f = new File("test.gexf");
 		Writer out;
 		try {
 			out = new FileWriter(f, false);
