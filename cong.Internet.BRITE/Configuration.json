@@ -1,0 +1,10 @@
+{
+	hs : 10000,
+	ls : 10000,
+	waxmanNodeCount : 100,
+	waxmanAlpha : 0.6,
+	waxmanBeta : 0.3,
+	baNodeCount : 900,
+	baOneNodeEdge : 5,
+	outputFileName : "InternetModel.gexf"
+}
