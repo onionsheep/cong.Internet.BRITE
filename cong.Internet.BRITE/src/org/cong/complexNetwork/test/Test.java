@@ -26,12 +26,12 @@ public static Logger logger = LogManager.getLogger(Test.class);
 		BritePlane bp = new BritePlane(100000, 100000);
 		bp.addRandomNodes(100);
 		BriteWaxman.generateEdges(bp, 0.6, 0.3);
-		logger.debug("Nodes " + bp.getBriteGraph().getBriteNodes().size());
-		logger.debug("Edges " + bp.getBriteGraph().getBriteEdges().size());
+		logger.debug("Nodes " + bp.getBriteGraph().getNodes().size());
+		logger.debug("Edges " + bp.getBriteGraph().getEdges().size());
 		
-		BriteBA.generateEdges(bp, 5, 100);
-		logger.debug("Nodes " + bp.getBriteGraph().getBriteNodes().size());
-		logger.debug("Edges " + bp.getBriteGraph().getBriteEdges().size());
+		BriteBA.generateEdges(bp, 5, 900);
+		logger.debug("Nodes " + bp.getBriteGraph().getNodes().size());
+		logger.debug("Edges " + bp.getBriteGraph().getEdges().size());
 		
 		Set<BriteNode> nodes = bp.getBriteGraph().getBriteNodes();
 		Integer dSum = 0;

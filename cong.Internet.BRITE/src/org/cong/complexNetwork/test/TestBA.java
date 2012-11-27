@@ -46,8 +46,8 @@ public class TestBA {
 		BritePlane bp = new BritePlane(10000, 10000);
 		bp.addRandomNodes(100);
 		BriteWaxman.generateEdges(bp, 0.5, 0.2);
-		System.out.println("Nodes " + bp.getBriteGraph().getBriteNodes().size());
-		System.out.println("Edges " + bp.getBriteGraph().getBriteEdges().size());
+		System.out.println("Nodes " + bp.getBriteGraph().getNodes().size());
+		System.out.println("Edges " + bp.getBriteGraph().getEdges().size());
 		
 		Set<BriteNode> nodes = bp.getBriteGraph().getBriteNodes();
 		Integer dSum = 0;
@@ -59,7 +59,7 @@ public class TestBA {
 		BriteBA.generateEdges(bp, 7, 900);
 		
 		System.out.println("Nodes " + bp.getBriteGraph().getBriteNodes().size());
-		System.out.println("Edges " + bp.getBriteGraph().getBriteEdges().size());
+		System.out.println("Edges " + bp.getBriteGraph().getEdges().size());
 
 		dSum = 0;
 		for (BriteNode n : nodes) {

@@ -1,56 +1,46 @@
 package org.cong.complexNetwork.graph;
 
-import it.uniroma1.dis.wiserver.gexf4j.core.EdgeType;
 import it.uniroma1.dis.wiserver.gexf4j.core.Gexf;
-import it.uniroma1.dis.wiserver.gexf4j.core.Mode;
-import it.uniroma1.dis.wiserver.gexf4j.core.impl.GexfImpl;
 
-import java.util.HashMap;
+import java.util.Collection;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
+
+import org.apache.commons.collections.SetUtils;
+
 
 
 public class BriteGraph extends Graph{
 	protected Set<BriteNode>	briteNodes;
-	protected Set<BriteEdge>	briteEdges;
 
 	public BriteGraph() {
+		super();
 		briteNodes = new HashSet<>();
-		briteEdges = new HashSet<>();
 	}
 
 	public Set<BriteNode> getBriteNodes() {
 		return briteNodes;
 	}
 
-	public Set<BriteEdge> getBriteEdges() {
-		return briteEdges;
+	@Override
+	public Set<Node> getNodes() {
+		return SetUtils.typedSet(briteNodes, Node.class);
 	}
-
-	public Boolean connect(BriteNode u, BriteNode v) {
+	@Override
+	public Boolean connect(Node u, Node v) {
 		Boolean result = null;
-		BriteEdge edge = new BriteEdge(u, v);
-		result = this.briteEdges.add(edge);
-		if(result){
+		Edge edge = new Edge(u, v);
+		result = this.edges.add(edge);
+		if (result) {
 			u.connectNode(v);
 			v.connectNode(u);
 		}
 		return result;
 	}
-	public Gexf toGexf(){
-		Gexf gexf = new GexfImpl();
-		it.uniroma1.dis.wiserver.gexf4j.core.Graph graph = gexf.getGraph();
-		graph.setDefaultEdgeType(EdgeType.UNDIRECTED).setMode(Mode.STATIC);
-		Map<BriteNode,it.uniroma1.dis.wiserver.gexf4j.core.Node> nodeMap = new HashMap<>();
-		for(BriteNode node : briteNodes){
-			nodeMap.put(node, graph.createNode(node.getId()));
-		}
-		for(BriteEdge edge : briteEdges){
-			BriteNode source = (BriteNode) edge.getSource();
-			BriteNode target = (BriteNode) edge.getTarget();
-			nodeMap.get(source).connectTo(nodeMap.get(target));
-		}
-		return gexf;
+
+	@Override
+	public Gexf toGexf() {
+		nodes = SetUtils.typedSet(briteNodes, Node.class);
+		return super.toGexf();
 	}
 }

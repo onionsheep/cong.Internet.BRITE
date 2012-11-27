@@ -7,7 +7,7 @@ public class BriteNode extends Node {
 		super(id);
 		this.briteCoordinate = briteCoordinate;
 	}
-
+	
 	public BriteCoordinate getBriteCoordinate() {
 		return briteCoordinate;
 	}
