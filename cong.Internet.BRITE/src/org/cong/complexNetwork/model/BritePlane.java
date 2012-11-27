@@ -45,13 +45,13 @@ public class BritePlane extends Plane {
 		BriteNode node = null;
 		while (result) {
 			node = this.randomNode();
-			result = !this.briteGraph.getNodes().add(node);
+			result = !this.briteGraph.getBriteNodes().add(node);
 		}
 		return node;
 	}
 
 	public boolean addRandomNode() {
-		return this.briteGraph.getNodes().add(randomNode());
+		return this.briteGraph.getBriteNodes().add(randomNode());
 	}
 
 	public void addRandomNodes(Integer count) {
@@ -65,7 +65,7 @@ public class BritePlane extends Plane {
 
 	public Double MaxEuclideanDistance() {
 		Double maxDis = 0.0;
-		Set<BriteNode> nodes = briteGraph.getNodes();
+		Set<BriteNode> nodes = briteGraph.getBriteNodes();
 		Set<BriteNode> nodesRemain = new HashSet<>();
 		nodesRemain.addAll(nodes);
 		for (BriteNode node : nodes) {

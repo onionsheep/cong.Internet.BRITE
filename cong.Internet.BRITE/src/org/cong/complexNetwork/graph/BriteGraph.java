@@ -10,27 +10,28 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-public class BriteGraph {
-	protected Set<BriteNode>	nodes;
-	protected Set<BriteEdge>	edges;
+
+public class BriteGraph extends Graph{
+	protected Set<BriteNode>	briteNodes;
+	protected Set<BriteEdge>	briteEdges;
 
 	public BriteGraph() {
-		nodes = new HashSet<>();
-		edges = new HashSet<>();
+		briteNodes = new HashSet<>();
+		briteEdges = new HashSet<>();
 	}
 
-	public Set<BriteNode> getNodes() {
-		return nodes;
+	public Set<BriteNode> getBriteNodes() {
+		return briteNodes;
 	}
 
-	public Set<BriteEdge> getEdges() {
-		return edges;
+	public Set<BriteEdge> getBriteEdges() {
+		return briteEdges;
 	}
 
 	public Boolean connect(BriteNode u, BriteNode v) {
 		Boolean result = null;
 		BriteEdge edge = new BriteEdge(u, v);
-		result = this.edges.add(edge);
+		result = this.briteEdges.add(edge);
 		if(result){
 			u.connectNode(v);
 			v.connectNode(u);
@@ -42,10 +43,10 @@ public class BriteGraph {
 		it.uniroma1.dis.wiserver.gexf4j.core.Graph graph = gexf.getGraph();
 		graph.setDefaultEdgeType(EdgeType.UNDIRECTED).setMode(Mode.STATIC);
 		Map<BriteNode,it.uniroma1.dis.wiserver.gexf4j.core.Node> nodeMap = new HashMap<>();
-		for(BriteNode node : nodes){
+		for(BriteNode node : briteNodes){
 			nodeMap.put(node, graph.createNode(node.getId()));
 		}
-		for(BriteEdge edge : edges){
+		for(BriteEdge edge : briteEdges){
 			BriteNode source = (BriteNode) edge.getSource();
 			BriteNode target = (BriteNode) edge.getTarget();
 			nodeMap.get(source).connectTo(nodeMap.get(target));

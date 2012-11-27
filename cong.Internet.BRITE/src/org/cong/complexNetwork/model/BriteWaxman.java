@@ -20,7 +20,7 @@ public class BriteWaxman {
 		Double euclideanDistance = null;
 		Double maxEuclideanDistance = britePlane.MaxEuclideanDistance();
 		BriteGraph graph = britePlane.getBriteGraph();
-		Set<BriteNode> nodes = graph.getNodes();
+		Set<BriteNode> nodes = graph.getBriteNodes();
 		Set<BriteNode> nodesRemain = new HashSet<>();
 		nodesRemain.addAll(nodes);
 		for (BriteNode u : nodes) {
