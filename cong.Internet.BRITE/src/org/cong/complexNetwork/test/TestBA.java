@@ -27,12 +27,12 @@ public class TestBA {
 	public static void testBriteNodeEquals() {
 		BriteCoordinate c0 = new BriteCoordinate(0, 1, 2, 3);
 		BriteCoordinate c1 = new BriteCoordinate(1, 1, 2, 3);
-		BriteCoordinate c2 = new BriteCoordinate(2, 1, 2, 3);
-		BriteCoordinate c3 = new BriteCoordinate(3, 1, 2, 3);
+		//BriteCoordinate c2 = new BriteCoordinate(2, 1, 2, 3);
+		//BriteCoordinate c3 = new BriteCoordinate(3, 1, 2, 3);
 		BriteNode n0 = new BriteNode("0", c0);
 		BriteNode n1 = new BriteNode("1", c1);
-		BriteNode n2 = new BriteNode("2", c2);
-		BriteNode n3 = new BriteNode("3", c3);
+		//BriteNode n2 = new BriteNode("2", c2);
+		//BriteNode n3 = new BriteNode("3", c3);
 		
 		BriteEdge e0 = new BriteEdge(n0, n1);
 		BriteEdge e1 = new BriteEdge(n1, n0);
