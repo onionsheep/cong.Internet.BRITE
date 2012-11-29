@@ -31,7 +31,7 @@ public static Logger logger = LogManager.getLogger(Test.class);
 		logger.debug("Nodes " + bp.getBriteGraph().getNodes().size());
 		logger.debug("Edges " + bp.getBriteGraph().getEdges().size());
 		
-		BriteBA.generateEdges(bp, 5, 200);
+		BriteBA.generateEdges(bp, 5, 900);
 		logger.debug("Nodes " + bp.getBriteGraph().getNodes().size());
 		logger.debug("Edges " + bp.getBriteGraph().getEdges().size());
 		
