@@ -10,7 +10,7 @@ import org.cong.complexNetwork.graph.BriteGraph;
 import org.cong.complexNetwork.graph.BriteNode;
 import org.cong.complexNetwork.graph.Node;
 
-public class BriteBA {
+public class BriteBA extends BA{
 	
 	public static Logger logger = LogManager.getLogger(BriteBA.class);
 	
@@ -40,7 +40,7 @@ public class BriteBA {
 				probability += probability(oldNode, nodes);
 				nodeProbability.put(oldNode, probability);
 			}
-			
+			//添加m条边，这m添加边的时候不重新计算原来节点的度，概率
 			while(m < oneNodeEdge){
 				rand = java.util.concurrent.ThreadLocalRandom.current().nextDouble();
 				probability = 0.0;

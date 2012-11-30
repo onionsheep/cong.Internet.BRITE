@@ -66,12 +66,7 @@ public class TestBA {
 			dSum += n.getDegree();
 		}
 		System.out.println(dSum);
-		
-		Double probability = 0.0;
-		for(BriteNode oldNode : nodes){
-			probability += BriteBA.probability(oldNode, nodes);
-		}
-		System.out.println(probability);
+
 		
 		
 	}

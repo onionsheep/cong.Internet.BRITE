@@ -11,7 +11,6 @@ import java.util.Set;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.cong.complexNetwork.graph.BriteGraph;
 import org.cong.complexNetwork.graph.BriteNode;
 import org.cong.complexNetwork.model.BriteBA;
 import org.cong.complexNetwork.model.BritePlane;
@@ -32,6 +31,9 @@ public static Logger logger = LogManager.getLogger(Test.class);
 		logger.debug("Edges " + bp.getBriteGraph().getEdges().size());
 		
 		BriteBA.generateEdges(bp, 5, 900);
+		//BriteTang.generateEdges(bp, 5, 900, 0.1);
+		//BA.generateEdges(bp, 5, 10);
+		//Tang.generateEdges(bp, 5, 900, 0.0);
 		logger.debug("Nodes " + bp.getBriteGraph().getNodes().size());
 		logger.debug("Edges " + bp.getBriteGraph().getEdges().size());
 		
@@ -43,9 +45,6 @@ public static Logger logger = LogManager.getLogger(Test.class);
 			dSum1 += n.getConnectedNodes().size(); 
 		}
 
-		
-		logger.debug("t1 " + BriteGraph.t1);
-		logger.debug("t2 " + BriteGraph.t2);
 		
 		//System.out.println(dSum);
 		logger.debug("Sum of Degree0 " + dSum0);

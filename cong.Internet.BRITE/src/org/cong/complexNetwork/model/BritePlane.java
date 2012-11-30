@@ -10,8 +10,8 @@ import org.cong.complexNetwork.graph.BriteGraph;
 import org.cong.complexNetwork.graph.BriteNode;
 
 public class BritePlane extends Plane {
-	
-	public static Logger			logger	= LogManager.getLogger(BritePlane.class);
+
+	public static Logger	logger	= LogManager.getLogger(BritePlane.class);
 	protected Integer			hs;
 	protected Integer			ls;
 	protected BriteGraph	briteGraph;
@@ -43,22 +43,17 @@ public class BritePlane extends Plane {
 		node = new BriteNode(coordinate.toString(), coordinate);
 		return node;
 	}
-	
-	public BriteNode randomNodeNoDuplication(){
+
+	public BriteNode randomNodeNoDuplication() {
 		Boolean result = true;
 		BriteNode node = null;
 		while (result) {
 			node = this.randomNode();
 			result = this.briteGraph.getBriteNodes().contains(node);
 		}
-		
-		if(this.briteGraph.getNodes().contains(node)){
-			logger.debug("contain");
-		}
-		
 		return node;
 	}
-	
+
 	public BriteNode addOneRandomNode() {
 		Boolean result = true;
 		BriteNode node = null;

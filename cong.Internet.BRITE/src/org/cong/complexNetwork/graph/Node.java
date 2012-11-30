@@ -5,7 +5,6 @@ import java.util.Set;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.cong.complexNetwork.test.Test;
 
 public class Node {
 	

@@ -11,8 +11,6 @@ import org.apache.log4j.Logger;
 
 public class BriteGraph extends Graph {
 	public static Logger			logger	= LogManager.getLogger(BriteGraph.class);
-	public static Integer			t1			= 0;
-	public static Integer			t2			= 0;
 
 	protected Set<BriteNode>	briteNodes;
 

@@ -3,12 +3,15 @@ package org.cong.complexNetwork.model;
 import java.util.HashSet;
 import java.util.Set;
 
+
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.cong.complexNetwork.graph.Coordinate;
 import org.cong.complexNetwork.graph.Graph;
 import org.cong.complexNetwork.graph.Node;
 
 public class Plane {
-	
+	public static Logger			logger	= LogManager.getLogger(Plane.class);
 	protected Graph	graph;
 	protected Integer width;
 	protected Integer height;
@@ -32,10 +35,22 @@ public class Plane {
 
 	public Node randomNode() {
 		Node node = null;
+		logger.debug(1);
 		Integer x = java.util.concurrent.ThreadLocalRandom.current().nextInt(width);
 		Integer y = java.util.concurrent.ThreadLocalRandom.current().nextInt(height);
 		Coordinate coordinate = new Coordinate(x, y);
 		node = new Node(coordinate.toString(), coordinate);
+		return node;
+	}
+	
+	public Node randomNodeNoDuplication(){
+		Boolean result = true;
+		Node node = null;
+		while (result) {
+			node = this.randomNode();
+			
+			result = this.graph.getNodes().contains(node);
+		}
 		return node;
 	}
 	
@@ -49,7 +64,7 @@ public class Plane {
 		return node;
 	}
 	public boolean addRandomNode(){
-		return this.graph.getNodes().add(randomNode());
+		return this.graph.getNodes().add(randomNodeNoDuplication());
 	}
 	
 	public void addRandomNodes(Integer count) {
@@ -77,4 +92,18 @@ public class Plane {
 		}
 		return maxDis;
 	}
+
+	public Graph getGraph() {
+		return graph;
+	}
+
+	public Integer getWidth() {
+		return width;
+	}
+
+	public Integer getHeight() {
+		return height;
+	}
+
+	
 }
