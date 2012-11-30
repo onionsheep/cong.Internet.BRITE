@@ -24,7 +24,7 @@ public static Logger logger = LogManager.getLogger(Test.class);
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		BritePlane bp = new BritePlane(100000, 100000);
+		BritePlane bp = new BritePlane(10, 1000000);
 		bp.addRandomNodes(100);
 		BriteWaxman.generateEdges(bp, 0.6, 0.3);
 		
