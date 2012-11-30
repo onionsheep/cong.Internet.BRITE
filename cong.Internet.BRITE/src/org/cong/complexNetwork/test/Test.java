@@ -13,6 +13,7 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.cong.complexNetwork.graph.BriteNode;
 import org.cong.complexNetwork.model.BriteBA;
+import org.cong.complexNetwork.model.BriteBAAndWaxman;
 import org.cong.complexNetwork.model.BritePlane;
 import org.cong.complexNetwork.model.BriteWaxman;
 
@@ -30,7 +31,8 @@ public static Logger logger = LogManager.getLogger(Test.class);
 		logger.debug("Nodes " + bp.getBriteGraph().getNodes().size());
 		logger.debug("Edges " + bp.getBriteGraph().getEdges().size());
 		
-		BriteBA.generateEdges(bp, 5, 900);
+		//BriteBA.generateEdges(bp, 5, 900);
+		BriteBAAndWaxman.generateEdges(bp, 5, 900);
 		//BriteTang.generateEdges(bp, 5, 900, 0.1);
 		//BA.generateEdges(bp, 5, 10);
 		//Tang.generateEdges(bp, 5, 900, 0.0);
@@ -44,14 +46,9 @@ public static Logger logger = LogManager.getLogger(Test.class);
 			dSum0 += n.getDegree();
 			dSum1 += n.getConnectedNodes().size(); 
 		}
-
 		
-		//System.out.println(dSum);
 		logger.debug("Sum of Degree0 " + dSum0);
 		logger.debug("Sum of Degree1 " + dSum1);
-		
-		
-		
 		
 		Gexf gexf = bp.getBriteGraph().toGexf();
 		logger.debug("generating file...");

@@ -23,6 +23,8 @@ public class BriteBA extends BA{
 		probability = 1.0 * i.getDegree() / sumOfDegree;
 		return probability;
 	}
+	
+	
 
 	public static void generateEdges(BritePlane britePlane, Integer oneNodeEdge, Integer nodeCount){
 		Double rand = 0.0;
