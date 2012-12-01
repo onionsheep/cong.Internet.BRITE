@@ -4,7 +4,7 @@ import java.util.Set;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.cong.complexNetwork.graph.Graph;
+import org.cong.complexNetwork.graph.UndirectedGraph;
 import org.cong.complexNetwork.graph.Node;
 
 public class BA {
@@ -23,8 +23,8 @@ public class BA {
 
 	public static void generateEdges(Plane plane, int oneNodeEdge, int nodeCount) {
 		double probability = 0.0;
-		Graph graph = plane.getGraph();
-		Set<Node> nodes = graph.getNodes();
+		UndirectedGraph undirectedGraph = plane.getGraph();
+		Set<Node> nodes = undirectedGraph.getNodes();
 		Node[] nodeArray = nodes.toArray(new Node[0]);
 		for (int i = 0; i < nodeCount; i++) {
 			Node newNode = plane.randomNodeNoDuplication();
@@ -35,23 +35,22 @@ public class BA {
 				probability += BA.probability(nodeArray[j], nodeArray);
 				probabilities[j] = probability;
 			}
-
 			// 添加oneNodeEdge条边，这oneNodeEdge添加边的时候不重新计算原来节点的度，概率
-			addEdges(oneNodeEdge, graph, nodeArray, probabilities, newNode);
+			addEdges(oneNodeEdge, undirectedGraph, nodeArray, probabilities, newNode);
 
-			graph.getNodes().add(newNode);
+			undirectedGraph.getNodes().add(newNode);
 		}
 	}
 
 	/**
 	 * @param oneNodeEdge
-	 * @param graph
+	 * @param undirectedGraph
 	 * @param nodeArray
 	 * @param newNode
 	 * @param nodeProbability
 	 *          在新节点和旧节点之间添加oneNodeEdge条边
 	 */
-	protected static void addEdges(int oneNodeEdge, Graph graph, Node[] nodeArray, double[] probabilities, Node newNode) {
+	protected static void addEdges(int oneNodeEdge, UndirectedGraph undirectedGraph, Node[] nodeArray, double[] probabilities, Node newNode) {
 		double rand;
 		Boolean result;
 		double probability;
@@ -62,7 +61,7 @@ public class BA {
 			for (int j = 0; j < nodeArray.length; j++) {
 				probability = probabilities[j];
 				if (rand <= probability) {
-					result = graph.connect(newNode, nodeArray[j]);
+					result = undirectedGraph.connect(newNode, nodeArray[j]);
 					if (result) {
 						m += 1;
 					}

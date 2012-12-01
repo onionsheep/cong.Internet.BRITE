@@ -5,16 +5,19 @@ import it.uniroma1.dis.wiserver.gexf4j.core.Gexf;
 import it.uniroma1.dis.wiserver.gexf4j.core.Mode;
 import it.uniroma1.dis.wiserver.gexf4j.core.impl.GexfImpl;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class Graph {
+public class UndirectedGraph {
 	protected Set<Node>	nodes;
 	protected Set<Edge>	edges;
 	
-	public Graph(){
+	public UndirectedGraph(){
 		nodes = new HashSet<>();
 		edges = new HashSet<>();
 	}
@@ -52,5 +55,26 @@ public class Graph {
 		return gexf;
 	}
 	
+	public int[][] toAdjacentMatrix(){
+		int nodeCount = nodes.size();
+		int[][] martrix = new int[nodeCount][nodeCount];
+		Node[] nodeArray = nodes.toArray(new Node[0]);
+		Edge[] edgeArray = edges.toArray(new Edge[0]);
+		List<Node> nodeList = Arrays.asList(nodeArray);
+		
+		for(Edge e : edgeArray){
+			for(int i =0; i< nodeArray.length;i++){
+				if(e.getSource().equals(nodeArray[i])){
+					for(int j = 0; j < nodeArray.length; j++){
+						if(e.getTarget().equals(nodeArray[j])){
+							martrix[i][j] = e.getWeight();
+							martrix[j][i] = e.getWeight();
+						}
+					}
+				}
+			}
+		}
+		return martrix;
+	}
 
 }

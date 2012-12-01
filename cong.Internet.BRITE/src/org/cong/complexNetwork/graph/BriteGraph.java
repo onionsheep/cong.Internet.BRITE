@@ -2,14 +2,16 @@ package org.cong.complexNetwork.graph;
 
 import it.uniroma1.dis.wiserver.gexf4j.core.Gexf;
 
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.collections.SetUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-public class BriteGraph extends Graph {
+public class BriteGraph extends UndirectedGraph {
 	public static Logger			logger	= LogManager.getLogger(BriteGraph.class);
 
 	protected Set<BriteNode>	briteNodes;
@@ -17,6 +19,7 @@ public class BriteGraph extends Graph {
 	public BriteGraph() {
 		super();
 		briteNodes = new HashSet<>();
+		
 	}
 
 	public Set<BriteNode> getBriteNodes() {
@@ -52,5 +55,11 @@ public class BriteGraph extends Graph {
 	public Gexf toGexf() {
 		nodes = SetUtils.typedSet(briteNodes, Node.class);
 		return super.toGexf();
+	}
+	
+	@Override
+	public int[][] toAdjacentMatrix(){
+		nodes = SetUtils.typedSet(briteNodes, Node.class);
+		return super.toAdjacentMatrix();
 	}
 }

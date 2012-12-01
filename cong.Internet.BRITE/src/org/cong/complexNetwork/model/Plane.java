@@ -7,19 +7,19 @@ import java.util.Set;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.cong.complexNetwork.graph.Coordinate;
-import org.cong.complexNetwork.graph.Graph;
+import org.cong.complexNetwork.graph.UndirectedGraph;
 import org.cong.complexNetwork.graph.Node;
 
 public class Plane {
 	public static Logger			logger	= LogManager.getLogger(Plane.class);
-	protected Graph	graph;
+	protected UndirectedGraph	undirectedGraph;
 	protected int width;
 	protected int height;
 	
 	public Plane(int width, int height) {
 		this.width = width;
 		this.height = height;
-		this.graph = new Graph();
+		this.undirectedGraph = new UndirectedGraph();
 	}
 	
 	public double EuclideanDistanceBetween(Coordinate u, Coordinate v) {
@@ -49,7 +49,7 @@ public class Plane {
 		while (result) {
 			node = this.randomNode();
 			
-			result = this.graph.getNodes().contains(node);
+			result = this.undirectedGraph.getNodes().contains(node);
 		}
 		return node;
 	}
@@ -59,12 +59,12 @@ public class Plane {
 		Node node = null;
 		while(result){
 			node = this.randomNode();
-			result = !this.graph.getNodes().add(node);
+			result = !this.undirectedGraph.getNodes().add(node);
 		}
 		return node;
 	}
 	public boolean addRandomNode(){
-		return this.graph.getNodes().add(randomNodeNoDuplication());
+		return this.undirectedGraph.getNodes().add(randomNodeNoDuplication());
 	}
 	
 	public void addRandomNodes(int count) {
@@ -78,7 +78,7 @@ public class Plane {
 	
 	public double MaxEuclideanDistance() {
 		double maxDis = 0.0;
-		Set<Node> nodes = graph.getNodes();
+		Set<Node> nodes = undirectedGraph.getNodes();
 		Set<Node> nodesRemain = new HashSet<>();
 		nodesRemain.addAll(nodes);
 		for (Node node : nodes) {
@@ -93,8 +93,8 @@ public class Plane {
 		return maxDis;
 	}
 
-	public Graph getGraph() {
-		return graph;
+	public UndirectedGraph getGraph() {
+		return undirectedGraph;
 	}
 
 	public int getWidth() {

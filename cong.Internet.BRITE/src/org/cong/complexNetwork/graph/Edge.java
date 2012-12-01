@@ -10,7 +10,7 @@ public class Edge {
 	protected Node		source;
 	protected Node		target;
 	protected boolean	directed;
-	protected double	weight;
+	protected int	weight;
 
 	/**
 	 * Edge will be undirected and weightless by default if omitted
@@ -20,30 +20,30 @@ public class Edge {
 	 * @param directed
 	 * @param weight
 	 */
-	public Edge(Node source, Node target, boolean directed, double weight) {
+	public Edge(Node source, Node target, boolean directed, int weight) {
 		this.source = source;
 		this.target = target;
 		this.directed = directed;
 		this.weight = weight;
 	}
 
-	public Edge(Node source, Node target, double weight) {
+	public Edge(Node source, Node target, int weight) {
 		this(source, target, false, weight);
 	}
 
 	public Edge(Node source, Node target, boolean directed) {
-		this(source, target, directed, 0.0);
+		this(source, target, directed, 1);
 	}
 
 	public Edge(Node source, Node target) {
-		this(source, target, false, 0.0);
+		this(source, target, false, 1);
 	}
 
-	public double getWeight() {
+	public int getWeight() {
 		return weight;
 	}
 
-	public void setWeight(double weight) {
+	public void setWeight(int weight) {
 		this.weight = weight;
 	}
 

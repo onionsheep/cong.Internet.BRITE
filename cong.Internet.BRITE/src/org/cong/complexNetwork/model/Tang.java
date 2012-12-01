@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import org.cong.complexNetwork.graph.Graph;
+import org.cong.complexNetwork.graph.UndirectedGraph;
 import org.cong.complexNetwork.graph.Node;
 
 public class Tang {
@@ -21,17 +21,17 @@ public class Tang {
 
 	public static void generateEdges(Plane plane, Integer oneNodeEdge, Integer nodeCount, Double epsilon) {
 		Boolean result = false;
-		Graph graph = plane.getGraph();
-		Set<Node> nodes = graph.getNodes();
+		UndirectedGraph undirectedGraph = plane.getGraph();
+		Set<Node> nodes = undirectedGraph.getNodes();
 		for (Integer i = 0; i < nodeCount; i++) {
 			// 计算节点的概率，并存储在0到1的区间上，只记录上限
 			Map<Node, Double> nodeProbability = generateNodesProbability(epsilon, nodes);
 			//新节点
 			Node newNode = plane.randomNodeNoDuplication();
 			//在原来的图中找一个节点，与新节点相连
-			result = addAndConnectNewNode(graph, nodes, nodeProbability, newNode);
+			result = addAndConnectNewNode(undirectedGraph, nodes, nodeProbability, newNode);
 			if (result) {
-				graph.getNodes().add(newNode);
+				undirectedGraph.getNodes().add(newNode);
 			} else {
 				i -= 1;
 			}
@@ -40,7 +40,7 @@ public class Tang {
 			for(Integer j = 0; j < m; j++){
 				Node u = getNodeByProbablity(nodes,nodeProbability);
 				Node v = getNodeByProbablity(nodes,nodeProbability);
-				result = graph.connect(u, v);
+				result = undirectedGraph.connect(u, v);
 				if(!result){
 					j -= 1;
 				}
@@ -61,7 +61,7 @@ public class Tang {
 		return n;
 	}
 	
-	private static Boolean addAndConnectNewNode(Graph graph, Set<Node> nodes, Map<Node, Double> nodeProbability,
+	private static Boolean addAndConnectNewNode(UndirectedGraph undirectedGraph, Set<Node> nodes, Map<Node, Double> nodeProbability,
 			Node newNode) {
 		Double probability;
 		Double rand = java.util.concurrent.ThreadLocalRandom.current().nextDouble();
@@ -70,7 +70,7 @@ public class Tang {
 		for (Node oldNode : nodes) {
 			probability = nodeProbability.get(oldNode);
 			if (rand <= probability) {
-				result = graph.connect(newNode, oldNode);
+				result = undirectedGraph.connect(newNode, oldNode);
 				break;
 			}
 		}

@@ -21,6 +21,7 @@ public class BritePlane extends Plane {
 		this.hs = hs;
 		this.ls = ls;
 		this.briteGraph = new BriteGraph();
+		this.undirectedGraph = this.briteGraph;
 	}
 
 	public double EuclideanDistanceBetween(BriteCoordinate u, BriteCoordinate v) {
@@ -97,7 +98,7 @@ public class BritePlane extends Plane {
 	// TODO: write a better function to calculate the max distance
 	// public double MaxEuclideanDistance2() {
 	// double maxDis = 0.0;
-	// Set<BriteNode> nodes = graph.getNodes();
+	// Set<BriteNode> nodes = undirectedGraph.getNodes();
 	// Set<Coordinate> nodesCordinates = new HashSet<>();
 	// for (BriteNode node : nodes) {
 	//
