@@ -26,8 +26,8 @@ public class Graph {
 		return edges;
 	}
 	
-	public Boolean connect(Node u, Node v) {
-		Boolean result = null;
+	public boolean connect(Node u, Node v) {
+		boolean result = false;
 		Edge edge = new Edge(u, v);
 		result = this.edges.add(edge);
 		if(result){

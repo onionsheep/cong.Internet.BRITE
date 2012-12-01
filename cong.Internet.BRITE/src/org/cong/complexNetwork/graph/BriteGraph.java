@@ -29,22 +29,21 @@ public class BriteGraph extends Graph {
 	}
 
 	@Override
-	public Boolean connect(Node u, Node v) {
+	public boolean connect(Node u, Node v) {
 		if (u.equals(v)) {
 			return false;
 		}
-		Boolean result = false;
-		Boolean r1 = false;
-		Boolean r2 = false;
+		boolean result = false;
+		boolean r1 = false;
+		boolean r2 = false;
 		Edge edge = new Edge(u, v);
 		result = this.edges.add(edge);
 		if (result) {
 			r1 = u.connectNode(v);
 			r2 = v.connectNode(u);
-			if(!r1.equals(r2)){
+			if(r1 != r2){
 				logger.error("发生错误，程序有BUG，请把日志文件发给程序提供者，以便修正，谢谢！");
 			}
-				
 		}
 		return result;
 	}

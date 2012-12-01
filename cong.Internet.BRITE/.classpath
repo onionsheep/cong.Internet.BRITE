@@ -2,11 +2,11 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/gexf4j"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/log4j"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/commons_collection"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/commons_io"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/nutz"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/fastjson"/>
+	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/gexf4j"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.USER_LIBRARY/log4j"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.USER_LIBRARY/commons_collection"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.USER_LIBRARY/commons_io"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.USER_LIBRARY/nutz"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.USER_LIBRARY/fastjson"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

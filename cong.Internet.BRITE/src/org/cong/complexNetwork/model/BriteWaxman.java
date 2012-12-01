@@ -8,22 +8,23 @@ import org.cong.complexNetwork.graph.BriteNode;
 
 public class BriteWaxman {
 
-	public static Double probability(Double alpha, Double beta, Double euclideanDistance, Double maxEuclideanDistance) {
-		Double probability = null;
+	public static double probability(double alpha, double beta, double euclideanDistance, double maxEuclideanDistance) {
+		double probability = 0;
 		probability = alpha * Math.exp(-euclideanDistance / (beta * maxEuclideanDistance));
 		return probability;
 	}
 
-	public static void generateEdges(BritePlane britePlane, Double alpha, Double beta) {
-		Double rand = 0.0;
-		Double probability = 0.0;
-		Double euclideanDistance = null;
-		Double maxEuclideanDistance = britePlane.MaxEuclideanDistance();
+	public static void generateEdges(BritePlane britePlane, double alpha, double beta) {
+		double rand = 0.0;
+		double probability = 0.0;
+		double euclideanDistance = 0;
+		double maxEuclideanDistance = britePlane.MaxEuclideanDistance();
 		BriteGraph graph = britePlane.getBriteGraph();
 		Set<BriteNode> nodes = graph.getBriteNodes();
+		BriteNode[] nodeArray = nodes.toArray(new BriteNode[0]);
 		Set<BriteNode> nodesRemain = new HashSet<>();
 		nodesRemain.addAll(nodes);
-		for (BriteNode u : nodes) {
+		for (BriteNode u : nodeArray) {
 			nodesRemain.remove(u);
 			for (BriteNode v : nodesRemain) {
 				rand = java.util.concurrent.ThreadLocalRandom.current().nextDouble();

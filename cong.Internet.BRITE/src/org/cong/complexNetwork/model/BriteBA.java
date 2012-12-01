@@ -2,7 +2,6 @@ package org.cong.complexNetwork.model;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -14,10 +13,10 @@ public class BriteBA extends BA{
 	
 	public static Logger logger = LogManager.getLogger(BriteBA.class);
 	
-	public static Double probability(BriteNode i, Set<BriteNode> nodes) {
-		Double probability = null;
-		Integer sumOfDegree = 0;
-		for(BriteNode node : nodes){
+	public static double probability(BriteNode i, BriteNode[] nodeArray) {
+		double probability = 0;
+		int sumOfDegree = 0;
+		for(BriteNode node : nodeArray){
 			sumOfDegree += node.getDegree();
 		}
 		probability = 1.0 * i.getDegree() / sumOfDegree;
@@ -26,39 +25,56 @@ public class BriteBA extends BA{
 	
 	
 
-	public static void generateEdges(BritePlane britePlane, Integer oneNodeEdge, Integer nodeCount){
-		Double rand = 0.0;
-		Boolean result;
-		Double probability = 0.0;
+	public static void generateEdges(BritePlane britePlane, int oneNodeEdge, int nodeCount){
+		double probability = 0.0;
 		BriteGraph graph = britePlane.getBriteGraph();
-		Set<BriteNode> nodes = graph.getBriteNodes();
-		for (Integer i = 0; i < nodeCount; i++) {
+		
+		for (int i = 0; i < nodeCount; i++) {
+			BriteNode[] nodeArray = graph.getBriteNodes().toArray(new BriteNode[0]);
 			BriteNode newNode = britePlane.randomNodeNoDuplication();
-			Integer m = 0;
+			
 			Map<Node, Double> nodeProbability = new HashMap<>();
 			//计算节点的概率，并存储在0到1的区间上，只记录上限
 			probability = 0.0;
-			for(BriteNode oldNode : nodes){					
-				probability += probability(oldNode, nodes);
+			for(BriteNode oldNode : nodeArray){					
+				probability += BriteBA.probability(oldNode, nodeArray);
 				nodeProbability.put(oldNode, probability);
 			}
-			//添加m条边，这m添加边的时候不重新计算原来节点的度，概率
-			while(m < oneNodeEdge){
-				rand = java.util.concurrent.ThreadLocalRandom.current().nextDouble();
-				probability = 0.0;
-				for(BriteNode oldNode : nodes){					
-					probability = nodeProbability.get(oldNode);
-					if (rand <= probability) {
-						result = false;
-						result = graph.connect(newNode, oldNode);
-						if(result){
-							m += 1;
-						}
-						break;
+			//添加oneNodeEdge条边，这oneNodeEdge添加边的时候不重新计算原来节点的度，概率
+			addEdges(oneNodeEdge, graph, nodeArray, newNode, nodeProbability);
+			graph.getNodes().add(newNode);
+		}
+	}
+
+
+
+	/**
+	 * @param oneNodeEdge
+	 * @param graph
+	 * @param nodeArray
+	 * @param newNode
+	 * @param nodeProbability
+	 * 在新节点和旧节点之间添加oneNodeEdge条边
+	 */
+	protected static void addEdges(int oneNodeEdge, BriteGraph graph, BriteNode[] nodeArray, BriteNode newNode,
+			Map<Node, Double> nodeProbability) {
+		double rand;
+		Boolean result;
+		double probability;
+		int m = 0;
+		while(m < oneNodeEdge){
+			rand = java.util.concurrent.ThreadLocalRandom.current().nextDouble();
+			probability = 0.0;
+			for(BriteNode oldNode : nodeArray){					
+				probability = nodeProbability.get(oldNode);
+				if (rand <= probability) {
+					result = graph.connect(newNode, oldNode);
+					if(result){
+						m += 1;
 					}
+					break;
 				}
 			}
-			graph.getNodes().add(newNode);
 		}
 	}
 }

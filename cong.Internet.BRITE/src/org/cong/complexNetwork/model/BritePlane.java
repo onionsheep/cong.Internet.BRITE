@@ -12,40 +12,40 @@ import org.cong.complexNetwork.graph.BriteNode;
 public class BritePlane extends Plane {
 
 	public static Logger	logger	= LogManager.getLogger(BritePlane.class);
-	protected Integer			hs;
-	protected Integer			ls;
+	protected int			hs;
+	protected int			ls;
 	protected BriteGraph	briteGraph;
 
-	public BritePlane(Integer hs, Integer ls) {
+	public BritePlane(int hs, int ls) {
 		super(hs * ls, hs * ls);
 		this.hs = hs;
 		this.ls = ls;
 		this.briteGraph = new BriteGraph();
 	}
 
-	public Double EuclideanDistanceBetween(BriteCoordinate u, BriteCoordinate v) {
-		Double dis = null;
-		Integer ux = u.getHx() + u.getLx() * ls;
-		Integer uy = u.getHy() + u.getLy() * ls;
-		Integer vx = v.getHx() + v.getLx() * ls;
-		Integer vy = v.getHy() + v.getLy() * ls;
+	public double EuclideanDistanceBetween(BriteCoordinate u, BriteCoordinate v) {
+		double dis = 0.0;
+		int ux = u.getHx() + u.getLx() * ls;
+		int uy = u.getHy() + u.getLy() * ls;
+		int vx = v.getHx() + v.getLx() * ls;
+		int vy = v.getHy() + v.getLy() * ls;
 		dis = Math.sqrt(Math.pow((ux - vx), 2) + Math.pow((uy - vy), 2));
 		return dis;
 	}
 
 	public BriteNode randomNode() {
 		BriteNode node = null;
-		Integer hx = java.util.concurrent.ThreadLocalRandom.current().nextInt(hs);
-		Integer hy = java.util.concurrent.ThreadLocalRandom.current().nextInt(hs);
-		Integer lx = java.util.concurrent.ThreadLocalRandom.current().nextInt(ls);
-		Integer ly = java.util.concurrent.ThreadLocalRandom.current().nextInt(ls);
+		int hx = java.util.concurrent.ThreadLocalRandom.current().nextInt(hs);
+		int hy = java.util.concurrent.ThreadLocalRandom.current().nextInt(hs);
+		int lx = java.util.concurrent.ThreadLocalRandom.current().nextInt(ls);
+		int ly = java.util.concurrent.ThreadLocalRandom.current().nextInt(ls);
 		BriteCoordinate coordinate = new BriteCoordinate(hx, hy, lx, ly);
 		node = new BriteNode(coordinate.toString(), coordinate);
 		return node;
 	}
 
 	public BriteNode randomNodeNoDuplication() {
-		Boolean result = true;
+		boolean result = true;
 		BriteNode node = null;
 		while (result) {
 			node = this.randomNode();
@@ -55,7 +55,7 @@ public class BritePlane extends Plane {
 	}
 
 	public BriteNode addOneRandomNode() {
-		Boolean result = true;
+		boolean result = true;
 		BriteNode node = null;
 		while (result) {
 			node = this.randomNodeNoDuplication();
@@ -68,8 +68,8 @@ public class BritePlane extends Plane {
 		return this.briteGraph.getBriteNodes().add(randomNodeNoDuplication());
 	}
 
-	public void addRandomNodes(Integer count) {
-		Integer i = 0;
+	public void addRandomNodes(int count) {
+		int i = 0;
 		while (i < count) {
 			if (this.addRandomNode()) {
 				i++;
@@ -77,15 +77,15 @@ public class BritePlane extends Plane {
 		}
 	}
 
-	public Double MaxEuclideanDistance() {
-		Double maxDis = 0.0;
+	public double MaxEuclideanDistance() {
+		double maxDis = 0.0;
 		Set<BriteNode> nodes = briteGraph.getBriteNodes();
 		Set<BriteNode> nodesRemain = new HashSet<>();
 		nodesRemain.addAll(nodes);
 		for (BriteNode node : nodes) {
 			nodesRemain.remove(node);
 			for (BriteNode node2 : nodesRemain) {
-				Double dis = this.EuclideanDistanceBetween(node.getBriteCoordinate(), node2.getBriteCoordinate());
+				double dis = this.EuclideanDistanceBetween(node.getBriteCoordinate(), node2.getBriteCoordinate());
 				if (maxDis < dis) {
 					maxDis = dis;
 				}
@@ -95,8 +95,8 @@ public class BritePlane extends Plane {
 	}
 
 	// TODO: write a better function to calculate the max distance
-	// public Double MaxEuclideanDistance2() {
-	// Double maxDis = 0.0;
+	// public double MaxEuclideanDistance2() {
+	// double maxDis = 0.0;
 	// Set<BriteNode> nodes = graph.getNodes();
 	// Set<Coordinate> nodesCordinates = new HashSet<>();
 	// for (BriteNode node : nodes) {
@@ -105,11 +105,11 @@ public class BritePlane extends Plane {
 	// return maxDis;
 	// }
 
-	public Integer getHs() {
+	public int getHs() {
 		return hs;
 	}
 
-	public Integer getLs() {
+	public int getLs() {
 		return ls;
 	}
 

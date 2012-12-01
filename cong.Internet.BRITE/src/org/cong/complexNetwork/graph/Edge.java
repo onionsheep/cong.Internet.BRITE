@@ -9,8 +9,8 @@ package org.cong.complexNetwork.graph;
 public class Edge {
 	protected Node		source;
 	protected Node		target;
-	protected Boolean	directed;
-	protected Double	weight;
+	protected boolean	directed;
+	protected double	weight;
 
 	/**
 	 * Edge will be undirected and weightless by default if omitted
@@ -20,18 +20,18 @@ public class Edge {
 	 * @param directed
 	 * @param weight
 	 */
-	public Edge(Node source, Node target, Boolean directed, Double weight) {
+	public Edge(Node source, Node target, boolean directed, double weight) {
 		this.source = source;
 		this.target = target;
 		this.directed = directed;
 		this.weight = weight;
 	}
 
-	public Edge(Node source, Node target, Double weight) {
+	public Edge(Node source, Node target, double weight) {
 		this(source, target, false, weight);
 	}
 
-	public Edge(Node source, Node target, Boolean directed) {
+	public Edge(Node source, Node target, boolean directed) {
 		this(source, target, directed, 0.0);
 	}
 
@@ -39,11 +39,11 @@ public class Edge {
 		this(source, target, false, 0.0);
 	}
 
-	public Double getWeight() {
+	public double getWeight() {
 		return weight;
 	}
 
-	public void setWeight(Double weight) {
+	public void setWeight(double weight) {
 		this.weight = weight;
 	}
 
@@ -55,13 +55,13 @@ public class Edge {
 		return target;
 	}
 
-	public Boolean getDirected() {
+	public boolean getDirected() {
 		return directed;
 	}
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
+		final int prime = 10007;
 		int result = 1;
 		result = prime * result + ((source == null) ? 0 : source.hashCode());
 		result = prime * result + ((target == null) ? 0 : target.hashCode());

@@ -39,7 +39,7 @@ public class BriteCoordinate {
 	
 	@Override
 	public int hashCode() {
-		final int prime = 31;
+		final int prime = 10007;
 		int result = 1;
 		result = prime * result + ((hx == null) ? 0 : hx.hashCode());
 		result = prime * result + ((hy == null) ? 0 : hy.hashCode());

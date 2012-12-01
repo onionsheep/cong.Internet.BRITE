@@ -1,10 +1,10 @@
 package org.cong.complexNetwork.graph;
 
 public class Coordinate {
-	protected Integer	x;
-	protected Integer	y;
+	protected int	x;
+	protected int	y;
 
-	public Coordinate(Integer x, Integer y) {
+	public Coordinate(int x, int y) {
 		super();
 		this.x = x;
 		this.y = y;
@@ -16,20 +16,22 @@ public class Coordinate {
 		return dis;
 	}
 
-	public Integer getX() {
+	public int getX() {
 		return x;
 	}
 
-	public void setX(Integer x) {
+	public Coordinate setX(int x) {
 		this.x = x;
+		return this;
 	}
 
-	public Integer getY() {
+	public int getY() {
 		return y;
 	}
 
-	public void setY(Integer y) {
+	public Coordinate setY(int y) {
 		this.y = y;
+		return this;
 	}
 
 }

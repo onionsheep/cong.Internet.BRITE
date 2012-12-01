@@ -14,7 +14,7 @@ public class BriteNode extends Node {
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
+		final int prime = 10007;
 		int result = super.hashCode();
 		result = prime * result + ((coordinate == null) ? 0 : coordinate.hashCode());
 		return result;
