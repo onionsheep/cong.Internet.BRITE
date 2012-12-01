@@ -55,12 +55,12 @@ public class UndirectedGraph {
 		return gexf;
 	}
 	
-	public int[][] toAdjacentMatrix(){
+	public double[][] toAdjacentMatrix(){
 		int nodeCount = nodes.size();
-		int[][] martrix = new int[nodeCount][nodeCount];
+		double[][] martrix = new double[nodeCount][nodeCount];
 		Node[] nodeArray = nodes.toArray(new Node[0]);
 		Edge[] edgeArray = edges.toArray(new Edge[0]);
-		List<Node> nodeList = Arrays.asList(nodeArray);
+		//List<Node> nodeList = Arrays.asList(nodeArray);
 		
 		for(Edge e : edgeArray){
 			for(int i =0; i< nodeArray.length;i++){

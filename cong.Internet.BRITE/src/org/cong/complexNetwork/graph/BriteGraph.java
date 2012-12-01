@@ -19,7 +19,6 @@ public class BriteGraph extends UndirectedGraph {
 	public BriteGraph() {
 		super();
 		briteNodes = new HashSet<>();
-		
 	}
 
 	public Set<BriteNode> getBriteNodes() {
@@ -58,7 +57,7 @@ public class BriteGraph extends UndirectedGraph {
 	}
 	
 	@Override
-	public int[][] toAdjacentMatrix(){
+	public double[][] toAdjacentMatrix(){
 		nodes = SetUtils.typedSet(briteNodes, Node.class);
 		return super.toAdjacentMatrix();
 	}

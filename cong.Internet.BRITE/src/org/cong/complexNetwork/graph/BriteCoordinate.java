@@ -1,6 +1,6 @@
 package org.cong.complexNetwork.graph;
 
-public class BriteCoordinate {
+public class BriteCoordinate{
 	protected Integer	hx;
 	protected Integer	hy;
 	protected Integer	lx;

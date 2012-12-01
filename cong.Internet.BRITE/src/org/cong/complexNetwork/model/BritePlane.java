@@ -40,8 +40,8 @@ public class BritePlane extends Plane {
 		int hy = java.util.concurrent.ThreadLocalRandom.current().nextInt(hs);
 		int lx = java.util.concurrent.ThreadLocalRandom.current().nextInt(ls);
 		int ly = java.util.concurrent.ThreadLocalRandom.current().nextInt(ls);
-		BriteCoordinate coordinate = new BriteCoordinate(hx, hy, lx, ly);
-		node = new BriteNode(coordinate.toString(), coordinate);
+		BriteCoordinate briteCoordinate = new BriteCoordinate(hx, hy, lx, ly);
+		node = new BriteNode(briteCoordinate.toString(), briteCoordinate);
 		return node;
 	}
 

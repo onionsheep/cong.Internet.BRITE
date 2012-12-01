@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.Set;
 
+import jmathlib.toolbox.jmathlib.matrix._private.Jama.Matrix;
+
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.cong.complexNetwork.graph.*;
@@ -22,32 +24,37 @@ public class Test {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		BriteCirclePlane bp = new BriteCirclePlane(10, 1000, 250.0);
+		BriteCirclePlane bp = new BriteCirclePlane(10, 1000, 100.0);
 		// BritePlane bp = new BritePlane(10, 1000);
-		bp.addRandomNodes(20);
+		bp.addRandomNodes(100);
 		BriteWaxman.generateEdges(bp, 0.6, 0.3);
 
 		logger.debug("Nodes " + bp.getBriteGraph().getNodes().size());
 		logger.debug("Edges " + bp.getBriteGraph().getEdges().size());
-		int[][] martrix = bp.getBriteGraph().toAdjacentMatrix();
-		System.out.println(martrix.length);
-		for (int i = 0; i < martrix.length; i++) {
-			for (int j = 0; j < martrix.length; j++) {
-				if (martrix[i][j] != 0) {
-					System.out.print(martrix[i][j] + "\t");
-				} else {
-					System.out.print("\t");
-				}
-			}
-			System.out.println();
-		}
+
 		// BriteBA.generateEdges(bp, 5, 900);
-		// BriteBAAndWaxman.generateEdges(bp, 5, 900, 0.6, 0.3);
+		BriteBAAndWaxman.generateEdges(bp, 5, 500, 0.6, 0.3);
 		// BriteTang.generateEdges(bp, 5, 900, 0.1);
 		// BA.generateEdges(bp, 5, 10);
 		// Tang.generateEdges(bp, 5, 900, 0.0);
 		logger.debug("Nodes " + bp.getBriteGraph().getNodes().size());
 		logger.debug("Edges " + bp.getBriteGraph().getEdges().size());
+
+		Matrix m = new Matrix(bp.getBriteGraph().toAdjacentMatrix());
+		logger.debug("Matrix ok");
+		logger.debug("Martrix's rank is " + m.rank());
+		// int[][] martrix = bp.getBriteGraph().toAdjacentMatrix();
+		// System.out.println(martrix.length);
+		// for (int i = 0; i < martrix.length; i++) {
+		// for (int j = 0; j < martrix.length; j++) {
+		// if (martrix[i][j] != 0) {
+		// System.out.print(martrix[i][j] + "\t");
+		// } else {
+		// System.out.print("\t");
+		// }
+		// }
+		// Sy`stem.out.println();
+		// }
 
 		Set<BriteNode> nodes = bp.getBriteGraph().getBriteNodes();
 		Integer dSum0 = 0;
