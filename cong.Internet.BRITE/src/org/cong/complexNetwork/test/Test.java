@@ -34,7 +34,7 @@ public static Logger logger = LogManager.getLogger(Test.class);
 		logger.debug("Edges " + bp.getBriteGraph().getEdges().size());
 		
 		//BriteBA.generateEdges(bp, 5, 900);
-		BriteBAAndWaxman.generateEdges(bp, 5, 200, 0.6, 0.3);
+		BriteBAAndWaxman.generateEdges(bp, 5, 900, 0.6, 0.3);
 		//BriteTang.generateEdges(bp, 5, 900, 0.1);
 		//BA.generateEdges(bp, 5, 10);
 		//Tang.generateEdges(bp, 5, 900, 0.0);
