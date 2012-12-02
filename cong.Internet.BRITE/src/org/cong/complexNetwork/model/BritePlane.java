@@ -34,18 +34,18 @@ public class BritePlane extends Plane {
 		return dis;
 	}
 
-	public BriteNode randomNode() {
+	public BriteNode randomNode() throws Exception {
 		BriteNode node = null;
 		int hx = java.util.concurrent.ThreadLocalRandom.current().nextInt(hs);
 		int hy = java.util.concurrent.ThreadLocalRandom.current().nextInt(hs);
 		int lx = java.util.concurrent.ThreadLocalRandom.current().nextInt(ls);
 		int ly = java.util.concurrent.ThreadLocalRandom.current().nextInt(ls);
 		BriteCoordinate briteCoordinate = new BriteCoordinate(hx, hy, lx, ly);
-		node = new BriteNode(briteCoordinate.toString(), briteCoordinate);
+		node = new BriteNode(briteCoordinate);
 		return node;
 	}
 
-	public BriteNode randomNodeNoDuplication() {
+	public BriteNode randomNodeNoDuplication() throws Exception {
 		boolean result = true;
 		BriteNode node = null;
 		while (result) {
@@ -55,7 +55,7 @@ public class BritePlane extends Plane {
 		return node;
 	}
 
-	public BriteNode addOneRandomNode() {
+	public BriteNode addOneRandomNode() throws Exception {
 		boolean result = true;
 		BriteNode node = null;
 		while (result) {
@@ -65,11 +65,11 @@ public class BritePlane extends Plane {
 		return node;
 	}
 
-	public boolean addRandomNode() {
+	public boolean addRandomNode() throws Exception {
 		return this.briteGraph.getBriteNodes().add(randomNodeNoDuplication());
 	}
 
-	public void addRandomNodes(int count) {
+	public void addRandomNodes(int count) throws Exception {
 		int i = 0;
 		while (i < count) {
 			if (this.addRandomNode()) {

@@ -19,7 +19,7 @@ public class BriteBA extends BA {
 		return probability;
 	}
 
-	public static void generateEdges(BritePlane britePlane, int oneNodeEdge, int nodeCount) {
+	public static void generateEdges(BritePlane britePlane, int oneNodeEdge, int nodeCount) throws Exception {
 		double probability = 0.0;
 		BriteGraph graph = britePlane.getBriteGraph();
 

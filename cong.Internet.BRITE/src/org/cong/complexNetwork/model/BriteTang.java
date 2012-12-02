@@ -20,7 +20,7 @@ public class BriteTang extends Tang {
 		return probability;
 	}
 
-	public static void generateEdges(BritePlane britePlane, int oneBriteNodeEdge, int briteNodeCount, double epsilon) {
+	public static void generateEdges(BritePlane britePlane, int oneBriteNodeEdge, int briteNodeCount, double epsilon) throws Exception {
 		
 		BriteGraph BriteGraph = britePlane.getBriteGraph();
 		Set<BriteNode> BriteNodes = BriteGraph.getBriteNodes();

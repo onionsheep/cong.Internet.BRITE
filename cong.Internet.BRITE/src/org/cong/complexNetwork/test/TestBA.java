@@ -18,19 +18,20 @@ public class TestBA {
 	
 	/**
 	 * @param args
+	 * @throws Exception 
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		//testBriteNodeEquals();
 		testBA1();
 	}
 
-	public static void testBriteNodeEquals() {
+	public static void testBriteNodeEquals() throws Exception {
 		BriteCoordinate c0 = new BriteCoordinate(0, 1, 2, 3);
 		BriteCoordinate c1 = new BriteCoordinate(1, 1, 2, 3);
 		//BriteCoordinate c2 = new BriteCoordinate(2, 1, 2, 3);
 		//BriteCoordinate c3 = new BriteCoordinate(3, 1, 2, 3);
-		BriteNode n0 = new BriteNode("0", c0);
-		BriteNode n1 = new BriteNode("1", c1);
+		BriteNode n0 = new BriteNode(0, c0);
+		BriteNode n1 = new BriteNode(1L, c1);
 		//BriteNode n2 = new BriteNode("2", c2);
 		//BriteNode n3 = new BriteNode("3", c3);
 		
@@ -42,7 +43,7 @@ public class TestBA {
 		System.out.println(e2.equals(e1));
 	}
 
-	private static void testBA1() {
+	private static void testBA1() throws Exception {
 		BritePlane bp = new BritePlane(10000, 10000);
 		bp.addRandomNodes(100);
 		BriteWaxman.generateEdges(bp, 0.5, 0.2);

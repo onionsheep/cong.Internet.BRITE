@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.util.HashSet;
 import java.util.Set;
 
 import jmathlib.toolbox.jmathlib.matrix._private.Jama.Matrix;
@@ -22,8 +23,9 @@ public class Test {
 
 	/**
 	 * @param args
+	 * @throws Exception 
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		BriteCirclePlane bp = new BriteCirclePlane(10, 1000, 100.0);
 		// BritePlane bp = new BritePlane(10, 1000);
 		bp.addRandomNodes(100);
@@ -33,28 +35,17 @@ public class Test {
 		logger.debug("Edges " + bp.getBriteGraph().getEdges().size());
 
 		// BriteBA.generateEdges(bp, 5, 900);
-		BriteBAAndWaxman.generateEdges(bp, 5, 500, 0.6, 0.3);
+		BriteBAAndWaxman.generateEdges(bp, 5, 900, 0.6, 0.3);
 		// BriteTang.generateEdges(bp, 5, 900, 0.1);
 		// BA.generateEdges(bp, 5, 10);
 		// Tang.generateEdges(bp, 5, 900, 0.0);
 		logger.debug("Nodes " + bp.getBriteGraph().getNodes().size());
 		logger.debug("Edges " + bp.getBriteGraph().getEdges().size());
 
-		Matrix m = new Matrix(bp.getBriteGraph().toAdjacentMatrix());
-		logger.debug("Matrix ok");
-		logger.debug("Martrix's rank is " + m.rank());
-		// int[][] martrix = bp.getBriteGraph().toAdjacentMatrix();
-		// System.out.println(martrix.length);
-		// for (int i = 0; i < martrix.length; i++) {
-		// for (int j = 0; j < martrix.length; j++) {
-		// if (martrix[i][j] != 0) {
-		// System.out.print(martrix[i][j] + "\t");
-		// } else {
-		// System.out.print("\t");
-		// }
-		// }
-		// Sy`stem.out.println();
-		// }
+//		Matrix m = new Matrix(bp.getBriteGraph().toAdjacentMatrix());
+//		logger.debug("Matrix ok");
+//		logger.debug("Martrix's rank is " + m.rank());
+
 
 		Set<BriteNode> nodes = bp.getBriteGraph().getBriteNodes();
 		Integer dSum0 = 0;
@@ -67,6 +58,19 @@ public class Test {
 		logger.debug("Sum of Degree0 " + dSum0);
 		logger.debug("Sum of Degree1 " + dSum1);
 
+		Set<BriteNode> nodes1 = new HashSet<>();
+		nodes1.addAll(nodes);
+		for(Node n : nodes){
+			nodes1.remove(n);
+			for(Node n1 : nodes1){
+				if(n.getId() == n1.getId()){
+					logger.debug("eq");
+					logger.debug("n  :" + n.toString());
+					logger.debug("n1 :" + n1.toString());
+				}
+			}
+		}
+		
 		Gexf gexf = bp.getBriteGraph().toGexf();
 		logger.debug("generating file...");
 		StaxGraphWriter graphWriter = new StaxGraphWriter();

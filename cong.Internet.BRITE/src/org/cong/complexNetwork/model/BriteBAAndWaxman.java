@@ -30,7 +30,7 @@ public class BriteBAAndWaxman extends BriteBA {
 		return probabilityW;
 	}
 
-	public static void generateEdges(BritePlane britePlane, int oneNodeEdge, int nodeCount, double alpha, double beta) {
+	public static void generateEdges(BritePlane britePlane, int oneNodeEdge, int nodeCount, double alpha, double beta) throws Exception {
 		double probability = 0.0;
 		BriteGraph graph = britePlane.getBriteGraph();
 

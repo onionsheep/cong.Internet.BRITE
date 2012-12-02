@@ -21,7 +21,7 @@ public class BA {
 		return probability;
 	}
 
-	public static void generateEdges(Plane plane, int oneNodeEdge, int nodeCount) {
+	public static void generateEdges(Plane plane, int oneNodeEdge, int nodeCount) throws Exception {
 		double probability = 0.0;
 		UndirectedGraph undirectedGraph = plane.getGraph();
 		Set<Node> nodes = undirectedGraph.getNodes();

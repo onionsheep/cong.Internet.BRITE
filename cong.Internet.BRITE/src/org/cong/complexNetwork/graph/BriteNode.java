@@ -3,9 +3,13 @@ package org.cong.complexNetwork.graph;
 public class BriteNode extends Node {
 	protected BriteCoordinate	briteCoordinate;
 
-	public BriteNode(String id, BriteCoordinate briteCoordinate) {
+	public BriteNode(long id, BriteCoordinate briteCoordinate) {
 		super(id);
 		this.briteCoordinate = briteCoordinate;
+		super.coordinate = briteCoordinate;
+	}
+	public BriteNode(BriteCoordinate briteCoordinate) {
+		this(briteCoordinate.toLong(), briteCoordinate);
 	}
 	
 	public BriteCoordinate getBriteCoordinate() {
@@ -14,9 +18,9 @@ public class BriteNode extends Node {
 
 	@Override
 	public int hashCode() {
-		final int prime = 10007;
+		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + ((coordinate == null) ? 0 : coordinate.hashCode());
+		result = prime * result + ((briteCoordinate == null) ? 0 : briteCoordinate.hashCode());
 		return result;
 	}
 

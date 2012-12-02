@@ -22,7 +22,7 @@ public class BriteMain {
 	
 	public static Logger logger = LogManager.getLogger(BriteMain.class);
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		File file = new File("Configuration.json");
 		try {
 			String confStr = FileUtils.readFileToString(file);
@@ -35,7 +35,7 @@ public class BriteMain {
 		}
 	}
 
-	private static void generate(Configuration configuration){
+	private static void generate(Configuration configuration) throws Exception{
 		BritePlane britePlane = new BritePlane(configuration.hs, configuration.ls);
 		britePlane.addRandomNodes(configuration.waxmanNodeCount);
 		logger.info("正在生成Waxman随机图...");

@@ -10,7 +10,7 @@ public class Coordinate {
 		this.y = y;
 	}
 
-	public Double EuclideanDistanceTo(Coordinate other){
+	public Double EuclideanDistanceTo(Coordinate other) {
 		Double dis = null;
 		dis = Math.sqrt(Math.pow((other.getX() - x), 2) + Math.pow((other.getY() - y), 2));
 		return dis;
@@ -34,9 +34,14 @@ public class Coordinate {
 		return this;
 	}
 
+	public long toLong() {
+		long l = x;
+		return l << Integer.SIZE ^ y;
+	}
+
 	@Override
 	public int hashCode() {
-		final int prime = 31;
+		final int prime = 10007;
 		int result = 1;
 		result = prime * result + x;
 		result = prime * result + y;

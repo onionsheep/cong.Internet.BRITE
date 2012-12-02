@@ -33,17 +33,17 @@ public class Plane {
 	}
 	
 
-	public Node randomNode() {
+	public Node randomNode() throws Exception {
 		Node node = null;
 		logger.debug(1);
 		int x = java.util.concurrent.ThreadLocalRandom.current().nextInt(width);
 		int y = java.util.concurrent.ThreadLocalRandom.current().nextInt(height);
 		Coordinate coordinate = new Coordinate(x, y);
-		node = new Node(coordinate.toString(), coordinate);
+		node = new Node(coordinate.toLong(), coordinate);
 		return node;
 	}
 	
-	public Node randomNodeNoDuplication(){
+	public Node randomNodeNoDuplication() throws Exception{
 		boolean result = true;
 		Node node = null;
 		while (result) {
@@ -54,7 +54,7 @@ public class Plane {
 		return node;
 	}
 	
-	public Node addOneRandomNode(){
+	public Node addOneRandomNode() throws Exception{
 		boolean result = true;
 		Node node = null;
 		while(result){
@@ -63,11 +63,11 @@ public class Plane {
 		}
 		return node;
 	}
-	public boolean addRandomNode(){
+	public boolean addRandomNode() throws Exception{
 		return this.undirectedGraph.getNodes().add(randomNodeNoDuplication());
 	}
 	
-	public void addRandomNodes(int count) {
+	public void addRandomNodes(int count) throws Exception {
 		int i = 0;
 		while (i < count) {
 			if (this.addRandomNode()) {

@@ -19,7 +19,7 @@ public class Tang {
 		return probability;
 	}
 
-	public static void generateEdges(Plane plane, Integer oneNodeEdge, Integer nodeCount, Double epsilon) {
+	public static void generateEdges(Plane plane, Integer oneNodeEdge, Integer nodeCount, Double epsilon) throws Exception {
 		Boolean result = false;
 		UndirectedGraph undirectedGraph = plane.getGraph();
 		Set<Node> nodes = undirectedGraph.getNodes();

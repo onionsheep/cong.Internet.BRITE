@@ -20,7 +20,7 @@ public class BriteCirclePlane extends BritePlane {
 	}
 
 	@Override
-	public BriteNode randomNode() {
+	public BriteNode randomNode() throws Exception {
 		BriteNode briteNode = null;
 		boolean outCircle = true;
 		while (outCircle) {

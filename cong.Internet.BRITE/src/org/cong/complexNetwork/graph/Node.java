@@ -10,7 +10,7 @@ public class Node {
 	
 	public static Logger	logger	= LogManager.getLogger(Node.class);
 	
-	protected String		id;
+	protected long		id;
 	protected double		weight;
 	protected int		degree;
 	protected Set<Node>	connectedNodes;
@@ -23,7 +23,7 @@ public class Node {
 	 * @param id
 	 * @param weight
 	 */
-	public Node(String id, double weight, Coordinate coordinate) {
+	public Node(long id, double weight, Coordinate coordinate) {
 		this.id = id;
 		this.weight = weight;
 		this.connectedNodes = new HashSet<>();
@@ -31,7 +31,7 @@ public class Node {
 		this.coordinate = coordinate;
 	}
 
-	public Node(String id, Coordinate coordinate){
+	public Node(long id, Coordinate coordinate){
 		this(id, 0.0, coordinate);
 	}
 	
@@ -40,7 +40,7 @@ public class Node {
 	 * 
 	 * @param id
 	 */
-	public Node(String id) {
+	public Node(long id) {
 		this(id, 0.0, null);
 	}
 
@@ -68,7 +68,7 @@ public class Node {
 		this.weight = weight;
 	}
 
-	public String getId() {
+	public long getId() {
 		return id;
 	}
 
@@ -84,11 +84,13 @@ public class Node {
 		return coordinate;
 	}
 
+
+
 	@Override
 	public int hashCode() {
-		final int prime = 10007;
+		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + (int) (id ^ (id >>> 32));
 		return result;
 	}
 
@@ -101,10 +103,7 @@ public class Node {
 		if (getClass() != obj.getClass())
 			return false;
 		Node other = (Node) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
+		if (id != other.id)
 			return false;
 		return true;
 	}
