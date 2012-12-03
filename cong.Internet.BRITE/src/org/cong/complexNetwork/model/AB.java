@@ -36,19 +36,19 @@ public class AB {
       double r = Tools.randomDouble(1);
       //logger.debug(r);
       if (r < pNewEdges) {
-        logger.debug("newEdges");
+        //logger.debug("newEdges");
         addNewEdges(undirectedGraph, count);
       } else if (r < pNewEdges + pRestEdge) {
-        logger.debug("resetEdges");
+        //logger.debug("resetEdges");
         if (!reSetEdges(undirectedGraph, count)) {
           i--;
-          logger.debug("resetEdges Failed");
+          logger.error("resetEdges Failed");
         }
       } else {
-        logger.debug("newNode");
+        //logger.debug("newNode");
         addNode(undirectedGraph);
       }
-      logger.debug(i);
+      //logger.debug(i);
     }
   }
 

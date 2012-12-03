@@ -14,7 +14,7 @@ public class TestAB {
   public static void main(String[] args) {
     UndirectedGraph ug = new UndirectedGraph();
     int m0 = 10;
-    int steps = 40;
+    int steps = 3000;
 
     for (int i = 0; i < m0; i++) {
       ug.getNodes().add(AB.newNode());
@@ -22,7 +22,7 @@ public class TestAB {
 
     logger.debug("初始边添加OK");
     logger.debug(ug.getNodes().size());
-    AB.generateGraph(steps, 0.1, 0.4, ug, 3);
+    AB.generateGraph(steps, 0.1, 0.6, ug, 4);
     
 //    double[][] m = ug.toAdjacentMatrix();
 //
