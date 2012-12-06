@@ -1,78 +1,77 @@
 package org.cong.complexNetwork.brite;
 
 public class Configuration {
-	public Integer	hs;
-	public Integer	ls;
-	public Integer	waxmanNodeCount;
-	public Double		waxmanAlpha;
-	public Double		waxmanBeta;
-	public Integer	baNodeCount;
-	public Integer	baOneNodeEdge;
-	public String		outputFileName;
+  public Integer hs;
+  public Integer ls;
+  public Integer waxmanNodeCount;
+  public Double waxmanAlpha;
+  public Double waxmanBeta;
+  public Integer baNodeCount;
+  public Integer baOneNodeEdge;
+  public String outputFileName;
 
-	public Integer getHs() {
-		return hs;
-	}
+  public Integer getBaNodeCount() {
+    return baNodeCount;
+  }
 
-	public void setHs(Integer hs) {
-		this.hs = hs;
-	}
+  public Integer getBaOneNodeEdge() {
+    return baOneNodeEdge;
+  }
 
-	public Integer getLs() {
-		return ls;
-	}
+  public Integer getHs() {
+    return hs;
+  }
 
-	public void setLs(Integer ls) {
-		this.ls = ls;
-	}
+  public Integer getLs() {
+    return ls;
+  }
 
-	public Integer getWaxmanNodeCount() {
-		return waxmanNodeCount;
-	}
+  public String getOutputFileName() {
+    return outputFileName;
+  }
 
-	public void setWaxmanNodeCount(Integer waxmanNodeCount) {
-		this.waxmanNodeCount = waxmanNodeCount;
-	}
+  public Double getWaxmanAlpha() {
+    return waxmanAlpha;
+  }
 
-	public Double getWaxmanAlpha() {
-		return waxmanAlpha;
-	}
+  public Double getWaxmanBeta() {
+    return waxmanBeta;
+  }
 
-	public void setWaxmanAlpha(Double waxmanAlpha) {
-		this.waxmanAlpha = waxmanAlpha;
-	}
+  public Integer getWaxmanNodeCount() {
+    return waxmanNodeCount;
+  }
 
-	public Double getWaxmanBeta() {
-		return waxmanBeta;
-	}
+  public void setBaNodeCount(Integer baNodeCount) {
+    this.baNodeCount = baNodeCount;
+  }
 
-	public void setWaxmanBeta(Double waxmanBeta) {
-		this.waxmanBeta = waxmanBeta;
-	}
+  public void setBaOneNodeEdge(Integer baOneNodeEdge) {
+    this.baOneNodeEdge = baOneNodeEdge;
+  }
 
-	public Integer getBaNodeCount() {
-		return baNodeCount;
-	}
+  public void setHs(Integer hs) {
+    this.hs = hs;
+  }
 
-	public void setBaNodeCount(Integer baNodeCount) {
-		this.baNodeCount = baNodeCount;
-	}
+  public void setLs(Integer ls) {
+    this.ls = ls;
+  }
 
-	public Integer getBaOneNodeEdge() {
-		return baOneNodeEdge;
-	}
+  public void setOutputFileName(String outputFileName) {
+    this.outputFileName = outputFileName;
+  }
 
-	public void setBaOneNodeEdge(Integer baOneNodeEdge) {
-		this.baOneNodeEdge = baOneNodeEdge;
-	}
+  public void setWaxmanAlpha(Double waxmanAlpha) {
+    this.waxmanAlpha = waxmanAlpha;
+  }
 
-	public String getOutputFileName() {
-		return outputFileName;
-	}
+  public void setWaxmanBeta(Double waxmanBeta) {
+    this.waxmanBeta = waxmanBeta;
+  }
 
-	public void setOutputFileName(String outputFileName) {
-		this.outputFileName = outputFileName;
-	}
+  public void setWaxmanNodeCount(Integer waxmanNodeCount) {
+    this.waxmanNodeCount = waxmanNodeCount;
+  }
 
-	
 }

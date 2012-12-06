@@ -19,21 +19,6 @@ public class UndirectedGraph {
     edges = new HashSet<>();
   }
 
-  public Set<Node> getNodes() {
-    return nodes;
-  }
-
-  public Set<Edge> getEdges() {
-    return edges;
-  }
-
-  public boolean connect(Node source, Node target) {
-    boolean result = false;
-    Edge edge = new Edge(source, target);
-    result = addEdge(edge);
-    return result;
-  }
-
   public boolean addEdge(Edge edge) {
     boolean result;
     result = this.edges.add(edge);
@@ -46,11 +31,26 @@ public class UndirectedGraph {
     return result;
   }
 
+  public boolean connect(Node source, Node target) {
+    boolean result = false;
+    Edge edge = new Edge(source, target);
+    result = addEdge(edge);
+    return result;
+  }
+
   public boolean disConnect(Node source, Node target) {
     boolean result = false;
     Edge edge = new Edge(source, target);
     result = removeEdge(edge);
     return result;
+  }
+
+  public Set<Edge> getEdges() {
+    return edges;
+  }
+
+  public Set<Node> getNodes() {
+    return nodes;
   }
 
   public boolean removeEdge(Edge edge) {
@@ -63,25 +63,6 @@ public class UndirectedGraph {
       target.disConnectNode(source);
     }
     return result;
-  }
-
-  public Gexf toGexf() {
-
-    Gexf gexf = new GexfImpl();
-    it.uniroma1.dis.wiserver.gexf4j.core.Graph graph = gexf.getGraph();
-    graph.setDefaultEdgeType(EdgeType.UNDIRECTED).setMode(Mode.STATIC);
-    Map<Node, it.uniroma1.dis.wiserver.gexf4j.core.Node> nodeMap = new HashMap<>();
-
-    for (Node node : nodes) {
-      nodeMap.put(node, graph.createNode(Long.toHexString(node.getId())));
-    }
-    for (Edge edge : edges) {
-      Node source = edge.getSource();
-      Node target = edge.getTarget();
-
-      nodeMap.get(source).connectTo(nodeMap.get(target));
-    }
-    return gexf;
   }
 
   public double[][] toAdjacentMatrix() {
@@ -104,6 +85,35 @@ public class UndirectedGraph {
       }
     }
     return martrix;
+  }
+
+  public int adjacentMatrixRank() {
+    int r = 0;
+    for (Node n : nodes) {
+      if (n.getDegree() > 0) {
+        r++;
+      }
+    }
+    return r;
+  }
+
+  public Gexf toGexf() {
+
+    Gexf gexf = new GexfImpl();
+    it.uniroma1.dis.wiserver.gexf4j.core.Graph graph = gexf.getGraph();
+    graph.setDefaultEdgeType(EdgeType.UNDIRECTED).setMode(Mode.STATIC);
+    Map<Node, it.uniroma1.dis.wiserver.gexf4j.core.Node> nodeMap = new HashMap<>();
+
+    for (Node node : nodes) {
+      nodeMap.put(node, graph.createNode(Long.toHexString(node.getId())));
+    }
+    for (Edge edge : edges) {
+      Node source = edge.getSource();
+      Node target = edge.getTarget();
+
+      nodeMap.get(source).connectTo(nodeMap.get(target));
+    }
+    return gexf;
   }
 
 }

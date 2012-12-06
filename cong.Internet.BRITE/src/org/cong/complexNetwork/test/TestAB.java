@@ -23,16 +23,16 @@ public class TestAB {
     logger.debug("初始边添加OK");
     logger.debug(ug.getNodes().size());
     AB.generateGraph(steps, 0.1, 0.6, ug, 4);
-    
-//    double[][] m = ug.toAdjacentMatrix();
-//
-//    for (int i = 1; i < m.length; i++) {
-//      for (int j = 0; j < m[0].length; j++) {
-//        System.out.print((int) m[i][j] + "\t");
-//      }
-//      System.out.println();
-//    }
-    
+
+    // double[][] m = ug.toAdjacentMatrix();
+    //
+    // for (int i = 1; i < m.length; i++) {
+    // for (int j = 0; j < m[0].length; j++) {
+    // System.out.print((int) m[i][j] + "\t");
+    // }
+    // System.out.println();
+    // }
+
     Gexf gexf = ug.toGexf();
     logger.debug("generating file...");
     Tools.writeGexfFile(gexf, "testAB.gexf");

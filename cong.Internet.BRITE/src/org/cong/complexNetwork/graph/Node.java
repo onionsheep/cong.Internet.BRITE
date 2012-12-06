@@ -19,6 +19,19 @@ public class Node {
   private static final double defaultWeight = 0;
 
   /**
+   * weight default = 0, treat as a weightless Node
+   * 
+   * @param id
+   */
+  public Node(long id) {
+    this(id, defaultWeight, null);
+  }
+
+  public Node(long id, Coordinate coordinate) {
+    this(id, defaultWeight, coordinate);
+  }
+
+  /**
    * id is a String that can identify a Node. one Node, one id. Warn:Nothing
    * will happpen if you create two Node with the same id
    * 
@@ -31,19 +44,6 @@ public class Node {
     this.connectedNodes = new HashSet<>();
     this.degree = 0;
     this.coordinate = coordinate;
-  }
-
-  public Node(long id, Coordinate coordinate) {
-    this(id, defaultWeight, coordinate);
-  }
-
-  /**
-   * weight default = 0, treat as a weightless Node
-   * 
-   * @param id
-   */
-  public Node(long id) {
-    this(id, defaultWeight, null);
   }
 
   public boolean connectNode(Node node) {
@@ -62,38 +62,6 @@ public class Node {
     return result;
   }
 
-  public double getWeight() {
-    return weight;
-  }
-
-  public void setWeight(double weight) {
-    this.weight = weight;
-  }
-
-  public long getId() {
-    return id;
-  }
-
-  public Set<Node> getConnectedNodes() {
-    return connectedNodes;
-  }
-
-  public int getDegree() {
-    return degree;
-  }
-
-  public Coordinate getCoordinate() {
-    return coordinate;
-  }
-
-  @Override
-  public int hashCode() {
-    final int prime = 31;
-    int result = 1;
-    result = prime * result + (int) (id ^ (id >>> 32));
-    return result;
-  }
-
   @Override
   public boolean equals(Object obj) {
     if (this == obj)
@@ -106,6 +74,38 @@ public class Node {
     if (id != other.id)
       return false;
     return true;
+  }
+
+  public Set<Node> getConnectedNodes() {
+    return connectedNodes;
+  }
+
+  public Coordinate getCoordinate() {
+    return coordinate;
+  }
+
+  public int getDegree() {
+    return degree;
+  }
+
+  public long getId() {
+    return id;
+  }
+
+  public double getWeight() {
+    return weight;
+  }
+
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + (int) (id ^ (id >>> 32));
+    return result;
+  }
+
+  public void setWeight(double weight) {
+    this.weight = weight;
   }
 
   @Override

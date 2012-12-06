@@ -17,41 +17,6 @@ public class AB {
 
   private static long nodeId = 0;
 
-  public static double probability(Node i, Node[] nodeArray) {
-    double probability = 0;
-    int sumOfDegree = 0;
-    for (Node node : nodeArray) {
-      sumOfDegree += (node.getDegree() + 1);
-    }
-    probability = 1.0 * (i.getDegree() + 1) / sumOfDegree;
-    return probability;
-  }
-
-  public static void generateGraph(int step,
-                                   double pNewEdges,
-                                   double pRestEdge,
-                                   UndirectedGraph undirectedGraph,
-                                   int count) {
-    for (int i = 0; i < step; i++) {
-      double r = Tools.randomDouble(1);
-      //logger.debug(r);
-      if (r < pNewEdges) {
-        //logger.debug("newEdges");
-        addNewEdges(undirectedGraph, count);
-      } else if (r < pNewEdges + pRestEdge) {
-        //logger.debug("resetEdges");
-        if (!reSetEdges(undirectedGraph, count)) {
-          i--;
-          logger.error("resetEdges Failed");
-        }
-      } else {
-        //logger.debug("newNode");
-        addNode(undirectedGraph);
-      }
-      //logger.debug(i);
-    }
-  }
-
   public static void addNewEdges(UndirectedGraph undirectedGraph, int count) {
     Set<Node> nodes = undirectedGraph.getNodes();
     for (int i = 0; i < count; i++) {
@@ -61,6 +26,47 @@ public class AB {
         i--;
       }
     }
+  }
+
+  public static boolean addNode(UndirectedGraph undirectedGraph) {
+    Set<Node> nodes = undirectedGraph.getNodes();
+    Node tNode = getTargetNode(nodes);
+    Node newNode = newNode();
+    nodes.add(newNode);
+    return undirectedGraph.connect(newNode, tNode);
+  }
+
+  public static void generateGraph(int step,
+                                   double pNewEdges,
+                                   double pRestEdge,
+                                   UndirectedGraph undirectedGraph,
+                                   int count) {
+    for (int i = 0; i < step; i++) {
+      double r = Tools.randomDouble(1);
+      // logger.debug(r);
+      if (r < pNewEdges) {
+        // logger.debug("newEdges");
+        addNewEdges(undirectedGraph, count);
+      } else if (r < pNewEdges + pRestEdge) {
+        // logger.debug("resetEdges");
+        if (!reSetEdges(undirectedGraph, count)) {
+          i--;
+          logger.error("resetEdges Failed");
+        }
+      } else {
+        // logger.debug("newNode");
+        addNode(undirectedGraph);
+      }
+      // logger.debug(i);
+    }
+  }
+
+  private static Node getRandomNode(Set<Node> nodes) {
+    int size = nodes.size();
+    int rnd = java.util.concurrent.ThreadLocalRandom.current().nextInt(size);
+    Node[] nodeArray = nodes.toArray(new Node[0]);
+    Node sNode = nodeArray[rnd];
+    return sNode;
   }
 
   private static Node getTargetNode(Set<Node> nodes) {
@@ -84,12 +90,18 @@ public class AB {
     return tNode;
   }
 
-  private static Node getRandomNode(Set<Node> nodes) {
-    int size = nodes.size();
-    int rnd = java.util.concurrent.ThreadLocalRandom.current().nextInt(size);
-    Node[] nodeArray = nodes.toArray(new Node[0]);
-    Node sNode = nodeArray[rnd];
-    return sNode;
+  public static Node newNode() {
+    return new Node(nodeId++);
+  }
+
+  public static double probability(Node i, Node[] nodeArray) {
+    double probability = 0;
+    int sumOfDegree = 0;
+    for (Node node : nodeArray) {
+      sumOfDegree += (node.getDegree() + 1);
+    }
+    probability = 1.0 * (i.getDegree() + 1) / sumOfDegree;
+    return probability;
   }
 
   public static boolean reSetEdges(UndirectedGraph undirectedGraph, int count) {
@@ -108,7 +120,7 @@ public class AB {
           d = sNode.getDegree();
           // logger.debug(sNode);
         }
-        //logger.debug("select Node : " + sNode);
+        // logger.debug("select Node : " + sNode);
         List<Edge> edgeList = new ArrayList<>();
         Set<Edge> edges = undirectedGraph.getEdges();
         Set<Node> connected = new HashSet<>();
@@ -130,7 +142,7 @@ public class AB {
         restNodes.removeAll(connected);
 
         Node tNode = AB.getTargetNode(restNodes);
-        //logger.debug("target Node : " + tNode);
+        // logger.debug("target Node : " + tNode);
         // Node tNode = null;
         // boolean connected = true;
         // while(connected){
@@ -151,7 +163,7 @@ public class AB {
             logger.debug("connect Failed");
             i--;
           }
-        }else{
+        } else {
           result = false;
           break;
         }
@@ -160,18 +172,6 @@ public class AB {
       result = false;
     }
     return result;
-  }
-
-  public static boolean addNode(UndirectedGraph undirectedGraph) {
-    Set<Node> nodes = undirectedGraph.getNodes();
-    Node tNode = getTargetNode(nodes);
-    Node newNode = newNode();
-    nodes.add(newNode);
-    return undirectedGraph.connect(newNode, tNode);
-  }
-
-  public static Node newNode() {
-    return new Node(nodeId++);
   }
 
 }
