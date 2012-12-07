@@ -8,7 +8,7 @@ import org.cong.complexNetwork.graph.BriteNode;
 
 public class BriteWaxman {
 
-  public static void generateEdges(BritePlane britePlane, double alpha, double beta) {
+  public static void generateEdges(BritePlane britePlane, double alpha, double beta) throws Exception {
     double rand = 0.0;
     double probability = 0.0;
     double euclideanDistance = 0;

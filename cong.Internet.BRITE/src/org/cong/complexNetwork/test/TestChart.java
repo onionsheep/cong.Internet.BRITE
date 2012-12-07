@@ -8,10 +8,7 @@ import org.cong.complexNetwork.model.BriteCirclePlane;
 import org.cong.complexNetwork.model.BriteWaxman;
 import org.cong.complexNetwork.util.ChartTools;
 import org.cong.complexNetwork.util.Tools;
-import org.jfree.chart.ChartPanel;
 import org.jfree.data.xy.XYDataset;
-import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RefineryUtilities;
 
 public class TestChart {
 

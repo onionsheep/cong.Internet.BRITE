@@ -11,7 +11,7 @@ public class BriteTang extends Tang {
   private static boolean addAndConnectNewBriteNode(BriteGraph briteGraph,
                                                    Set<BriteNode> BriteNodes,
                                                    Map<BriteNode, Double> briteNodeProbability,
-                                                   BriteNode newBriteNode) {
+                                                   BriteNode newBriteNode) throws Exception {
     double probability;
     double rand = java.util.concurrent.ThreadLocalRandom.current().nextDouble();
     probability = 0.0;

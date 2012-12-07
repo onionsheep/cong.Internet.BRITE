@@ -18,12 +18,13 @@ public class BA {
    * @param newNode
    * @param nodeProbability
    *          在新节点和旧节点之间添加oneNodeEdge条边
+   * @throws Exception 
    */
   protected static void addEdges(int oneNodeEdge,
                                  UndirectedGraph undirectedGraph,
                                  Node[] nodeArray,
                                  double[] probabilities,
-                                 Node newNode) {
+                                 Node newNode) throws Exception {
     double rand;
     Boolean result;
     double probability;

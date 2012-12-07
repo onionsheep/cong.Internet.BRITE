@@ -11,7 +11,7 @@ import org.cong.complexNetwork.util.Tools;
 public class TestAB {
   public static Logger logger = LogManager.getLogger(TestAB.class);
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws Exception {
     UndirectedGraph ug = new UndirectedGraph();
     int m0 = 10;
     int steps = 3000;

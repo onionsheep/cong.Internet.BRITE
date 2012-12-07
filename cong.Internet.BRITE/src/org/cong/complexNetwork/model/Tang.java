@@ -12,7 +12,7 @@ public class Tang {
   private static Boolean addAndConnectNewNode(UndirectedGraph undirectedGraph,
                                               Set<Node> nodes,
                                               Map<Node, Double> nodeProbability,
-                                              Node newNode) {
+                                              Node newNode) throws Exception {
     Double probability;
     Double rand = java.util.concurrent.ThreadLocalRandom.current().nextDouble();
     probability = 0.0;

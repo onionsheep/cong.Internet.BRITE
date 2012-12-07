@@ -13,11 +13,11 @@ public class Edge {
   protected boolean directed;
   protected int weight;
 
-  public Edge(Node source, Node target) {
+  public Edge(Node source, Node target) throws Exception {
     this(source, target, false, 1);
   }
 
-  public Edge(Node source, Node target, boolean directed) {
+  public Edge(Node source, Node target, boolean directed) throws Exception {
     this(source, target, directed, 1);
   }
 
@@ -28,15 +28,20 @@ public class Edge {
    * @param target
    * @param directed
    * @param weight
+   * @throws Exception 
    */
-  public Edge(Node source, Node target, boolean directed, int weight) {
+  public Edge(Node source, Node target, boolean directed, int weight) throws Exception {
+    if(source!= null && target != null){
     this.source = source;
     this.target = target;
     this.directed = directed;
     this.weight = weight;
+    }else{
+      throw new Exception("source and target can not be null");
+    }
   }
 
-  public Edge(Node source, Node target, int weight) {
+  public Edge(Node source, Node target, int weight) throws Exception {
     this(source, target, false, weight);
   }
 

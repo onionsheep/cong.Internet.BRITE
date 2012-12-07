@@ -98,7 +98,7 @@ public class ChartTools {
       lx.add(1.0 + i);
       ly.add(1.0 * na[i].getDegree());
     }
-    return toLogLogXYDataset(lx, ly, "秩-度");
+    return toLogLogXYDataset(lx, ly, "频-度");
   }
 
 }

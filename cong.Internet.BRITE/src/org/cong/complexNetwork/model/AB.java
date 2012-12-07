@@ -17,7 +17,7 @@ public class AB {
 
   private static long nodeId = 0;
 
-  public static void addNewEdges(UndirectedGraph undirectedGraph, int count) {
+  public static void addNewEdges(UndirectedGraph undirectedGraph, int count) throws Exception {
     Set<Node> nodes = undirectedGraph.getNodes();
     for (int i = 0; i < count; i++) {
       Node sNode = getRandomNode(nodes);
@@ -28,7 +28,7 @@ public class AB {
     }
   }
 
-  public static boolean addNode(UndirectedGraph undirectedGraph) {
+  public static boolean addNode(UndirectedGraph undirectedGraph) throws Exception {
     Set<Node> nodes = undirectedGraph.getNodes();
     Node tNode = getTargetNode(nodes);
     Node newNode = newNode();
@@ -40,7 +40,7 @@ public class AB {
                                    double pNewEdges,
                                    double pRestEdge,
                                    UndirectedGraph undirectedGraph,
-                                   int count) {
+                                   int count) throws Exception {
     for (int i = 0; i < step; i++) {
       double r = Tools.randomDouble(1);
       // logger.debug(r);
@@ -104,7 +104,7 @@ public class AB {
     return probability;
   }
 
-  public static boolean reSetEdges(UndirectedGraph undirectedGraph, int count) {
+  public static boolean reSetEdges(UndirectedGraph undirectedGraph, int count) throws Exception {
     boolean result = true;
     Set<Node> nodes = undirectedGraph.getNodes();
     int sumD = 0;
@@ -142,19 +142,7 @@ public class AB {
         restNodes.removeAll(connected);
 
         Node tNode = AB.getTargetNode(restNodes);
-        // logger.debug("target Node : " + tNode);
-        // Node tNode = null;
-        // boolean connected = true;
-        // while(connected){
-        // tNode = AB.getTargetNode(nodes);
-        // connected = false;
-        // for (Edge e : edges) {
-        // if (e.getSource().equals(sNode) || e.getTarget().equals(sNode)) {
-        // connected = true;
-        // break;
-        // }
-        // }
-        // }
+
         if (tNode != null) {
           if (undirectedGraph.connect(sNode, tNode)) {
             undirectedGraph.removeEdge(eg);

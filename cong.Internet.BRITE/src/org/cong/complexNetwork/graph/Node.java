@@ -10,6 +10,8 @@ public class Node {
 
   public static Logger logger = LogManager.getLogger(Node.class);
 
+  private static long idCounter = -1;
+  
   protected long id;
   protected double weight;
   protected int degree;
@@ -18,6 +20,11 @@ public class Node {
 
   private static final double defaultWeight = 0;
 
+  
+  public Node(){
+    this(idCounter--);  
+  }
+  
   /**
    * weight default = 0, treat as a weightless Node
    * 

@@ -20,7 +20,7 @@ public class BriteGraph extends UndirectedGraph {
   }
 
   @Override
-  public boolean connect(Node u, Node v) {
+  public boolean connect(Node u, Node v) throws Exception {
     if (u.equals(v)) {
       return false;
     }
