@@ -24,19 +24,31 @@ public class TestRichClub {
     logger.debug("Nodes " + bp.getBriteGraph().getNodes().size());
     logger.debug("Edges " + bp.getBriteGraph().getEdges().size());
     UndirectedGraph ug = bp.getBriteGraph();
-    showRichClubChart(ug);
+    //showRichClubChartByDegree(ug);
+    showRichClubChartByOrder(ug);
   }
 
-  public static void showRichClubChart(UndirectedGraph ug) throws Exception{
+  public static void showRichClubChartByDegree(UndirectedGraph ug) throws Exception{
     int minD = ug.getMinDegree();
     int maxD = ug.getMaxDegree();
     List<Double> xl = new ArrayList<>();
     List<Double> yl = new ArrayList<>();
     for(int i = minD; i <= maxD; i++){
       xl.add(i*1.0);
-      yl.add(RichClubUtil.RichConnectedness(ug, i));
+      yl.add(RichClubUtil.RichConnectednessByDegree(ug, i));
     }
-    XYDataset xyds = ChartTools.toXYDataset(xl, yl, "富人俱乐部 度-连通性");
+    XYDataset xyds = ChartTools.toXYDataset(xl, yl, "度-连通性");
+    ChartTools.drawChart(xyds);
+  }
+  public static void showRichClubChartByOrder(UndirectedGraph ug) throws Exception{
+    int count = ug.getNodes().size();
+    List<Double> xl = new ArrayList<>();
+    List<Double> yl = new ArrayList<>();
+    for(int i = 0; i <= count; i++){
+      xl.add(i*1.0);
+      yl.add(RichClubUtil.RichConnectednessByOrder(ug, i));
+    }
+    XYDataset xyds = ChartTools.toXYDataset(xl, yl, "个数-连通性");
     ChartTools.drawChart(xyds);
   }
 }
