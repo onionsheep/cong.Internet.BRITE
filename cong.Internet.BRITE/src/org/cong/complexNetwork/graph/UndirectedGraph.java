@@ -15,6 +15,7 @@ import java.util.Set;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.cong.complexNetwork.util.Sparse;
 
 public class UndirectedGraph {
   protected Set<Node> nodes;
@@ -29,11 +30,11 @@ public class UndirectedGraph {
   public boolean addNode(Node node) {
     return this.nodes.add(node);
   }
-  
-  public Node getNode(Node node){
+
+  public Node getNode(Node node) {
     Node n0 = null;
-    for(Node n : nodes){
-      if(n.equals(node)){
+    for (Node n : nodes) {
+      if (n.equals(node)) {
         n0 = n;
         break;
       }
@@ -41,26 +42,26 @@ public class UndirectedGraph {
     return n0;
   }
 
-  public int getMaxDegree(){
+  public int getMaxDegree() {
     int maxD = 0;
-    for(Node n : nodes){
-      if(maxD < n.getDegree()){
+    for (Node n : nodes) {
+      if (maxD < n.getDegree()) {
         maxD = n.getDegree();
       }
     }
     return maxD;
   }
-  
-  public int getMinDegree(){
+
+  public int getMinDegree() {
     int minD = Integer.MAX_VALUE;
-    for(Node n : nodes){
-      if(minD > n.getDegree()){
+    for (Node n : nodes) {
+      if (minD > n.getDegree()) {
         minD = n.getDegree();
       }
     }
     return minD;
   }
-  
+
   public boolean addEdge(Edge edge) {
     boolean result;
     result = this.edges.add(edge);
@@ -150,28 +151,27 @@ public class UndirectedGraph {
     }
     FileUtils.writeStringToFile(f, "]", "UTF-8", true);
   }
-  public void toSparse(String filePath) throws IOException {
+
+  public Sparse<Integer> toSparse() {
+    Sparse<Integer> s = new Sparse<>();
+
     Node[] nodeArray = nodes.toArray(new Node[0]);
-    // Edge[] edgeArray = edges.toArray(new Edge[0]);
-    File f = new File(filePath);
-    StringBuffer sb;
-    FileUtils.writeStringToFile(f, "AM = [\n", "UTF-8");
-    for (int i = 0; i < nodeArray.length; i++) {
-      sb = new StringBuffer();
-      for (int j = 0; j < nodeArray.length; j++) {
-        if (nodeArray[i].getConnectedNodes().contains(nodeArray[j])) {
-          sb.append("1,");
-        } else {
-          sb.append("0,");
+    Edge[] edgeArray = edges.toArray(new Edge[0]);
+
+    for (Edge e : edgeArray) {
+      for (int i = 0; i < nodeArray.length; i++) {
+        if (e.getSource().equals(nodeArray[i])) {
+          for (int j = 0; j < nodeArray.length; j++) {
+            if (e.getTarget().equals(nodeArray[j])) {
+              s.addElement(i + 1, j + 1, e.getWeight());
+              s.addElement(j + 1, i + 1, e.getWeight());
+            }
+          }
         }
       }
-      sb.deleteCharAt(sb.length() - 1);
-      sb.append("\n");
-      FileUtils.writeStringToFile(f, sb.toString(), "UTF-8", true);
     }
-    FileUtils.writeStringToFile(f, "]", "UTF-8", true);
+    return s;
   }
-  
 
   public int adjacentMatrixRank() {
     int r = 0;

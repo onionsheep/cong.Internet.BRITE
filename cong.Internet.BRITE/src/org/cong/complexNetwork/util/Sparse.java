@@ -55,7 +55,8 @@ public class Sparse<T> {
       sb.append(", ");
     }
     sb.append("];\n");
-    sb.append("sparse(xl, yl, vl);");
+    sb.append("S = sparse(xl, yl, vl);");
     return sb.toString();
   }
+  
 }

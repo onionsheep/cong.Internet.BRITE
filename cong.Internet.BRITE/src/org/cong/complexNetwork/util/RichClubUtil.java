@@ -9,6 +9,7 @@ import java.util.Set;
 import org.cong.complexNetwork.graph.Edge;
 import org.cong.complexNetwork.graph.Node;
 import org.cong.complexNetwork.graph.UndirectedGraph;
+import org.jfree.data.xy.XYDataset;
 
 public class RichClubUtil {
   public static double RichConnectednessByDegree(UndirectedGraph ug, int degree) {
@@ -46,6 +47,28 @@ public class RichClubUtil {
     double result = 2.0 * l / (order * (order - 1));
     return result;
   }
-  
+  public static void showRichClubChartByDegree(UndirectedGraph ug) throws Exception{
+    int minD = ug.getMinDegree();
+    int maxD = ug.getMaxDegree();
+    List<Double> xl = new ArrayList<>();
+    List<Double> yl = new ArrayList<>();
+    for(int i = minD; i <= maxD; i++){
+      xl.add(i*1.0);
+      yl.add(RichConnectednessByDegree(ug, i));
+    }
+    XYDataset xyds = ChartTools.toXYDataset(xl, yl, "度-连通性");
+    ChartTools.drawChart(xyds);
+  }
+  public static void showRichClubChartByOrder(UndirectedGraph ug) throws Exception{
+    int count = ug.getNodes().size();
+    List<Double> xl = new ArrayList<>();
+    List<Double> yl = new ArrayList<>();
+    for(int i = 0; i <= count; i++){
+      xl.add(i*1.0);
+      yl.add(RichConnectednessByOrder(ug, i));
+    }
+    XYDataset xyds = ChartTools.toXYDataset(xl, yl, "个数-连通性");
+    ChartTools.drawChart(xyds);
+  }
   
 }
