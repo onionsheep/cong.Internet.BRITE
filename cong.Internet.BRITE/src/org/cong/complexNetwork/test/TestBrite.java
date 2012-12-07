@@ -1,16 +1,10 @@
 package org.cong.complexNetwork.test;
 
-import it.uniroma1.dis.wiserver.gexf4j.core.Gexf;
-
-import java.util.Set;
-
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.cong.complexNetwork.graph.BriteNode;
 import org.cong.complexNetwork.model.BriteBA;
 import org.cong.complexNetwork.model.BriteCirclePlane;
 import org.cong.complexNetwork.model.BriteWaxman;
-import org.cong.complexNetwork.util.Tools;
 
 public class TestBrite {
 

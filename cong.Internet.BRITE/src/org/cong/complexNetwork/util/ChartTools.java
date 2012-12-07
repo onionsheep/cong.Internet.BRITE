@@ -45,7 +45,6 @@ public class ChartTools {
     af.setVisible(true);
   }
 
-  
   public static XYDataset toLogLogXYDataset(List<Double> xl, List<Double> yl, String title)
       throws Exception {
     XYSeriesCollection xysc = new XYSeriesCollection();
@@ -55,6 +54,24 @@ public class ChartTools {
       for (int i = 0; i < l; i++) {
         double x = Math.log(xl.get(i));
         double y = Math.log(yl.get(i));
+        xys.add(x, y);
+      }
+    } else {
+      throw new Exception("two list must have the same size");
+    }
+    xysc.addSeries(xys);
+    return xysc;
+  }
+
+  public static XYDataset toXYDataset(List<Double> xl, List<Double> yl, String title)
+      throws Exception {
+    XYSeriesCollection xysc = new XYSeriesCollection();
+    XYSeries xys = new XYSeries(title);
+    if (xl.size() == yl.size()) {
+      int l = xl.size();
+      for (int i = 0; i < l; i++) {
+        double x = xl.get(i);
+        double y = yl.get(i);
         xys.add(x, y);
       }
     } else {

@@ -41,6 +41,26 @@ public class UndirectedGraph {
     return n0;
   }
 
+  public int getMaxDegree(){
+    int maxD = 0;
+    for(Node n : nodes){
+      if(maxD < n.getDegree()){
+        maxD = n.getDegree();
+      }
+    }
+    return maxD;
+  }
+  
+  public int getMinDegree(){
+    int minD = Integer.MAX_VALUE;
+    for(Node n : nodes){
+      if(minD > n.getDegree()){
+        minD = n.getDegree();
+      }
+    }
+    return minD;
+  }
+  
   public boolean addEdge(Edge edge) {
     boolean result;
     result = this.edges.add(edge);
