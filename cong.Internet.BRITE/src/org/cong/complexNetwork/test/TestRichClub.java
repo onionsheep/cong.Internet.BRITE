@@ -6,7 +6,7 @@ import org.cong.complexNetwork.graph.UndirectedGraph;
 import org.cong.complexNetwork.model.BriteBAAndWaxman;
 import org.cong.complexNetwork.model.BriteCirclePlane;
 import org.cong.complexNetwork.model.BriteWaxman;
-import org.cong.complexNetwork.util.RichClubUtil;
+import org.cong.complexNetwork.util.NetworkTraitUtil;
 
 public class TestRichClub {
   public static Logger logger = LogManager.getLogger(TestRichClub.class);
@@ -20,7 +20,8 @@ public class TestRichClub {
     logger.debug("Edges " + bp.getBriteGraph().getEdges().size());
     UndirectedGraph ug = bp.getBriteGraph();
     //RichClubUtil.showRichClubChartByDegree(ug);
-    RichClubUtil.showRichClubChartByOrder(ug);
+    //NetworkTraitUtil.showRichClubChartByOrder(ug);
+    logger.debug("同配性系数： " + NetworkTraitUtil.assortativityCoefficient(ug));
   }
 
 

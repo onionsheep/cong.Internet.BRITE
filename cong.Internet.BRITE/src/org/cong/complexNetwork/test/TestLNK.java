@@ -9,7 +9,7 @@ import org.apache.log4j.Logger;
 import org.cong.complexNetwork.graph.Node;
 import org.cong.complexNetwork.graph.UndirectedGraph;
 import org.cong.complexNetwork.util.ChartTools;
-import org.cong.complexNetwork.util.RichClubUtil;
+import org.cong.complexNetwork.util.NetworkTraitUtil;
 import org.cong.complexNetwork.util.Tools;
 import org.jfree.data.xy.XYDataset;
 
@@ -23,9 +23,9 @@ public class TestLNK {
   public static void tLNK() throws Exception {
     UndirectedGraph ug = Tools.readIPNodesFromLnkFile("E:\\WORKSPACE\\gitHome\\repository\\cong.Internet.BRITE\\cong.Internet.BRITE\\ips.txt");
     Set<Node> nodes = ug.getNodes();
-    
-    logger.debug(nodes.size());
-    
+
+    logger.debug("节点个数： " + nodes.size());
+
     File f = new File("E:\\Users\\cong\\Documents\\MATLAB\\Sparse.m");
     FileUtils.writeStringToFile(f, ug.toSparse().toMatlabString());
     // for (Node n : nodes) {
@@ -39,8 +39,10 @@ public class TestLNK {
     // "E:\\Users\\cong\\Documents\\MATLAB\\AdjacentMatrix.m");
     // logger.debug("done.");
 
-    //RichClubUtil.showRichClubChartByOrder(ug);
-    RichClubUtil.showRichClubChartByDegree(ug);
+    // RichClubUtil.showRichClubChartByOrder(ug);
+    logger.debug("同配性系数： " + NetworkTraitUtil.assortativityCoefficient(ug));
+
+    NetworkTraitUtil.showRichClubChartByDegree(ug);
     XYDataset xyds1 = ChartTools.toXYDatasetFD(ug);
     XYDataset xyds = ChartTools.toXYDatasetRD(ug);
     ChartTools.drawChart(xyds);

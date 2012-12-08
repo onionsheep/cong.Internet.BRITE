@@ -11,7 +11,29 @@ import org.cong.complexNetwork.graph.Node;
 import org.cong.complexNetwork.graph.UndirectedGraph;
 import org.jfree.data.xy.XYDataset;
 
-public class RichClubUtil {
+public class NetworkTraitUtil {
+
+  public static double assortativityCoefficient(UndirectedGraph ug) {
+    double ac = 0;
+    Set<Edge> edges = ug.getEdges();
+    double m = 1.0 / edges.size();
+
+    double a = 0;
+    for (Edge e : edges) {
+      a += e.getSource().getDegree() * e.getTarget().getDegree();
+    }
+    a *= m;
+    double b = 0;
+    for (Edge e : edges) {
+      b += e.getSource().getDegree() + e.getTarget().getDegree();
+    }
+    b = b * m * 0.5;
+    b = b * b;
+    double c = 4 * b / m - 2 * a;
+    ac = (a - b) / (c - b);
+    return ac;
+  }
+  
   public static double RichConnectednessByDegree(UndirectedGraph ug, int degree) {
     Set<Edge> edges = ug.getEdges();
     int l = 0;
