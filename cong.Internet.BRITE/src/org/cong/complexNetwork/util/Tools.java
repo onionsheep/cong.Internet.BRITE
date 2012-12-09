@@ -7,7 +7,9 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.LogManager;
@@ -65,21 +67,35 @@ public class Tools {
     File f = new File(filePath);
     try {
       List<String> lines = FileUtils.readLines(f, "UTF-8");
+      logger.debug("read ok");
+      Map<String, Node> snmap = new HashMap<>();
       for (String line : lines) {
         String[] p = line.split(" ");
-        
         if (p.length >= 2) {
-          //logger.debug(p[0] + "\t" + p[1]);
-          Node n1 = new IPNode(p[0]);
-          Node n2 = new IPNode(p[1]);
-          if(!ug.addNode(n1)){
-            n1 = ug.getNode(n1);
-          }
-          if(!ug.addNode(n2)){
-            n2 = ug.getNode(n2);
-          }
-          ug.connect(n1, n2);
+          Node n0 = new IPNode(p[0]);
+          Node n1 = new IPNode(p[1]);
+//          Node n0;// = new IPNode(p[0]);
+//          Node n1;// = new IPNode(p[1]);
+//          n0 = snmap.get(p[0]);
+//          if (n0 == null) {
+//            n0 = new IPNode(p[0]);
+//            snmap.put(p[0], n0);
+//            //logger.debug("new node");
+//          }
+//          n1 = snmap.get(p[1]);
+//          if (n1 == null) {
+//            n1 = new IPNode(p[1]);
+//            snmap.put(p[1], n1);
+//          }
+           if (!ug.addNode(n0)) {
+           n0 = ug.getNode(n0);
+           }
+           if (!ug.addNode(n1)) {
+           n1 = ug.getNode(n1);
+           }
+          ug.connect(n0, n1);
         }
+        ug.getNodes().addAll(snmap.values());
       }
     }
     catch (IOException e) {

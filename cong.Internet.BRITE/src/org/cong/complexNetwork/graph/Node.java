@@ -19,7 +19,6 @@ public class Node {
   protected Coordinate coordinate;
 
   private static final double defaultWeight = 0;
-
   
   public Node(){
     this(idCounter--);  

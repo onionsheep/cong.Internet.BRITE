@@ -7,8 +7,10 @@ import it.uniroma1.dis.wiserver.gexf4j.core.impl.GexfImpl;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -33,8 +35,8 @@ public class UndirectedGraph {
 
   public Node getNode(Node node) {
     Node n0 = null;
-    for (Node n : nodes) {
-      if (n.equals(node)) {
+    for(Node n : nodes){
+      if(n.equals(node)){
         n0 = n;
         break;
       }
@@ -154,21 +156,13 @@ public class UndirectedGraph {
 
   public Sparse<Integer> toSparse() {
     Sparse<Integer> s = new Sparse<>();
-
-    Node[] nodeArray = nodes.toArray(new Node[0]);
-    Edge[] edgeArray = edges.toArray(new Edge[0]);
-
-    for (Edge e : edgeArray) {
-      for (int i = 0; i < nodeArray.length; i++) {
-        if (e.getSource().equals(nodeArray[i])) {
-          for (int j = 0; j < nodeArray.length; j++) {
-            if (e.getTarget().equals(nodeArray[j])) {
-              s.addElement(i + 1, j + 1, e.getWeight());
-              s.addElement(j + 1, i + 1, e.getWeight());
-            }
-          }
-        }
-      }
+    List<Node> nl = new ArrayList<>();
+    nl.addAll(nodes);
+    for (Edge e : edges) {
+      int i = 1 + nl.indexOf(e.getSource());
+      int j = 1 + nl.indexOf(e.getTarget());
+      s.addElement(i, j, e.getWeight());
+      s.addElement(j, i, e.getWeight());
     }
     return s;
   }

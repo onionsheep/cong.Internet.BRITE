@@ -21,7 +21,11 @@ public class TestLNK {
   }
 
   public static void tLNK() throws Exception {
-    UndirectedGraph ug = Tools.readIPNodesFromLnkFile("E:\\WORKSPACE\\gitHome\\repository\\cong.Internet.BRITE\\cong.Internet.BRITE\\ips.txt");
+    logger.debug("开始");
+    UndirectedGraph ug = Tools.readIPNodesFromLnkFile("ips.txt");
+    //UndirectedGraph ug = Tools.readIPNodesFromLnkFile("a-r20030421sr");
+    
+    
     Set<Node> nodes = ug.getNodes();
 
     logger.debug("节点个数： " + nodes.size());
@@ -42,10 +46,10 @@ public class TestLNK {
     // RichClubUtil.showRichClubChartByOrder(ug);
     logger.debug("同配性系数： " + NetworkTraitUtil.assortativityCoefficient(ug));
 
-    NetworkTraitUtil.showRichClubChartByDegree(ug);
-    XYDataset xyds1 = ChartTools.toXYDatasetFD(ug);
-    XYDataset xyds = ChartTools.toXYDatasetRD(ug);
-    ChartTools.drawChart(xyds);
-    ChartTools.drawChart(xyds1);
+//    NetworkTraitUtil.showRichClubChartByDegree(ug);
+//    XYDataset xyds1 = ChartTools.toXYDatasetFD(ug);
+//    XYDataset xyds = ChartTools.toXYDatasetRD(ug);
+//    ChartTools.drawChart(xyds);
+//    ChartTools.drawChart(xyds1);
   }
 }
