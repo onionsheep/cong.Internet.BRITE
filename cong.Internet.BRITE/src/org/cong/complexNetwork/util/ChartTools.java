@@ -89,17 +89,15 @@ public class ChartTools {
     List<Double> lx = new ArrayList<>();
     List<Double> ly = new ArrayList<>();
 
-    Set<Integer> ds = new HashSet<>();
-    int f = 1;
     for (int i = 0; i < na.length; i++) {
       int d = na[i].getDegree();
-      if (!ds.contains(d)) {
-        ds.add(d);
-        lx.add(1.0 * f);
-        ly.add(1.0 * d);
-        f += 1;
+      if (d != 0) {
+        lx.add(1.0 + i);
+        ly.add(1.0 * na[i].getDegree());
       }
+
     }
+
     return toLogLogXYDataset(lx, ly, "秩-度");
   }
 
@@ -111,10 +109,18 @@ public class ChartTools {
     List<Double> lx = new ArrayList<>();
     List<Double> ly = new ArrayList<>();
 
+    Set<Integer> ds = new HashSet<>();
+    int f = 1;
     for (int i = 0; i < na.length; i++) {
-      lx.add(1.0 + i);
-      ly.add(1.0 * na[i].getDegree());
+      int d = na[i].getDegree();
+      if (!ds.contains(d) && d!= 0) {
+        ds.add(d);
+        lx.add(1.0 * f);
+        ly.add(1.0 * d);
+        f += 1;
+      }
     }
+
     return toLogLogXYDataset(lx, ly, "频-度");
   }
 

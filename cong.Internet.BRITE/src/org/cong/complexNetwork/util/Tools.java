@@ -68,25 +68,11 @@ public class Tools {
     try {
       List<String> lines = FileUtils.readLines(f, "UTF-8");
       logger.debug("read ok");
-      Map<String, Node> snmap = new HashMap<>();
       for (String line : lines) {
         String[] p = line.split(" ");
         if (p.length >= 2) {
           Node n0 = new IPNode(p[0]);
           Node n1 = new IPNode(p[1]);
-//          Node n0;// = new IPNode(p[0]);
-//          Node n1;// = new IPNode(p[1]);
-//          n0 = snmap.get(p[0]);
-//          if (n0 == null) {
-//            n0 = new IPNode(p[0]);
-//            snmap.put(p[0], n0);
-//            //logger.debug("new node");
-//          }
-//          n1 = snmap.get(p[1]);
-//          if (n1 == null) {
-//            n1 = new IPNode(p[1]);
-//            snmap.put(p[1], n1);
-//          }
            if (!ug.addNode(n0)) {
            n0 = ug.getNode(n0);
            }
@@ -95,7 +81,6 @@ public class Tools {
            }
           ug.connect(n0, n1);
         }
-        ug.getNodes().addAll(snmap.values());
       }
     }
     catch (IOException e) {
