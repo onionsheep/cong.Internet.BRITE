@@ -3,7 +3,7 @@ package org.cong.complexNetwork.test;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.cong.complexNetwork.graph.UndirectedGraph;
-import org.cong.complexNetwork.model.BriteBAAndWaxman;
+import org.cong.complexNetwork.model.BriteBAAndWaxmanOld;
 import org.cong.complexNetwork.model.BriteCirclePlane;
 import org.cong.complexNetwork.model.BriteWaxman;
 import org.cong.complexNetwork.util.ChartTools;
@@ -24,7 +24,7 @@ public class TestChart {
     logger.debug("Edges " + bp.getGraph().getEdges().size());
 
     // BriteBA.generateEdges(bp, 6, 470);
-    BriteBAAndWaxman.generateEdges(bp, 5, 970, 0.6, 0.3);
+    BriteBAAndWaxmanOld.generateEdges(bp, 5, 970, 0.6, 0.3);
     // BriteTang.generateEdges(bp, 5, 900, 0.1);
 
     logger.debug("Nodes " + bp.getGraph().getNodes().size());

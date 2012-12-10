@@ -6,8 +6,10 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.cong.complexNetwork.graph.Node;
 import org.cong.complexNetwork.graph.UndirectedGraph;
+import org.cong.complexNetwork.util.ChartTools;
 import org.cong.complexNetwork.util.NetworkTraitUtil;
 import org.cong.complexNetwork.util.Tools;
+import org.jfree.data.xy.XYDataset;
 
 public class TestLNK {
   public static Logger logger = LogManager.getLogger(TestLNK.class);
@@ -42,10 +44,10 @@ public class TestLNK {
     // RichClubUtil.showRichClubChartByOrder(ug);
     logger.debug("同配性系数： " + NetworkTraitUtil.assortativityCoefficient(ug));
 
-    // NetworkTraitUtil.showRichClubChartByDegree(ug);
-    // XYDataset xyds1 = ChartTools.toXYDatasetFD(ug);
-    // XYDataset xyds = ChartTools.toXYDatasetRD(ug);
-    // ChartTools.drawChart(xyds);
-    // ChartTools.drawChart(xyds1);
+    NetworkTraitUtil.showRichClubChartByDegree(ug);
+    final XYDataset xyds1 = ChartTools.toXYDatasetFD(ug);
+    final XYDataset xyds = ChartTools.toXYDatasetRD(ug);
+    ChartTools.drawChart(xyds);
+    ChartTools.drawChart(xyds1);
   }
 }

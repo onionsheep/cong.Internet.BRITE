@@ -5,8 +5,7 @@ import java.util.Set;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.cong.complexNetwork.graph.BriteCoordinate;
-import org.cong.complexNetwork.graph.BriteEdge;
-import org.cong.complexNetwork.graph.BriteNode;
+import org.cong.complexNetwork.graph.Edge;
 import org.cong.complexNetwork.graph.Node;
 import org.cong.complexNetwork.model.BA;
 import org.cong.complexNetwork.model.BritePlane;
@@ -57,14 +56,14 @@ public class TestBA {
     final BriteCoordinate c1 = new BriteCoordinate(1, 1, 2, 3);
     // BriteCoordinate c2 = new BriteCoordinate(2, 1, 2, 3);
     // BriteCoordinate c3 = new BriteCoordinate(3, 1, 2, 3);
-    final BriteNode n0 = new BriteNode(0, c0);
-    final BriteNode n1 = new BriteNode(1L, c1);
+    final Node n0 = new Node(0L, c0);
+    final Node n1 = new Node(1L, c1);
     // BriteNode n2 = new BriteNode("2", c2);
     // BriteNode n3 = new BriteNode("3", c3);
 
-    final BriteEdge e0 = new BriteEdge(n0, n1);
-    final BriteEdge e1 = new BriteEdge(n1, n0);
-    final BriteEdge e2 = new BriteEdge(n1, n0);
+    final Edge e0 = new Edge(n0, n1);
+    final Edge e1 = new Edge(n1, n0);
+    final Edge e2 = new Edge(n1, n0);
 
     System.out.println(e0.equals(e1));
     System.out.println(e2.equals(e1));

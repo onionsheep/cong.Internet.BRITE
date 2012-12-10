@@ -13,15 +13,17 @@ public class BA {
   public static Logger logger = LogManager.getLogger(BA.class);
 
   /**
-   * @param oneNodeEdge
-   * @param undirectedGraph
+   * 在新节点和旧节点之间添加edgeCount条边
+   * 
+   * @param edgeCount
+   * @param ug
    * @param nodeArray
    * @param newNode
    * @param nodeProbability
-   *          在新节点和旧节点之间添加oneNodeEdge条边
+   * 
    * @throws Exception
    */
-  protected static void addEdges(int oneNodeEdge,
+  protected static void addEdges(int edgeCount,
                                  UndirectedGraph ug,
                                  Node[] nodeArray,
                                  double[] probabilities,
@@ -29,7 +31,7 @@ public class BA {
     double rand;
     boolean result;
     int m = 0;
-    while (m < oneNodeEdge) {
+    while (m < edgeCount) {
       rand = java.util.concurrent.ThreadLocalRandom.current().nextDouble();
       final int i = ArrayUtil.firstBigger(probabilities, rand);
       result = ug.connect(newNode, nodeArray[i]);
@@ -56,7 +58,6 @@ public class BA {
     final Node[] nodeArray = nodes.toArray(new Node[0]);
     for (int i = 0; i < nodeCount; i++) {
       final Node newNode = plane.randomNodeNoDuplication();
-
       final double[] probabilities = probability(nodeArray);
       // 添加oneNodeEdge条边，这oneNodeEdge添加边的时候不重新计算原来节点的度，概率
       addEdges(oneNodeEdge, ug, nodeArray, probabilities, newNode);

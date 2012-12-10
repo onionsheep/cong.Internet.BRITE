@@ -36,8 +36,7 @@ public class Edge {
       this.target = target;
       this.directed = directed;
       this.weight = weight;
-      source.connectNode(target);
-      target.connectNode(source);
+
     } else {
       throw new Exception("source and target can not be null");
     }

@@ -24,6 +24,10 @@ public class Node {
     this(idCounter--);
   }
 
+  public Node(Coordinate coordinate){
+    this(coordinate.toLong(), coordinate);
+  }
+
   /**
    * weight default = 0, treat as a weightless Node
    * 
@@ -36,7 +40,6 @@ public class Node {
   public Node(long id, Coordinate coordinate) {
     this(id, defaultWeight, coordinate);
   }
-
   /**
    * id is a String that can identify a Node. one Node, one id. Warn:Nothing
    * will happpen if you create two Node with the same id
@@ -70,15 +73,19 @@ public class Node {
 
   @Override
   public boolean equals(Object obj) {
-    if (this == obj)
+    if (this == obj) {
       return true;
-    if (obj == null)
+    }
+    if (obj == null) {
       return false;
-    if (this.getClass() != obj.getClass())
+    }
+    if (this.getClass() != obj.getClass()) {
       return false;
+    }
     final Node other = (Node) obj;
-    if (this.id != other.id)
+    if (this.id != other.id) {
       return false;
+    }
     return true;
   }
 
@@ -106,7 +113,7 @@ public class Node {
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + (int) (this.id ^ (this.id >>> 32));
+    result = (prime * result) + (int) (this.id ^ (this.id >>> 32));
     return result;
   }
 

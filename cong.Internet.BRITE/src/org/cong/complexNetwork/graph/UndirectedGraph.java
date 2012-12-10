@@ -31,12 +31,6 @@ public class UndirectedGraph {
     this.nodeMap = new HashMap<>();
   }
 
-  public boolean addEdge(Edge edge) {
-    boolean result;
-    result = this.edges.add(edge);
-    return result;
-  }
-
   public boolean addNode(Node node) {
     return this.nodes.add(node);
   }
@@ -52,9 +46,16 @@ public class UndirectedGraph {
   }
 
   public boolean connect(Node source, Node target) throws Exception {
+    if(source.equals(target)){
+      return false;
+    }
     boolean result = false;
     final Edge edge = new Edge(source, target);
-    result = this.addEdge(edge);
+    result = this.edges.add(edge);
+    if(result){
+      source.connectNode(target);
+      target.connectNode(source);
+    }
     return result;
   }
 
@@ -66,6 +67,10 @@ public class UndirectedGraph {
     boolean result = false;
     final Edge edge = new Edge(source, target);
     result = this.removeEdge(edge);
+    if(result){
+      source.disConnectNode(target);
+      target.disConnectNode(source);
+    }
     return result;
   }
 

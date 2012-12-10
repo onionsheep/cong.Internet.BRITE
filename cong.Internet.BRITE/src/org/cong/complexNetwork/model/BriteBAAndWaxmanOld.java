@@ -4,7 +4,7 @@ import org.cong.complexNetwork.graph.BriteNode;
 import org.cong.complexNetwork.graph.Node;
 import org.cong.complexNetwork.graph.UndirectedGraph;
 
-public class BriteBAAndWaxman extends BriteBA {
+public class BriteBAAndWaxmanOld extends BriteBA {
 
   public static void generateEdges(BritePlane britePlane,
                                    int oneNodeEdge,
@@ -66,8 +66,8 @@ public class BriteBAAndWaxman extends BriteBA {
                                              double maxEuclideanDistance) {
     double probabilityW;
     double euclideanDistance;
-    euclideanDistance = britePlane.EuclideanDistanceBetween(newNode.getBriteCoordinate(),
-                                                            oldNode.getBriteCoordinate());
+    euclideanDistance = britePlane.EuclideanDistanceBetween(newNode.getCoordinate(),
+                                                            oldNode.getCoordinate());
     probabilityW = alpha * Math.exp(-euclideanDistance / (beta * maxEuclideanDistance));
     return probabilityW;
   }

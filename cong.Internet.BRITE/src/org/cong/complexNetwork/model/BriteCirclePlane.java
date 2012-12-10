@@ -1,7 +1,7 @@
 package org.cong.complexNetwork.model;
 
 import org.cong.complexNetwork.graph.BriteCoordinate;
-import org.cong.complexNetwork.graph.BriteNode;
+import org.cong.complexNetwork.graph.Node;
 
 public class BriteCirclePlane extends BritePlane {
 
@@ -13,28 +13,28 @@ public class BriteCirclePlane extends BritePlane {
 
   public BriteCirclePlane(int hs, int ls, double radius) {
     super(hs, ls);
-    if (2 * radius > ls) {
+    if ((2 * radius) > ls) {
       radius = ls / 2.0;
     }
     this.radius = radius;
   }
 
   @Override
-  public BriteNode randomNode() throws Exception {
-    BriteNode briteNode = null;
+  public Node randomNode() throws Exception {
+    Node node = null;
     boolean outCircle = true;
     while (outCircle) {
-      briteNode = super.randomNode();
-      final BriteCoordinate briteCoordinate = briteNode.getBriteCoordinate();
+      node = super.randomNode();
+      final BriteCoordinate briteCoordinate = (BriteCoordinate)node.getCoordinate();
       int x = briteCoordinate.getLx();
       int y = briteCoordinate.getLy();
-      x = x - this.ls / 2;
-      y = y - this.ls / 2;
-      if (x * x + y * y < this.radius * this.radius) {
+      x = x - (this.ls / 2);
+      y = y - (this.ls / 2);
+      if (((x * x) + (y * y)) < (this.radius * this.radius)) {
         outCircle = false;
       }
     }
-    return briteNode;
+    return node;
   }
 
 }
