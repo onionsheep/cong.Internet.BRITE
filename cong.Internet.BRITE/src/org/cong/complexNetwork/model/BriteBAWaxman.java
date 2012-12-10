@@ -66,17 +66,14 @@ public class BriteBAWaxman extends BA {
     final double[] numerators = new double[count];
     for (int i = 0; i < count; i++) {
       final double pw = alpha
-          * Math.exp(-plane.EuclideanDistanceBetween(node.getCoordinate(),
-                                                     nodeArray[i].getCoordinate())
+          * Math.exp(-plane.EuclideanDistanceBetween(node.getPoint(),
+                                                     nodeArray[i].getPoint())
                                                      / bm);
       numerators[i] = nodeArray[i].getDegree() * pw;
       denominator += numerators[i];
     }
-    double s = 0;
-
     // 把每一个节点的概率放到0,1的区间上
     for (int i = 0; i < count; i++) {
-      s += numerators[i];
       p += numerators[i] / denominator;
       probability[i] = p;
     }

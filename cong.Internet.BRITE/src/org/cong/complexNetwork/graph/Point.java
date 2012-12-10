@@ -1,10 +1,10 @@
 package org.cong.complexNetwork.graph;
 
-public class Coordinate {
+public class Point {
   protected int x;
   protected int y;
 
-  public Coordinate(int x, int y) {
+  public Point(int x, int y) {
     super();
     this.x = x;
     this.y = y;
@@ -18,7 +18,7 @@ public class Coordinate {
       return false;
     if (this.getClass() != obj.getClass())
       return false;
-    final Coordinate other = (Coordinate) obj;
+    final Point other = (Point) obj;
     if (this.x != other.x)
       return false;
     if (this.y != other.y)
@@ -26,7 +26,7 @@ public class Coordinate {
     return true;
   }
 
-  public Double EuclideanDistanceTo(Coordinate other) {
+  public Double EuclideanDistanceTo(Point other) {
     Double dis = null;
     dis = Math.sqrt(Math.pow((other.getX() - this.x), 2) + Math.pow((other.getY() - this.y), 2));
     return dis;
@@ -49,12 +49,12 @@ public class Coordinate {
     return result;
   }
 
-  public Coordinate setX(int x) {
+  public Point setX(int x) {
     this.x = x;
     return this;
   }
 
-  public Coordinate setY(int y) {
+  public Point setY(int y) {
     this.y = y;
     return this;
   }

@@ -5,7 +5,7 @@ import java.util.Set;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.cong.complexNetwork.graph.Coordinate;
+import org.cong.complexNetwork.graph.Point;
 import org.cong.complexNetwork.graph.Node;
 import org.cong.complexNetwork.graph.UndirectedGraph;
 
@@ -44,13 +44,11 @@ public class Plane {
     }
   }
 
-  public double EuclideanDistanceBetween(Coordinate u, Coordinate v) {
+  public double EuclideanDistanceBetween(Point u, Point v) {
     double dis = 0;
-    final int ux = u.getX();
-    final int uy = u.getY();
-    final int vx = v.getX();
-    final int vy = v.getY();
-    dis = Math.sqrt(Math.pow((ux - vx), 2) + Math.pow((uy - vy), 2));
+    final int xd = u.getX() - v.getX();
+    final int yd = u.getY() - v.getY();
+    dis = Math.sqrt((xd * xd) + (yd * yd));
     return dis;
   }
 
@@ -66,6 +64,8 @@ public class Plane {
     return this.width;
   }
 
+  //TODO : 搞一个更高效的算法求最远距离
+  //http://blog.csdn.net/zmlcool/article/details/6727351
   public double MaxEuclideanDistance() {
     double maxDis = 0.0;
     final Set<Node> nodes = this.ug.getNodes();
@@ -74,8 +74,8 @@ public class Plane {
     for (final Node node : nodes) {
       nodesRemain.remove(node);
       for (final Node node2 : nodesRemain) {
-        final double dis = this.EuclideanDistanceBetween(node.getCoordinate(),
-                                                         node2.getCoordinate());
+        final double dis = this.EuclideanDistanceBetween(node.getPoint(),
+                                                         node2.getPoint());
         if (maxDis < dis) {
           maxDis = dis;
         }
@@ -88,8 +88,8 @@ public class Plane {
     Node node = null;
     final int x = java.util.concurrent.ThreadLocalRandom.current().nextInt(this.width);
     final int y = java.util.concurrent.ThreadLocalRandom.current().nextInt(this.height);
-    final Coordinate coordinate = new Coordinate(x, y);
-    node = new Node(coordinate.toLong(), coordinate);
+    final Point point = new Point(x, y);
+    node = new Node(point.toLong(), point);
     return node;
   }
 

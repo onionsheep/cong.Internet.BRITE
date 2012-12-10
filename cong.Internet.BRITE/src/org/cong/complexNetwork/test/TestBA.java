@@ -4,7 +4,7 @@ import java.util.Set;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.cong.complexNetwork.graph.BriteCoordinate;
+import org.cong.complexNetwork.graph.BritePoint;
 import org.cong.complexNetwork.graph.Edge;
 import org.cong.complexNetwork.graph.Node;
 import org.cong.complexNetwork.model.BA;
@@ -52,8 +52,8 @@ public class TestBA {
   }
 
   public static void testBriteNodeEquals() throws Exception {
-    final BriteCoordinate c0 = new BriteCoordinate(0, 1, 2, 3);
-    final BriteCoordinate c1 = new BriteCoordinate(1, 1, 2, 3);
+    final BritePoint c0 = new BritePoint(0, 1, 2, 3);
+    final BritePoint c1 = new BritePoint(1, 1, 2, 3);
     // BriteCoordinate c2 = new BriteCoordinate(2, 1, 2, 3);
     // BriteCoordinate c3 = new BriteCoordinate(3, 1, 2, 3);
     final Node n0 = new Node(0L, c0);

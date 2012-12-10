@@ -1,6 +1,6 @@
 package org.cong.complexNetwork.graph;
 
-public class BriteCoordinate extends Coordinate {
+public class BritePoint extends Point {
   protected Integer hx;
   protected Integer hy;
   protected Integer lx;
@@ -9,7 +9,7 @@ public class BriteCoordinate extends Coordinate {
   private static int halfSizeOfInteger = Integer.SIZE / 2;
   private static int maxInt = Integer.MAX_VALUE / 2;
 
-  public BriteCoordinate(Integer hx, Integer hy, Integer lx, Integer ly) throws Exception {
+  public BritePoint(Integer hx, Integer hy, Integer lx, Integer ly) throws Exception {
     super(hx << halfSizeOfInteger ^ lx, hy << halfSizeOfInteger ^ ly);
     this.hx = hx;
     this.hy = hy;
@@ -28,7 +28,7 @@ public class BriteCoordinate extends Coordinate {
       return false;
     if (this.getClass() != obj.getClass())
       return false;
-    final BriteCoordinate other = (BriteCoordinate) obj;
+    final BritePoint other = (BritePoint) obj;
     if (this.toLong() == other.toLong()) {
       return true;
     } else {

@@ -31,7 +31,7 @@ public class BriteWaxman {
       nodesR.remove(u);
       for (final Node v : nodesR) {
         rand = java.util.concurrent.ThreadLocalRandom.current().nextDouble();
-        ed = bp.EuclideanDistanceBetween(u.getCoordinate(), v.getCoordinate());
+        ed = bp.EuclideanDistanceBetween(u.getPoint(), v.getPoint());
         p = a * Math.exp(-ed / (b * maxEd));
         if (rand <= p) {
           ug.connect(u, v);

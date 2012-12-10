@@ -66,8 +66,8 @@ public class BriteBAAndWaxmanOld extends BriteBA {
                                              double maxEuclideanDistance) {
     double probabilityW;
     double euclideanDistance;
-    euclideanDistance = britePlane.EuclideanDistanceBetween(newNode.getCoordinate(),
-                                                            oldNode.getCoordinate());
+    euclideanDistance = britePlane.EuclideanDistanceBetween(newNode.getPoint(),
+                                                            oldNode.getPoint());
     probabilityW = alpha * Math.exp(-euclideanDistance / (beta * maxEuclideanDistance));
     return probabilityW;
   }
