@@ -24,20 +24,25 @@ public class BritePlane extends Plane {
     this.undirectedGraph = this.briteGraph;
   }
 
+  @Override
   public BriteNode addOneRandomNode() throws Exception {
     boolean result = true;
     BriteNode node = null;
     while (result) {
       node = this.randomNodeNoDuplication();
-      result = !this.briteGraph.getBriteNodes().add(node);
+      result = !this.briteGraph.addNode(node);
+      //result = !this.briteGraph.getBriteNodes().add(node);
     }
     return node;
   }
 
+  @Override
   public boolean addRandomNode() throws Exception {
-    return this.briteGraph.getBriteNodes().add(randomNodeNoDuplication());
+    return this.briteGraph.addNode(this.randomNodeNoDuplication());
+    //return this.briteGraph.getBriteNodes().add(this.randomNodeNoDuplication());
   }
 
+  @Override
   public void addRandomNodes(int count) throws Exception {
     int i = 0;
     while (i < count) {
@@ -49,24 +54,24 @@ public class BritePlane extends Plane {
 
   public double EuclideanDistanceBetween(BriteCoordinate u, BriteCoordinate v) {
     double dis = 0.0;
-    int ux = u.getHx() + u.getLx() * ls;
-    int uy = u.getHy() + u.getLy() * ls;
-    int vx = v.getHx() + v.getLx() * ls;
-    int vy = v.getHy() + v.getLy() * ls;
+    final int ux = u.getHx() + (u.getLx() * this.ls);
+    final int uy = u.getHy() + (u.getLy() * this.ls);
+    final int vx = v.getHx() + (v.getLx() * this.ls);
+    final int vy = v.getHy() + (v.getLy() * this.ls);
     dis = Math.sqrt(Math.pow((ux - vx), 2) + Math.pow((uy - vy), 2));
     return dis;
   }
 
   public BriteGraph getBriteGraph() {
-    return briteGraph;
+    return this.briteGraph;
   }
 
   public int getHs() {
-    return hs;
+    return this.hs;
   }
 
   public int getLs() {
-    return ls;
+    return this.ls;
   }
 
   // TODO: write a better function to calculate the max distance
@@ -80,16 +85,17 @@ public class BritePlane extends Plane {
   // return maxDis;
   // }
 
+  @Override
   public double MaxEuclideanDistance() {
     double maxDis = 0.0;
-    Set<BriteNode> nodes = briteGraph.getBriteNodes();
-    Set<BriteNode> nodesRemain = new HashSet<>();
+    final Set<BriteNode> nodes = this.briteGraph.getBriteNodes();
+    final Set<BriteNode> nodesRemain = new HashSet<>();
     nodesRemain.addAll(nodes);
-    for (BriteNode node : nodes) {
+    for (final BriteNode node : nodes) {
       nodesRemain.remove(node);
-      for (BriteNode node2 : nodesRemain) {
-        double dis = this.EuclideanDistanceBetween(node.getBriteCoordinate(),
-                                                   node2.getBriteCoordinate());
+      for (final BriteNode node2 : nodesRemain) {
+        final double dis = this.EuclideanDistanceBetween(node.getBriteCoordinate(),
+                                                         node2.getBriteCoordinate());
         if (maxDis < dis) {
           maxDis = dis;
         }
@@ -98,17 +104,19 @@ public class BritePlane extends Plane {
     return maxDis;
   }
 
+  @Override
   public BriteNode randomNode() throws Exception {
     BriteNode node = null;
-    int hx = java.util.concurrent.ThreadLocalRandom.current().nextInt(hs);
-    int hy = java.util.concurrent.ThreadLocalRandom.current().nextInt(hs);
-    int lx = java.util.concurrent.ThreadLocalRandom.current().nextInt(ls);
-    int ly = java.util.concurrent.ThreadLocalRandom.current().nextInt(ls);
-    BriteCoordinate briteCoordinate = new BriteCoordinate(hx, hy, lx, ly);
+    final int hx = java.util.concurrent.ThreadLocalRandom.current().nextInt(this.hs);
+    final int hy = java.util.concurrent.ThreadLocalRandom.current().nextInt(this.hs);
+    final int lx = java.util.concurrent.ThreadLocalRandom.current().nextInt(this.ls);
+    final int ly = java.util.concurrent.ThreadLocalRandom.current().nextInt(this.ls);
+    final BriteCoordinate briteCoordinate = new BriteCoordinate(hx, hy, lx, ly);
     node = new BriteNode(briteCoordinate);
     return node;
   }
 
+  @Override
   public BriteNode randomNodeNoDuplication() throws Exception {
     boolean result = true;
     BriteNode node = null;

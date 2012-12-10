@@ -11,7 +11,7 @@ public class Node {
   public static Logger logger = LogManager.getLogger(Node.class);
 
   private static long idCounter = -1;
-  
+
   protected long id;
   protected double weight;
   protected int degree;
@@ -19,11 +19,11 @@ public class Node {
   protected Coordinate coordinate;
 
   private static final double defaultWeight = 0;
-  
-  public Node(){
-    this(idCounter--);  
+
+  public Node() {
+    this(idCounter--);
   }
-  
+
   /**
    * weight default = 0, treat as a weightless Node
    * 
@@ -53,7 +53,7 @@ public class Node {
   }
 
   public boolean connectNode(Node node) {
-    boolean result = this.connectedNodes.add(node);
+    final boolean result = this.connectedNodes.add(node);
     if (result) {
       this.degree += 1;
     }
@@ -61,7 +61,7 @@ public class Node {
   }
 
   public boolean disConnectNode(Node node) {
-    boolean result = this.connectedNodes.remove(node);
+    final boolean result = this.connectedNodes.remove(node);
     if (result) {
       this.degree -= 1;
     }
@@ -74,39 +74,39 @@ public class Node {
       return true;
     if (obj == null)
       return false;
-    if (getClass() != obj.getClass())
+    if (this.getClass() != obj.getClass())
       return false;
-    Node other = (Node) obj;
-    if (id != other.id)
+    final Node other = (Node) obj;
+    if (this.id != other.id)
       return false;
     return true;
   }
 
   public Set<Node> getConnectedNodes() {
-    return connectedNodes;
+    return this.connectedNodes;
   }
 
   public Coordinate getCoordinate() {
-    return coordinate;
+    return this.coordinate;
   }
 
   public int getDegree() {
-    return degree;
+    return this.degree;
   }
 
   public long getId() {
-    return id;
+    return this.id;
   }
 
   public double getWeight() {
-    return weight;
+    return this.weight;
   }
 
   @Override
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + (int) (id ^ (id >>> 32));
+    result = prime * result + (int) (this.id ^ (this.id >>> 32));
     return result;
   }
 
@@ -116,11 +116,11 @@ public class Node {
 
   @Override
   public String toString() {
-    StringBuilder builder = new StringBuilder();
+    final StringBuilder builder = new StringBuilder();
     builder.append("Node [id=");
-    builder.append(id);
+    builder.append(this.id);
     builder.append(", degree=");
-    builder.append(degree);
+    builder.append(this.degree);
     builder.append("]");
     return builder.toString();
   }

@@ -19,37 +19,40 @@ public class BriteNode extends Node {
       return true;
     if (!super.equals(obj))
       return false;
-    if (getClass() != obj.getClass())
+    if (this.getClass() != obj.getClass())
       return false;
-    BriteNode other = (BriteNode) obj;
-    if (briteCoordinate == null) {
+    final BriteNode other = (BriteNode) obj;
+    if (this.briteCoordinate == null) {
       if (other.briteCoordinate != null)
         return false;
-    } else if (!briteCoordinate.equals(other.briteCoordinate))
+    } else if (!this.briteCoordinate.equals(other.briteCoordinate))
       return false;
     return true;
   }
 
   public BriteCoordinate getBriteCoordinate() {
-    return briteCoordinate;
+    return this.briteCoordinate;
   }
 
   @Override
   public int hashCode() {
     final int prime = 31;
     int result = super.hashCode();
-    result = prime * result + ((briteCoordinate == null) ? 0 : briteCoordinate.hashCode());
+    result = prime
+             * result
+             + ((this.briteCoordinate == null) ? 0 : this.briteCoordinate.hashCode());
     return result;
   }
 
   @Override
   public String toString() {
-    StringBuilder builder = new StringBuilder();
-    builder.append("BriteNode [");;
+    final StringBuilder builder = new StringBuilder();
+    builder.append("BriteNode [");
+    ;
     builder.append("degree=");
-    builder.append(degree);
+    builder.append(this.degree);
     builder.append(", id=");
-    builder.append(id);
+    builder.append(this.id);
     builder.append("]");
     return builder.toString();
   }

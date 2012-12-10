@@ -16,8 +16,9 @@ public class BriteGraph extends UndirectedGraph {
 
   public BriteGraph() {
     super();
-    briteNodes = new HashSet<>();
+    this.briteNodes = new HashSet<>();
   }
+
 
   @Override
   public boolean connect(Node u, Node v) throws Exception {
@@ -27,7 +28,7 @@ public class BriteGraph extends UndirectedGraph {
     boolean result = false;
     boolean r1 = false;
     boolean r2 = false;
-    Edge edge = new Edge(u, v);
+    final Edge edge = new Edge(u, v);
     result = this.edges.add(edge);
     if (result) {
       r1 = u.connectNode(v);
@@ -40,24 +41,24 @@ public class BriteGraph extends UndirectedGraph {
   }
 
   public Set<BriteNode> getBriteNodes() {
-    return briteNodes;
+    return this.briteNodes;
   }
 
   @Override
   public Set<Node> getNodes() {
-    super.nodes = SetUtils.typedSet(briteNodes, Node.class);
+    super.nodes = SetUtils.typedSet(this.briteNodes, Node.class);
     return super.getNodes();
   }
 
   @Override
   public double[][] toAdjacentMatrix() {
-    nodes = SetUtils.typedSet(briteNodes, Node.class);
+    this.nodes = SetUtils.typedSet(this.briteNodes, Node.class);
     return super.toAdjacentMatrix();
   }
 
   @Override
   public Gexf toGexf() {
-    nodes = SetUtils.typedSet(briteNodes, Node.class);
+    this.nodes = SetUtils.typedSet(this.briteNodes, Node.class);
     return super.toGexf();
   }
 }

@@ -6,7 +6,11 @@ import org.cong.complexNetwork.graph.Node;
 
 public class NodeDegreeComparator implements Comparator<Node> {
 
-  private String order;
+  private final String order;
+
+  public NodeDegreeComparator() {
+    this.order = "asc";
+  }
 
   /**
    * @param order
@@ -16,16 +20,12 @@ public class NodeDegreeComparator implements Comparator<Node> {
     this.order = order;
   }
 
-  public NodeDegreeComparator() {
-    this.order = "asc";
-  }
-
   @Override
   public int compare(Node n1, Node n2) {
     int result = 0;
     // 未考虑对象为null的情况
 
-    int d = n1.getDegree() - n2.getDegree();
+    final int d = n1.getDegree() - n2.getDegree();
     if (d > 0) {
       result = 1;
     } else if (d < 0) {
@@ -33,7 +33,7 @@ public class NodeDegreeComparator implements Comparator<Node> {
     } else {
       result = 0;
     }
-    if (!order.equals("asc")) {
+    if (!this.order.equals("asc")) {
       result = -result;
     }
     return result;

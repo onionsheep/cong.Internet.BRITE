@@ -10,53 +10,53 @@ public class Sparse<T> {
   protected List<T> vl;
 
   public Sparse() {
-    xl = new ArrayList<>();
-    yl = new ArrayList<>();
-    vl = new ArrayList<>();
+    this.xl = new ArrayList<>();
+    this.yl = new ArrayList<>();
+    this.vl = new ArrayList<>();
   }
 
   public void addElement(int x, int y, T value) {
-    xl.add(x);
-    yl.add(y);
-    vl.add(value);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder builder = new StringBuilder();
-    builder.append("Sparse [xl=");
-    builder.append(xl);
-    builder.append(", yl=");
-    builder.append(yl);
-    builder.append(", vl=");
-    builder.append(vl);
-    builder.append("]");
-    return builder.toString();
+    this.xl.add(x);
+    this.yl.add(y);
+    this.vl.add(value);
   }
 
   public String toMatlabString() {
-    StringBuffer sb = new StringBuffer();
+    final StringBuffer sb = new StringBuffer();
     sb.append("xl = [");
-    int l = vl.size();
+    final int l = this.vl.size();
     for (int i = 0; i < l; i++) {
-      sb.append(xl.get(i));
+      sb.append(this.xl.get(i));
       sb.append(", ");
     }
     sb.append("];\n");
     sb.append("yl = [");
     for (int i = 0; i < l; i++) {
-      sb.append(yl.get(i));
+      sb.append(this.yl.get(i));
       sb.append(", ");
     }
     sb.append("];\n");
     sb.append("vl = [");
     for (int i = 0; i < l; i++) {
-      sb.append(vl.get(i));
+      sb.append(this.vl.get(i));
       sb.append(", ");
     }
     sb.append("];\n");
     sb.append("S = sparse(xl, yl, vl);");
     return sb.toString();
   }
-  
+
+  @Override
+  public String toString() {
+    final StringBuilder builder = new StringBuilder();
+    builder.append("Sparse [xl=");
+    builder.append(this.xl);
+    builder.append(", yl=");
+    builder.append(this.yl);
+    builder.append(", vl=");
+    builder.append(this.vl);
+    builder.append("]");
+    return builder.toString();
+  }
+
 }

@@ -29,22 +29,45 @@ public class Tools {
     return java.util.concurrent.ThreadLocalRandom.current().nextInt(n);
   }
 
-  public static void writeGexfFile(Gexf gexf, String filePath) {
-    StaxGraphWriter graphWriter = new StaxGraphWriter();
-    File f = new File(filePath);
-    Writer out;
+  public static UndirectedGraph readIPNodesFromLnkFile(String filePath) throws Exception {
+    final UndirectedGraph ug = new UndirectedGraph();
+    final File f = new File(filePath);
+    final Map<Node, Node> nnmap = new HashMap<>();
     try {
-      out = new FileWriter(f, false);
-      graphWriter.writeToStream(gexf, out, "UTF-8");
-      logger.info(f.getAbsolutePath());
+      final List<String> lines = FileUtils.readLines(f, "UTF-8");
+      logger.debug("read ok");
+      for (final String line : lines) {
+        final String[] p = line.split(" ");
+        if (p.length >= 2) {
+          Node n0 = new IPNode(p[0]);
+          final Node n1 = new IPNode(p[1]);
+          /*
+           * HashMap.put:添加成功返回null，key已存在则返回原来的value
+           */
+          if (nnmap.containsKey(n0)) {
+            n0 = nnmap.get(n0);
+          } else {
+            nnmap.put(n0, n0);
+          }
+          if (nnmap.containsKey(n1)) {
+            n0 = nnmap.get(n1);
+          } else {
+            nnmap.put(n1, n1);
+          }
+          ug.connect(n0, n1);
+        }
+      }
+      ug.getNodes().addAll(nnmap.values());
     }
-    catch (IOException e) {
+    catch (final IOException e) {
+      logger.debug("Read file error");
       e.printStackTrace();
     }
+    return ug;
   }
 
   public static void writeAdjacentMatrixtoFile(double[][] am, String filePath) throws IOException {
-    StringBuffer sb = new StringBuffer();
+    final StringBuffer sb = new StringBuffer();
     sb.append("AM = [\n");
     for (int i = 0; i < am.length; i++) {
       for (int j = 0; j < am[0].length; j++) {
@@ -58,36 +81,21 @@ public class Tools {
       }
     }
     sb.append("];");
-    File f = new File(filePath);
+    final File f = new File(filePath);
     FileUtils.writeStringToFile(f, sb.toString(), "UTF-8");
   }
 
-  public static UndirectedGraph readIPNodesFromLnkFile(String filePath) throws Exception {
-    UndirectedGraph ug = new UndirectedGraph();
-    File f = new File(filePath);
+  public static void writeGexfFile(Gexf gexf, String filePath) {
+    final StaxGraphWriter graphWriter = new StaxGraphWriter();
+    final File f = new File(filePath);
+    Writer out;
     try {
-      List<String> lines = FileUtils.readLines(f, "UTF-8");
-      logger.debug("read ok");
-      for (String line : lines) {
-        String[] p = line.split(" ");
-        if (p.length >= 2) {
-          Node n0 = new IPNode(p[0]);
-          Node n1 = new IPNode(p[1]);
-           if (!ug.addNode(n0)) {
-           n0 = ug.getNode(n0);
-           }
-           if (!ug.addNode(n1)) {
-           n1 = ug.getNode(n1);
-           }
-          ug.connect(n0, n1);
-        }
-      }
+      out = new FileWriter(f, false);
+      graphWriter.writeToStream(gexf, out, "UTF-8");
+      logger.info(f.getAbsolutePath());
     }
-    catch (IOException e) {
-      logger.debug("Read file error");
+    catch (final IOException e) {
       e.printStackTrace();
     }
-    return ug;
   }
-
 }

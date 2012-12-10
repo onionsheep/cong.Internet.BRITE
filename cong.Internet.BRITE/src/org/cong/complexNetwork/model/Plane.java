@@ -6,8 +6,8 @@ import java.util.Set;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.cong.complexNetwork.graph.Coordinate;
-import org.cong.complexNetwork.graph.UndirectedGraph;
 import org.cong.complexNetwork.graph.Node;
+import org.cong.complexNetwork.graph.UndirectedGraph;
 
 public class Plane {
   public static Logger logger = LogManager.getLogger(Plane.class);
@@ -32,7 +32,7 @@ public class Plane {
   }
 
   public boolean addRandomNode() throws Exception {
-    return this.undirectedGraph.getNodes().add(randomNodeNoDuplication());
+    return this.undirectedGraph.getNodes().add(this.randomNodeNoDuplication());
   }
 
   public void addRandomNodes(int count) throws Exception {
@@ -46,35 +46,36 @@ public class Plane {
 
   public double EuclideanDistanceBetween(Coordinate u, Coordinate v) {
     double dis = 0;
-    int ux = u.getX();
-    int uy = u.getY();
-    int vx = v.getX();
-    int vy = v.getY();
+    final int ux = u.getX();
+    final int uy = u.getY();
+    final int vx = v.getX();
+    final int vy = v.getY();
     dis = Math.sqrt(Math.pow((ux - vx), 2) + Math.pow((uy - vy), 2));
     return dis;
   }
 
   public UndirectedGraph getGraph() {
-    return undirectedGraph;
+    return this.undirectedGraph;
   }
 
   public int getHeight() {
-    return height;
+    return this.height;
   }
 
   public int getWidth() {
-    return width;
+    return this.width;
   }
 
   public double MaxEuclideanDistance() {
     double maxDis = 0.0;
-    Set<Node> nodes = undirectedGraph.getNodes();
-    Set<Node> nodesRemain = new HashSet<>();
+    final Set<Node> nodes = this.undirectedGraph.getNodes();
+    final Set<Node> nodesRemain = new HashSet<>();
     nodesRemain.addAll(nodes);
-    for (Node node : nodes) {
+    for (final Node node : nodes) {
       nodesRemain.remove(node);
-      for (Node node2 : nodesRemain) {
-        double dis = this.EuclideanDistanceBetween(node.getCoordinate(), node2.getCoordinate());
+      for (final Node node2 : nodesRemain) {
+        final double dis = this.EuclideanDistanceBetween(node.getCoordinate(),
+                                                         node2.getCoordinate());
         if (maxDis < dis) {
           maxDis = dis;
         }
@@ -85,10 +86,9 @@ public class Plane {
 
   public Node randomNode() throws Exception {
     Node node = null;
-    logger.debug(1);
-    int x = java.util.concurrent.ThreadLocalRandom.current().nextInt(width);
-    int y = java.util.concurrent.ThreadLocalRandom.current().nextInt(height);
-    Coordinate coordinate = new Coordinate(x, y);
+    final int x = java.util.concurrent.ThreadLocalRandom.current().nextInt(this.width);
+    final int y = java.util.concurrent.ThreadLocalRandom.current().nextInt(this.height);
+    final Coordinate coordinate = new Coordinate(x, y);
     node = new Node(coordinate.toLong(), coordinate);
     return node;
   }

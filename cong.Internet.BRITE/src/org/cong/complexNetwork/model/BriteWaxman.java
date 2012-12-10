@@ -7,37 +7,36 @@ import org.cong.complexNetwork.graph.BriteGraph;
 import org.cong.complexNetwork.graph.BriteNode;
 
 public class BriteWaxman {
-
-  public static void generateEdges(BritePlane britePlane, double alpha, double beta) throws Exception {
+  /**
+   * 
+   * @param bp
+   *          平面
+   * @param a
+   *          alpha
+   * @param b
+   *          beta
+   * @throws Exception
+   */
+  public static void generateEdges(BritePlane bp, double a, double b) throws Exception {
     double rand = 0.0;
-    double probability = 0.0;
-    double euclideanDistance = 0;
-    double maxEuclideanDistance = britePlane.MaxEuclideanDistance();
-    BriteGraph graph = britePlane.getBriteGraph();
-    Set<BriteNode> nodes = graph.getBriteNodes();
-    BriteNode[] nodeArray = nodes.toArray(new BriteNode[0]);
-    Set<BriteNode> nodesRemain = new HashSet<>();
-    nodesRemain.addAll(nodes);
-    for (BriteNode u : nodeArray) {
-      nodesRemain.remove(u);
-      for (BriteNode v : nodesRemain) {
+    double p = 0; // 概率
+    double ed = 0; // 欧氏距离
+    final double maxEd = bp.MaxEuclideanDistance();// 最大欧氏距离
+    final BriteGraph bg = bp.getBriteGraph();
+    final Set<BriteNode> nodes = bg.getBriteNodes();
+    final BriteNode[] na = nodes.toArray(new BriteNode[0]);
+    final Set<BriteNode> nodesR = new HashSet<>();
+    nodesR.addAll(nodes);
+    for (final BriteNode u : na) {
+      nodesR.remove(u);
+      for (final BriteNode v : nodesR) {
         rand = java.util.concurrent.ThreadLocalRandom.current().nextDouble();
-        euclideanDistance = britePlane.EuclideanDistanceBetween(u.getBriteCoordinate(),
-                                                                v.getBriteCoordinate());
-        probability = probability(alpha, beta, euclideanDistance, maxEuclideanDistance);
-        if (rand <= probability) {
-          graph.connect(u, v);
+        ed = bp.EuclideanDistanceBetween(u.getBriteCoordinate(), v.getBriteCoordinate());
+        p = a * Math.exp(-ed / (b * maxEd));
+        if (rand <= p) {
+          bg.connect(u, v);
         }
       }
     }
-  }
-
-  public static double probability(double alpha,
-                                   double beta,
-                                   double euclideanDistance,
-                                   double maxEuclideanDistance) {
-    double probability = 0;
-    probability = alpha * Math.exp(-euclideanDistance / (beta * maxEuclideanDistance));
-    return probability;
   }
 }

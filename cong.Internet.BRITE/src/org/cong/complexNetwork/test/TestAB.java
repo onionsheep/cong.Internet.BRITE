@@ -12,9 +12,9 @@ public class TestAB {
   public static Logger logger = LogManager.getLogger(TestAB.class);
 
   public static void main(String[] args) throws Exception {
-    UndirectedGraph ug = new UndirectedGraph();
-    int m0 = 10;
-    int steps = 3000;
+    final UndirectedGraph ug = new UndirectedGraph();
+    final int m0 = 10;
+    final int steps = 3000;
 
     for (int i = 0; i < m0; i++) {
       ug.getNodes().add(AB.newNode());
@@ -33,7 +33,7 @@ public class TestAB {
     // System.out.println();
     // }
 
-    Gexf gexf = ug.toGexf();
+    final Gexf gexf = ug.toGexf();
     logger.debug("generating file...");
     Tools.writeGexfFile(gexf, "testAB.gexf");
   }

@@ -16,36 +16,36 @@ public class Coordinate {
       return true;
     if (obj == null)
       return false;
-    if (getClass() != obj.getClass())
+    if (this.getClass() != obj.getClass())
       return false;
-    Coordinate other = (Coordinate) obj;
-    if (x != other.x)
+    final Coordinate other = (Coordinate) obj;
+    if (this.x != other.x)
       return false;
-    if (y != other.y)
+    if (this.y != other.y)
       return false;
     return true;
   }
 
   public Double EuclideanDistanceTo(Coordinate other) {
     Double dis = null;
-    dis = Math.sqrt(Math.pow((other.getX() - x), 2) + Math.pow((other.getY() - y), 2));
+    dis = Math.sqrt(Math.pow((other.getX() - this.x), 2) + Math.pow((other.getY() - this.y), 2));
     return dis;
   }
 
   public int getX() {
-    return x;
+    return this.x;
   }
 
   public int getY() {
-    return y;
+    return this.y;
   }
 
   @Override
   public int hashCode() {
     final int prime = 10007;
     int result = 1;
-    result = prime * result + x;
-    result = prime * result + y;
+    result = prime * result + this.x;
+    result = prime * result + this.y;
     return result;
   }
 
@@ -60,8 +60,8 @@ public class Coordinate {
   }
 
   public long toLong() {
-    long l = x;
-    return l << Integer.SIZE ^ y;
+    final long l = this.x;
+    return l << Integer.SIZE ^ this.y;
   }
 
 }

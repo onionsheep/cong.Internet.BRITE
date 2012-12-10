@@ -25,20 +25,23 @@ public class ChartTools {
   public static Logger logger = LogManager.getLogger(ChartTools.class);
 
   public static void drawChart(XYDataset xyds) {
-    NumberAxis localNumberAxis1 = new NumberAxis("X");
+    final NumberAxis localNumberAxis1 = new NumberAxis("X");
     localNumberAxis1.setAutoRangeIncludesZero(false);
-    NumberAxis localNumberAxis2 = new NumberAxis("Y");
+    final NumberAxis localNumberAxis2 = new NumberAxis("Y");
     localNumberAxis2.setAutoRangeIncludesZero(false);
-    XYSplineRenderer localXYSplineRenderer = new XYSplineRenderer();
-    XYPlot localXYPlot = new XYPlot(xyds, localNumberAxis1, localNumberAxis2, localXYSplineRenderer);
-    JFreeChart localJFreeChart = new JFreeChart("",
-                                                JFreeChart.DEFAULT_TITLE_FONT,
-                                                localXYPlot,
-                                                true);
+    final XYSplineRenderer localXYSplineRenderer = new XYSplineRenderer();
+    final XYPlot localXYPlot = new XYPlot(xyds,
+                                          localNumberAxis1,
+                                          localNumberAxis2,
+                                          localXYSplineRenderer);
+    final JFreeChart localJFreeChart = new JFreeChart("",
+                                                      JFreeChart.DEFAULT_TITLE_FONT,
+                                                      localXYPlot,
+                                                      true);
 
-    ChartPanel cp = new ChartPanel(localJFreeChart);
+    final ChartPanel cp = new ChartPanel(localJFreeChart);
 
-    ApplicationFrame af = new ApplicationFrame("");
+    final ApplicationFrame af = new ApplicationFrame("");
     af.setContentPane(cp);
     af.pack();
     RefineryUtilities.centerFrameOnScreen(af);
@@ -47,13 +50,13 @@ public class ChartTools {
 
   public static XYDataset toLogLogXYDataset(List<Double> xl, List<Double> yl, String title)
       throws Exception {
-    XYSeriesCollection xysc = new XYSeriesCollection();
-    XYSeries xys = new XYSeries(title);
+    final XYSeriesCollection xysc = new XYSeriesCollection();
+    final XYSeries xys = new XYSeries(title);
     if (xl.size() == yl.size()) {
-      int l = xl.size();
+      final int l = xl.size();
       for (int i = 0; i < l; i++) {
-        double x = Math.log(xl.get(i));
-        double y = Math.log(yl.get(i));
+        final double x = Math.log(xl.get(i));
+        final double y = Math.log(yl.get(i));
         xys.add(x, y);
       }
     } else {
@@ -65,13 +68,13 @@ public class ChartTools {
 
   public static XYDataset toXYDataset(List<Double> xl, List<Double> yl, String title)
       throws Exception {
-    XYSeriesCollection xysc = new XYSeriesCollection();
-    XYSeries xys = new XYSeries(title);
+    final XYSeriesCollection xysc = new XYSeriesCollection();
+    final XYSeries xys = new XYSeries(title);
     if (xl.size() == yl.size()) {
-      int l = xl.size();
+      final int l = xl.size();
       for (int i = 0; i < l; i++) {
-        double x = xl.get(i);
-        double y = yl.get(i);
+        final double x = xl.get(i);
+        final double y = yl.get(i);
         xys.add(x, y);
       }
     } else {
@@ -81,39 +84,19 @@ public class ChartTools {
     return xysc;
   }
 
-  public static XYDataset toXYDatasetRD(UndirectedGraph g) throws Exception {
-    Set<Node> nodes = g.getNodes();
-    Node[] na = nodes.toArray(new Node[0]);
-    Arrays.sort(na, new NodeDegreeComparator("desc"));
-
-    List<Double> lx = new ArrayList<>();
-    List<Double> ly = new ArrayList<>();
-
-    for (int i = 0; i < na.length; i++) {
-      int d = na[i].getDegree();
-      if (d != 0) {
-        lx.add(1.0 + i);
-        ly.add(1.0 * na[i].getDegree());
-      }
-
-    }
-
-    return toLogLogXYDataset(lx, ly, "秩-度");
-  }
-
   public static XYDataset toXYDatasetFD(UndirectedGraph g) throws Exception {
-    Set<Node> nodes = g.getNodes();
-    Node[] na = nodes.toArray(new Node[0]);
+    final Set<Node> nodes = g.getNodes();
+    final Node[] na = nodes.toArray(new Node[0]);
     Arrays.sort(na, new NodeDegreeComparator("desc"));
 
-    List<Double> lx = new ArrayList<>();
-    List<Double> ly = new ArrayList<>();
+    final List<Double> lx = new ArrayList<>();
+    final List<Double> ly = new ArrayList<>();
 
-    Set<Integer> ds = new HashSet<>();
+    final Set<Integer> ds = new HashSet<>();
     int f = 1;
-    for (int i = 0; i < na.length; i++) {
-      int d = na[i].getDegree();
-      if (!ds.contains(d) && d!= 0) {
+    for (final Node element : na) {
+      final int d = element.getDegree();
+      if (!ds.contains(d) && d != 0) {
         ds.add(d);
         lx.add(1.0 * f);
         ly.add(1.0 * d);
@@ -122,6 +105,26 @@ public class ChartTools {
     }
 
     return toLogLogXYDataset(lx, ly, "频-度");
+  }
+
+  public static XYDataset toXYDatasetRD(UndirectedGraph g) throws Exception {
+    final Set<Node> nodes = g.getNodes();
+    final Node[] na = nodes.toArray(new Node[0]);
+    Arrays.sort(na, new NodeDegreeComparator("desc"));
+
+    final List<Double> lx = new ArrayList<>();
+    final List<Double> ly = new ArrayList<>();
+
+    for (int i = 0; i < na.length; i++) {
+      final int d = na[i].getDegree();
+      if (d != 0) {
+        lx.add(1.0 + i);
+        ly.add(1.0 * na[i].getDegree());
+      }
+
+    }
+
+    return toLogLogXYDataset(lx, ly, "秩-度");
   }
 
 }

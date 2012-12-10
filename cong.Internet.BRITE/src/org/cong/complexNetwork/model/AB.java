@@ -18,10 +18,10 @@ public class AB {
   private static long nodeId = 0;
 
   public static void addNewEdges(UndirectedGraph undirectedGraph, int count) throws Exception {
-    Set<Node> nodes = undirectedGraph.getNodes();
+    final Set<Node> nodes = undirectedGraph.getNodes();
     for (int i = 0; i < count; i++) {
-      Node sNode = getRandomNode(nodes);
-      Node tNode = getTargetNode(nodes);
+      final Node sNode = getRandomNode(nodes);
+      final Node tNode = getTargetNode(nodes);
       if (undirectedGraph.connect(sNode, tNode)) {
         i--;
       }
@@ -29,9 +29,9 @@ public class AB {
   }
 
   public static boolean addNode(UndirectedGraph undirectedGraph) throws Exception {
-    Set<Node> nodes = undirectedGraph.getNodes();
-    Node tNode = getTargetNode(nodes);
-    Node newNode = newNode();
+    final Set<Node> nodes = undirectedGraph.getNodes();
+    final Node tNode = getTargetNode(nodes);
+    final Node newNode = newNode();
     nodes.add(newNode);
     return undirectedGraph.connect(newNode, tNode);
   }
@@ -42,7 +42,7 @@ public class AB {
                                    UndirectedGraph undirectedGraph,
                                    int count) throws Exception {
     for (int i = 0; i < step; i++) {
-      double r = Tools.randomDouble(1);
+      final double r = Tools.randomDouble(1);
       // logger.debug(r);
       if (r < pNewEdges) {
         // logger.debug("newEdges");
@@ -62,24 +62,24 @@ public class AB {
   }
 
   private static Node getRandomNode(Set<Node> nodes) {
-    int size = nodes.size();
-    int rnd = java.util.concurrent.ThreadLocalRandom.current().nextInt(size);
-    Node[] nodeArray = nodes.toArray(new Node[0]);
-    Node sNode = nodeArray[rnd];
+    final int size = nodes.size();
+    final int rnd = java.util.concurrent.ThreadLocalRandom.current().nextInt(size);
+    final Node[] nodeArray = nodes.toArray(new Node[0]);
+    final Node sNode = nodeArray[rnd];
     return sNode;
   }
 
   private static Node getTargetNode(Set<Node> nodes) {
-    Node[] nodeArray = nodes.toArray(new Node[0]);
+    final Node[] nodeArray = nodes.toArray(new Node[0]);
     double probability = 0.0;
-    double[] probabilities = new double[nodeArray.length];
+    final double[] probabilities = new double[nodeArray.length];
     for (int j = 0; j < nodeArray.length; j++) {
       probability += AB.probability(nodeArray[j], nodeArray);
       probabilities[j] = probability;
     }
 
     Node tNode = null;
-    double rand = java.util.concurrent.ThreadLocalRandom.current().nextDouble();
+    final double rand = java.util.concurrent.ThreadLocalRandom.current().nextDouble();
     probability = 0.0;
     for (int j = 0; j < nodeArray.length; j++) {
       probability = probabilities[j];
@@ -97,7 +97,7 @@ public class AB {
   public static double probability(Node i, Node[] nodeArray) {
     double probability = 0;
     int sumOfDegree = 0;
-    for (Node node : nodeArray) {
+    for (final Node node : nodeArray) {
       sumOfDegree += (node.getDegree() + 1);
     }
     probability = 1.0 * (i.getDegree() + 1) / sumOfDegree;
@@ -106,9 +106,9 @@ public class AB {
 
   public static boolean reSetEdges(UndirectedGraph undirectedGraph, int count) throws Exception {
     boolean result = true;
-    Set<Node> nodes = undirectedGraph.getNodes();
+    final Set<Node> nodes = undirectedGraph.getNodes();
     int sumD = 0;
-    for (Node node : nodes) {
+    for (final Node node : nodes) {
       sumD += node.getDegree();
     }
     if (sumD != 0) {
@@ -121,10 +121,10 @@ public class AB {
           // logger.debug(sNode);
         }
         // logger.debug("select Node : " + sNode);
-        List<Edge> edgeList = new ArrayList<>();
-        Set<Edge> edges = undirectedGraph.getEdges();
-        Set<Node> connected = new HashSet<>();
-        for (Edge e : edges) {
+        final List<Edge> edgeList = new ArrayList<>();
+        final Set<Edge> edges = undirectedGraph.getEdges();
+        final Set<Node> connected = new HashSet<>();
+        for (final Edge e : edges) {
           if (e.getSource().equals(sNode) || e.getTarget().equals(sNode)) {
             edgeList.add(e);
             connected.add(e.getSource());
@@ -132,16 +132,16 @@ public class AB {
           }
         }
 
-        int rnd = Tools.randomInt(edgeList.size());
-        Edge eg = edgeList.get(rnd);
+        final int rnd = Tools.randomInt(edgeList.size());
+        final Edge eg = edgeList.get(rnd);
 
         // Node tNode = AB.getTargetNode(nodes);
 
-        Set<Node> restNodes = new HashSet<>();
+        final Set<Node> restNodes = new HashSet<>();
         restNodes.addAll(nodes);
         restNodes.removeAll(connected);
 
-        Node tNode = AB.getTargetNode(restNodes);
+        final Node tNode = AB.getTargetNode(restNodes);
 
         if (tNode != null) {
           if (undirectedGraph.connect(sNode, tNode)) {

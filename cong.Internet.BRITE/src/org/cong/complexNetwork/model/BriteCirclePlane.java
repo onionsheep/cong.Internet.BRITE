@@ -25,12 +25,12 @@ public class BriteCirclePlane extends BritePlane {
     boolean outCircle = true;
     while (outCircle) {
       briteNode = super.randomNode();
-      BriteCoordinate briteCoordinate = briteNode.getBriteCoordinate();
+      final BriteCoordinate briteCoordinate = briteNode.getBriteCoordinate();
       int x = briteCoordinate.getLx();
       int y = briteCoordinate.getLy();
-      x = x - ls / 2;
-      y = y - ls / 2;
-      if (x * x + y * y < radius * radius) {
+      x = x - this.ls / 2;
+      y = y - this.ls / 2;
+      if (x * x + y * y < this.radius * this.radius) {
         outCircle = false;
       }
     }

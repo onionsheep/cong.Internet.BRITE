@@ -28,15 +28,17 @@ public class Edge {
    * @param target
    * @param directed
    * @param weight
-   * @throws Exception 
+   * @throws Exception
    */
   public Edge(Node source, Node target, boolean directed, int weight) throws Exception {
-    if(source!= null && target != null){
-    this.source = source;
-    this.target = target;
-    this.directed = directed;
-    this.weight = weight;
-    }else{
+    if ((source != null) && (target != null)) {
+      this.source = source;
+      this.target = target;
+      this.directed = directed;
+      this.weight = weight;
+      source.connectNode(target);
+      target.connectNode(source);
+    } else {
       throw new Exception("source and target can not be null");
     }
   }
@@ -47,57 +49,64 @@ public class Edge {
 
   @Override
   public boolean equals(Object obj) {
-    if (this == obj)
+    if (this == obj) {
       return true;
-    if (obj == null)
+    }
+    if (obj == null) {
       return false;
-    if (getClass() != obj.getClass())
+    }
+    if (this.getClass() != obj.getClass()) {
       return false;
-    Edge other = (Edge) obj;
-    if (!directed) {
-      if ((source.equals(other.getSource()) && target.equals(other.getTarget()))
-          || (source.equals(other.getTarget()) && target.equals(other.getSource()))) {
+    }
+    final Edge other = (Edge) obj;
+    if (!this.directed) {
+      if ((this.source.equals(other.getSource()) && this.target.equals(other.getTarget()))
+          || (this.source.equals(other.getTarget()) && this.target.equals(other.getSource()))) {
         return true;
       } else {
         return false;
       }
     } else {
-      if (source == null) {
-        if (other.source != null)
+      if (this.source == null) {
+        if (other.source != null) {
           return false;
-      } else if (!source.equals(other.source))
+        }
+      } else if (!this.source.equals(other.source)) {
         return false;
-      if (target == null) {
-        if (other.target != null)
+      }
+      if (this.target == null) {
+        if (other.target != null) {
           return false;
-      } else if (!target.equals(other.target))
+        }
+      } else if (!this.target.equals(other.target)) {
         return false;
+      }
       return true;
     }
   }
 
   public boolean getDirected() {
-    return directed;
+    return this.directed;
   }
 
   public Node getSource() {
-    return source;
+    return this.source;
   }
 
   public Node getTarget() {
-    return target;
+    return this.target;
   }
 
   public int getWeight() {
-    return weight;
+    return this.weight;
   }
 
   @Override
   public int hashCode() {
     final int prime = 10007;
     int result = 1;
-    result = prime * result + ((source == null) ? 0 : source.hashCode());
-    result = prime * result + ((target == null) ? 0 : target.hashCode());
+    result = (prime * result) + ((this.source == null) ? 0 : this.source.hashCode());
+    result = (prime * result) + ((this.target == null) ? 0 : this.target.hashCode());
     return result;
   }
 
@@ -107,15 +116,15 @@ public class Edge {
 
   @Override
   public String toString() {
-    StringBuilder builder = new StringBuilder();
+    final StringBuilder builder = new StringBuilder();
     builder.append("Edge [source=");
-    builder.append(source);
+    builder.append(this.source);
     builder.append(", target=");
-    builder.append(target);
+    builder.append(this.target);
     builder.append(", directed=");
-    builder.append(directed);
+    builder.append(this.directed);
     builder.append(", weight=");
-    builder.append(weight);
+    builder.append(this.weight);
     builder.append("]");
     return builder.toString();
   }

@@ -11,35 +11,35 @@ public class Configuration {
   public String outputFileName;
 
   public Integer getBaNodeCount() {
-    return baNodeCount;
+    return this.baNodeCount;
   }
 
   public Integer getBaOneNodeEdge() {
-    return baOneNodeEdge;
+    return this.baOneNodeEdge;
   }
 
   public Integer getHs() {
-    return hs;
+    return this.hs;
   }
 
   public Integer getLs() {
-    return ls;
+    return this.ls;
   }
 
   public String getOutputFileName() {
-    return outputFileName;
+    return this.outputFileName;
   }
 
   public Double getWaxmanAlpha() {
-    return waxmanAlpha;
+    return this.waxmanAlpha;
   }
 
   public Double getWaxmanBeta() {
-    return waxmanBeta;
+    return this.waxmanBeta;
   }
 
   public Integer getWaxmanNodeCount() {
-    return waxmanNodeCount;
+    return this.waxmanNodeCount;
   }
 
   public void setBaNodeCount(Integer baNodeCount) {

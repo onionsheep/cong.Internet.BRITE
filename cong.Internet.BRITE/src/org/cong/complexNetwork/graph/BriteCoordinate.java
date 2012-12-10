@@ -26,9 +26,9 @@ public class BriteCoordinate extends Coordinate {
       return true;
     if (!super.equals(obj))
       return false;
-    if (getClass() != obj.getClass())
+    if (this.getClass() != obj.getClass())
       return false;
-    BriteCoordinate other = (BriteCoordinate) obj;
+    final BriteCoordinate other = (BriteCoordinate) obj;
     if (this.toLong() == other.toLong()) {
       return true;
     } else {
@@ -37,29 +37,29 @@ public class BriteCoordinate extends Coordinate {
   }
 
   public Integer getHx() {
-    return hx;
+    return this.hx;
   }
 
   public Integer getHy() {
-    return hy;
+    return this.hy;
   }
 
   public Integer getLx() {
-    return lx;
+    return this.lx;
   }
 
   public Integer getLy() {
-    return ly;
+    return this.ly;
   }
 
   @Override
   public int hashCode() {
     final int prime = 10007;
     int result = super.hashCode();
-    result = prime * result + ((hx == null) ? 0 : hx.hashCode());
-    result = prime * result + ((hy == null) ? 0 : hy.hashCode());
-    result = prime * result + ((lx == null) ? 0 : lx.hashCode());
-    result = prime * result + ((ly == null) ? 0 : ly.hashCode());
+    result = prime * result + ((this.hx == null) ? 0 : this.hx.hashCode());
+    result = prime * result + ((this.hy == null) ? 0 : this.hy.hashCode());
+    result = prime * result + ((this.lx == null) ? 0 : this.lx.hashCode());
+    result = prime * result + ((this.ly == null) ? 0 : this.ly.hashCode());
     return result;
   }
 
@@ -81,15 +81,15 @@ public class BriteCoordinate extends Coordinate {
 
   @Override
   public String toString() {
-    StringBuilder builder = new StringBuilder();
+    final StringBuilder builder = new StringBuilder();
     builder.append("BriteCoordinate [");
-    builder.append(hx);
+    builder.append(this.hx);
     builder.append(".");
-    builder.append(hy);
+    builder.append(this.hy);
     builder.append(", ");
-    builder.append(lx);
+    builder.append(this.lx);
     builder.append(".");
-    builder.append(ly);
+    builder.append(this.ly);
     builder.append("]");
     return builder.toString();
   }
