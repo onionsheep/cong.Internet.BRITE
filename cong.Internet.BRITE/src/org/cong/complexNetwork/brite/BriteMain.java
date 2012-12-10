@@ -12,7 +12,6 @@ import org.apache.commons.io.FileUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.cong.complexNetwork.model.BA;
-import org.cong.complexNetwork.model.BriteBA;
 import org.cong.complexNetwork.model.BritePlane;
 import org.cong.complexNetwork.model.BriteWaxman;
 import org.nutz.json.Json;
@@ -31,7 +30,7 @@ public class BriteMain {
     BA.generateEdges(britePlane, configuration.baOneNodeEdge, configuration.baNodeCount);
     logger.info("正在把模型转化为GEXF格式...");
 
-    final Gexf gexf = britePlane.getBriteGraph().toGexf();
+    final Gexf gexf = britePlane.getGraph().toGexf();
     logger.debug("正在输出为文件...");
     final StaxGraphWriter graphWriter = new StaxGraphWriter();
     final File f = new File(configuration.outputFileName);

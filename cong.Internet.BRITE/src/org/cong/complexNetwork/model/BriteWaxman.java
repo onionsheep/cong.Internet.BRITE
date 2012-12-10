@@ -3,8 +3,9 @@ package org.cong.complexNetwork.model;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.cong.complexNetwork.graph.BriteGraph;
 import org.cong.complexNetwork.graph.BriteNode;
+import org.cong.complexNetwork.graph.Node;
+import org.cong.complexNetwork.graph.UndirectedGraph;
 
 public class BriteWaxman {
   /**
@@ -22,19 +23,19 @@ public class BriteWaxman {
     double p = 0; // 概率
     double ed = 0; // 欧氏距离
     final double maxEd = bp.MaxEuclideanDistance();// 最大欧氏距离
-    final BriteGraph bg = bp.getBriteGraph();
-    final Set<BriteNode> nodes = bg.getBriteNodes();
+    final UndirectedGraph ug = bp.getGraph();
+    final Set<Node> nodes = ug.getNodes();
     final BriteNode[] na = nodes.toArray(new BriteNode[0]);
-    final Set<BriteNode> nodesR = new HashSet<>();
+    final Set<Node> nodesR = new HashSet<>();
     nodesR.addAll(nodes);
     for (final BriteNode u : na) {
       nodesR.remove(u);
-      for (final BriteNode v : nodesR) {
+      for (final Node v : nodesR) {
         rand = java.util.concurrent.ThreadLocalRandom.current().nextDouble();
-        ed = bp.EuclideanDistanceBetween(u.getBriteCoordinate(), v.getBriteCoordinate());
+        ed = bp.EuclideanDistanceBetween(u.getBriteCoordinate(), ((BriteNode)v).getBriteCoordinate());
         p = a * Math.exp(-ed / (b * maxEd));
         if (rand <= p) {
-          bg.connect(u, v);
+          ug.connect(u, v);
         }
       }
     }

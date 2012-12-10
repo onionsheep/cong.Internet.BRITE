@@ -58,6 +58,10 @@ public class UndirectedGraph {
     return result;
   }
 
+  public boolean containsNode(Node n){
+    return this.nodes.contains(n);
+  }
+
   public boolean disConnect(Node source, Node target) throws Exception {
     boolean result = false;
     final Edge edge = new Edge(source, target);

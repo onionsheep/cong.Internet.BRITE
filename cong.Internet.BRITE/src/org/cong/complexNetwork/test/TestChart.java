@@ -20,16 +20,16 @@ public class TestChart {
     bp.addRandomNodes(30);
     BriteWaxman.generateEdges(bp, 0.7, 0.3);
 
-    logger.debug("Nodes " + bp.getBriteGraph().getNodes().size());
-    logger.debug("Edges " + bp.getBriteGraph().getEdges().size());
+    logger.debug("Nodes " + bp.getGraph().getNodes().size());
+    logger.debug("Edges " + bp.getGraph().getEdges().size());
 
     // BriteBA.generateEdges(bp, 6, 470);
     BriteBAAndWaxman.generateEdges(bp, 5, 970, 0.6, 0.3);
     // BriteTang.generateEdges(bp, 5, 900, 0.1);
 
-    logger.debug("Nodes " + bp.getBriteGraph().getNodes().size());
-    logger.debug("Edges " + bp.getBriteGraph().getEdges().size());
-    final UndirectedGraph ug = bp.getBriteGraph();
+    logger.debug("Nodes " + bp.getGraph().getNodes().size());
+    logger.debug("Edges " + bp.getGraph().getEdges().size());
+    final UndirectedGraph ug = bp.getGraph();
     // UndirectedGraph ug = new UndirectedGraph();
     // int m0 = 10;
     // int steps = 9000;
@@ -42,7 +42,7 @@ public class TestChart {
     // logger.debug(ug.getNodes().size());
     // AB.generateGraph(steps, 0.1, 0.6, ug, 4);
 
-    final double[][] am = bp.getBriteGraph().toAdjacentMatrix();
+    final double[][] am = bp.getGraph().toAdjacentMatrix();
     logger.debug("generating file...");
     Tools.writeAdjacentMatrixtoFile(am, "E:\\Users\\cong\\Documents\\MATLAB\\AdjacentMatrix.m");
     logger.debug("Done.");

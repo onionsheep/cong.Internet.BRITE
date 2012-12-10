@@ -4,19 +4,20 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import org.cong.complexNetwork.graph.BriteGraph;
 import org.cong.complexNetwork.graph.BriteNode;
+import org.cong.complexNetwork.graph.Node;
+import org.cong.complexNetwork.graph.UndirectedGraph;
 
 public class BriteTang extends Tang {
-  private static boolean addAndConnectNewBriteNode(BriteGraph briteGraph,
-                                                   Set<BriteNode> BriteNodes,
-                                                   Map<BriteNode, Double> briteNodeProbability,
-                                                   BriteNode newBriteNode) throws Exception {
+  private static boolean addAndConnectNewBriteNode(UndirectedGraph briteGraph,
+                                                   Set<Node> BriteNodes,
+                                                   Map<Node, Double> briteNodeProbability,
+                                                   Node newBriteNode) throws Exception {
     double probability;
     final double rand = java.util.concurrent.ThreadLocalRandom.current().nextDouble();
     probability = 0.0;
     boolean result = false;
-    for (final BriteNode oldBriteNode : BriteNodes) {
+    for (final Node oldBriteNode : BriteNodes) {
       probability = briteNodeProbability.get(oldBriteNode);
       if (rand <= probability) {
         result = briteGraph.connect(newBriteNode, oldBriteNode);
@@ -26,14 +27,14 @@ public class BriteTang extends Tang {
     return result;
   }
 
-  private static Map<BriteNode, Double> generateBriteNodesProbability(double epsilon,
-                                                                      Set<BriteNode> briteNodes) {
+  private static Map<Node, Double> generateBriteNodesProbability(double epsilon,
+                                                                 Set<Node> nodes) {
     double probability;
-    final Map<BriteNode, Double> BriteNodeProbability = new HashMap<>();
+    final Map<Node, Double> BriteNodeProbability = new HashMap<>();
     probability = 0.0;
-    for (final BriteNode oldBriteNode : briteNodes) {
-      probability += probability(oldBriteNode, briteNodes, epsilon);
-      BriteNodeProbability.put(oldBriteNode, probability);
+    for (final Node oldNode : nodes) {
+      probability += probability(oldNode, nodes, epsilon);
+      BriteNodeProbability.put(oldNode, probability);
     }
     return BriteNodeProbability;
   }
@@ -43,45 +44,45 @@ public class BriteTang extends Tang {
                                    int briteNodeCount,
                                    double epsilon) throws Exception {
 
-    final BriteGraph BriteGraph = britePlane.getBriteGraph();
-    final Set<BriteNode> BriteNodes = BriteGraph.getBriteNodes();
+    final UndirectedGraph BriteGraph = britePlane.getGraph();
+    final Set<Node> nodes = BriteGraph.getNodes();
     for (int i = 0; i < briteNodeCount; i++) {
       // 计算节点的概率，并存储在0到1的区间上，只记录上限
-      final Map<BriteNode, Double> BriteNodeProbability = generateBriteNodesProbability(epsilon,
-                                                                                        BriteNodes);
+      final Map<Node, Double> BriteNodeProbability = generateBriteNodesProbability(epsilon,
+                                                                                   nodes);
       // 添加oneBriteNodeEdge-1条边
       final int m = oneBriteNodeEdge - 1;
       for (int j = 0; j < m; j++) {
-        final BriteNode u = getBriteNodeByProbablity(BriteNodes, BriteNodeProbability);
-        final BriteNode v = getBriteNodeByProbablity(BriteNodes, BriteNodeProbability);
+        final Node u = getBriteNodeByProbablity(nodes, BriteNodeProbability);
+        final Node v = getBriteNodeByProbablity(nodes, BriteNodeProbability);
         final boolean success = BriteGraph.connect(u, v);
         if (!success) {
           j -= 1;
         }
       }
       // 新节点
-      final BriteNode newBriteNode = britePlane.randomNodeNoDuplication();
+      final Node newBriteNode = britePlane.randomNodeNoDuplication();
       // 在原来的图中找一个节点，与新节点相连
       final boolean result = addAndConnectNewBriteNode(BriteGraph,
-                                                       BriteNodes,
+                                                       nodes,
                                                        BriteNodeProbability,
                                                        newBriteNode);
       if (result) {
-        BriteGraph.getBriteNodes().add(newBriteNode);
+        BriteGraph.getNodes().add(newBriteNode);
       } else {
         i -= 1;
       }
     }
   }
 
-  private static BriteNode getBriteNodeByProbablity(Set<BriteNode> briteNodes,
-                                                    Map<BriteNode, Double> briteNodeProbability) {
-    BriteNode n = null;
+  private static Node getBriteNodeByProbablity(Set<Node> briteNodes,
+                                               Map<Node, Double> briteNodeProbability) {
+    Node n = null;
     final double rand = java.util.concurrent.ThreadLocalRandom.current().nextDouble();
-    for (final BriteNode briteNode : briteNodes) {
-      final double probability = briteNodeProbability.get(briteNode);
+    for (final Node node : briteNodes) {
+      final double probability = briteNodeProbability.get(node);
       if (rand <= probability) {
-        n = briteNode;
+        n = node;
         break;
       }
     }

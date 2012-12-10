@@ -11,14 +11,14 @@ import org.cong.complexNetwork.graph.UndirectedGraph;
 
 public class Plane {
   public static Logger logger = LogManager.getLogger(Plane.class);
-  protected UndirectedGraph undirectedGraph;
+  protected UndirectedGraph ug;
   protected int width;
   protected int height;
 
   public Plane(int width, int height) {
     this.width = width;
     this.height = height;
-    this.undirectedGraph = new UndirectedGraph();
+    this.ug = new UndirectedGraph();
   }
 
   public Node addOneRandomNode() throws Exception {
@@ -26,13 +26,13 @@ public class Plane {
     Node node = null;
     while (result) {
       node = this.randomNode();
-      result = !this.undirectedGraph.getNodes().add(node);
+      result = !this.ug.addNode(node);
     }
     return node;
   }
 
   public boolean addRandomNode() throws Exception {
-    return this.undirectedGraph.getNodes().add(this.randomNodeNoDuplication());
+    return this.ug.addNode(this.randomNodeNoDuplication());
   }
 
   public void addRandomNodes(int count) throws Exception {
@@ -55,7 +55,7 @@ public class Plane {
   }
 
   public UndirectedGraph getGraph() {
-    return this.undirectedGraph;
+    return this.ug;
   }
 
   public int getHeight() {
@@ -68,7 +68,7 @@ public class Plane {
 
   public double MaxEuclideanDistance() {
     double maxDis = 0.0;
-    final Set<Node> nodes = this.undirectedGraph.getNodes();
+    final Set<Node> nodes = this.ug.getNodes();
     final Set<Node> nodesRemain = new HashSet<>();
     nodesRemain.addAll(nodes);
     for (final Node node : nodes) {
@@ -98,8 +98,7 @@ public class Plane {
     Node node = null;
     while (result) {
       node = this.randomNode();
-
-      result = this.undirectedGraph.getNodes().contains(node);
+      result = this.ug.containsNode(node);
     }
     return node;
   }

@@ -1,23 +1,17 @@
 package org.cong.complexNetwork.graph;
 
-import it.uniroma1.dis.wiserver.gexf4j.core.Gexf;
-
-import java.util.HashSet;
-import java.util.Set;
-
-import org.apache.commons.collections.SetUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 public class BriteGraph extends UndirectedGraph {
   public static Logger logger = LogManager.getLogger(BriteGraph.class);
 
-  protected Set<BriteNode> briteNodes;
-
-  public BriteGraph() {
-    super();
-    this.briteNodes = new HashSet<>();
-  }
+  //  protected Set<BriteNode> briteNodes;
+  //
+  //  public BriteGraph() {
+  //    super();
+  //    this.briteNodes = new HashSet<>();
+  //  }
 
 
   @Override
@@ -40,25 +34,25 @@ public class BriteGraph extends UndirectedGraph {
     return result;
   }
 
-  public Set<BriteNode> getBriteNodes() {
-    return this.briteNodes;
-  }
-
-  @Override
-  public Set<Node> getNodes() {
-    super.nodes = SetUtils.typedSet(this.briteNodes, Node.class);
-    return super.getNodes();
-  }
-
-  @Override
-  public double[][] toAdjacentMatrix() {
-    this.nodes = SetUtils.typedSet(this.briteNodes, Node.class);
-    return super.toAdjacentMatrix();
-  }
-
-  @Override
-  public Gexf toGexf() {
-    this.nodes = SetUtils.typedSet(this.briteNodes, Node.class);
-    return super.toGexf();
-  }
+  //  public Set<BriteNode> getBriteNodes() {
+  //    return this.briteNodes;
+  //  }
+  //
+  //  @Override
+  //  public Set<Node> getNodes() {
+  //    super.nodes = SetUtils.typedSet(this.briteNodes, Node.class);
+  //    return super.getNodes();
+  //  }
+  //
+  //  @Override
+  //  public double[][] toAdjacentMatrix() {
+  //    this.nodes = SetUtils.typedSet(this.briteNodes, Node.class);
+  //    return super.toAdjacentMatrix();
+  //  }
+  //
+  //  @Override
+  //  public Gexf toGexf() {
+  //    this.nodes = SetUtils.typedSet(this.briteNodes, Node.class);
+  //    return super.toGexf();
+  //  }
 }

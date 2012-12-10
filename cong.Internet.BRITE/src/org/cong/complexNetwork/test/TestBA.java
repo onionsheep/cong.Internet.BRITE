@@ -7,8 +7,8 @@ import org.apache.log4j.Logger;
 import org.cong.complexNetwork.graph.BriteCoordinate;
 import org.cong.complexNetwork.graph.BriteEdge;
 import org.cong.complexNetwork.graph.BriteNode;
+import org.cong.complexNetwork.graph.Node;
 import org.cong.complexNetwork.model.BA;
-import org.cong.complexNetwork.model.BriteBA;
 import org.cong.complexNetwork.model.BritePlane;
 import org.cong.complexNetwork.model.BriteWaxman;
 
@@ -29,23 +29,23 @@ public class TestBA {
     final BritePlane bp = new BritePlane(10000, 10000);
     bp.addRandomNodes(100);
     BriteWaxman.generateEdges(bp, 0.5, 0.2);
-    System.out.println("Nodes " + bp.getBriteGraph().getNodes().size());
-    System.out.println("Edges " + bp.getBriteGraph().getEdges().size());
+    System.out.println("Nodes " + bp.getGraph().getNodes().size());
+    System.out.println("Edges " + bp.getGraph().getEdges().size());
 
-    final Set<BriteNode> nodes = bp.getBriteGraph().getBriteNodes();
+    final Set<Node> nodes = bp.getGraph().getNodes();
     Integer dSum = 0;
-    for (final BriteNode n : nodes) {
+    for (final Node n : nodes) {
       dSum += n.getDegree();
     }
     System.out.println(dSum);
     logger.error(dSum);
     BA.generateEdges(bp, 7, 900);
 
-    System.out.println("Nodes " + bp.getBriteGraph().getBriteNodes().size());
-    System.out.println("Edges " + bp.getBriteGraph().getEdges().size());
+    System.out.println("Nodes " + bp.getGraph().getNodes().size());
+    System.out.println("Edges " + bp.getGraph().getEdges().size());
 
     dSum = 0;
-    for (final BriteNode n : nodes) {
+    for (final Node n : nodes) {
       dSum += n.getDegree();
     }
     System.out.println(dSum);
