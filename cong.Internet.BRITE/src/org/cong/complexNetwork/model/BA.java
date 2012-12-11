@@ -31,11 +31,12 @@ public class BA {
     final Set<Node> nodes = ug.getNodes();
     for (int i = 0; i < nodeCount; i++) {
       final Node[] nodeArray = nodes.toArray(new Node[0]);
-      final Node newNode = plane.randomNodeNoDuplication();
+      final Node newNode = plane.addOneRandomNode();
       final double[] probabilities = probability(nodeArray, newNode, ba);
-      // 添加oneNodeEdge条边，这oneNodeEdge添加边的时候不重新计算原来节点的度，概率
+      // 添加oneNodeEdge条边，这oneNodeEdge添加边的时候不重新计算原来节点的度，概率,节省时间，误差很小
       ba.addEdges(oneNodeEdge, ug, nodeArray, probabilities, newNode);
-      ug.addNode(newNode);
+      //重新计算添加节点和边之后需要重新计算的参数
+      ba.reCalculate();
     }
   }
 
@@ -115,5 +116,12 @@ public class BA {
    */
   protected double probability(Node n, Node newNode) {
     return n.getDegree();
+  }
+
+  /**
+   * 计算完节点概率需要重新计算的东西,有些参数和新加入的节点是有关的
+   */
+  protected void reCalculate(){
+
   }
 }

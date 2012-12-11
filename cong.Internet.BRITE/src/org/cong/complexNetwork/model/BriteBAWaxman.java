@@ -10,12 +10,13 @@ public class BriteBAWaxman extends BA {
   private final double alpha;
   private final double beta;
   private final Plane plane;
-
+  private double maxED;
   public BriteBAWaxman(double alpha, double beta, Plane plane) {
     super();
     this.alpha = alpha;
     this.beta = beta;
     this.plane = plane;
+    this.maxED = plane.MaxEuclideanDistance();
   }
 
   public double getAlpha() {
@@ -31,9 +32,12 @@ public class BriteBAWaxman extends BA {
     double p = 0;
     final double ed = this.plane.EuclideanDistanceBetween(n.getCoordinate(),
                                                           newNode.getCoordinate());
-    final double pw = this.alpha * Math.exp(-ed / (this.plane.MaxEuclideanDistance() * this.beta));
+    final double pw = this.alpha * Math.exp(-ed / (this.maxED * this.beta));
     p = n.getDegree() * pw;
-
     return p;
+  }
+  @Override
+  protected void reCalculate(){
+    this.maxED = this.plane.MaxEuclideanDistance();
   }
 }

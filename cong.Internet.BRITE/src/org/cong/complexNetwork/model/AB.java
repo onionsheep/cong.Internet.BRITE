@@ -58,21 +58,16 @@ public class AB {
                                    int count) throws Exception {
     for (int i = 0; i < step; i++) {
       final double r = Tools.randomDouble(1);
-      // logger.debug(r);
       if (r < pNewEdges) {
-        // logger.debug("newEdges");
         addNewEdges(undirectedGraph, count);
       } else if (r < (pNewEdges + pRestEdge)) {
-        // logger.debug("resetEdges");
         if (!reSetEdges(undirectedGraph, count)) {
           i--;
           logger.error("resetEdges Failed");
         }
       } else {
-        // logger.debug("newNode");
         addNode(undirectedGraph);
       }
-      // logger.debug(i);
     }
   }
 
@@ -133,9 +128,7 @@ public class AB {
         while (d == 0) {
           sNode = AB.getRandomNode(nodes);
           d = sNode.getDegree();
-          // logger.debug(sNode);
         }
-        // logger.debug("select Node : " + sNode);
         final List<Edge> edgeList = new ArrayList<>();
         final Set<Edge> edges = undirectedGraph.getEdges();
         final Set<Node> connected = new HashSet<>();
@@ -149,15 +142,10 @@ public class AB {
 
         final int rnd = Tools.randomInt(edgeList.size());
         final Edge eg = edgeList.get(rnd);
-
-        // Node tNode = AB.getTargetNode(nodes);
-
         final Set<Node> restNodes = new HashSet<>();
         restNodes.addAll(nodes);
         restNodes.removeAll(connected);
-
         final Node tNode = AB.getTargetNode(restNodes);
-
         if (tNode != null) {
           if (undirectedGraph.connect(sNode, tNode)) {
             undirectedGraph.removeEdge(eg);

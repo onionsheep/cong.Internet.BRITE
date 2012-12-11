@@ -45,19 +45,19 @@ public class TestBrite {
     bcp.addRandomNodes(100);
     BriteWaxman.generateEdges(bcp, 0.1, 0.9);
     log(ug);
-    //BA.generateEdges(bcp, 2, 5900, new Tang(0.5));
-    BriteBAWaxman.generateEdges(bcp, 2, 900,new BriteBAWaxman(0.1, 0.9,  bcp));
-    //Tang.generateEdges(bcp, 2, 2900, 0.5);
+    // BA.generateEdges(bcp, 2, 5900, new Tang(0.5));
+    BriteBAWaxman.generateEdges(bcp, 2, 900, new BriteBAWaxman(0.1, 0.9, bcp));
+    // Tang.generateEdges(bcp, 2, 2900, 0.5);
     // BriteTang.generateEdges(bcp, 5, 900, 0.1);
     // BA.generateEdges(bcp, 5, 10);
     // Tang.generateEdges(bcp, 5, 900, 0.0);
     log(ug);
 
     NetworkTraitUtil.showRichClubChartByDegree(ug);
-    final XYDataset xyds1 = ChartTools.toXYDatasetFD(ug);
-    final XYDataset xyds = ChartTools.toXYDatasetRD(ug);
-    ChartTools.drawChart(xyds);
-    ChartTools.drawChart(xyds1);
+    final XYDataset xydsfd = ChartTools.toXYDatasetFD(ug);
+    final XYDataset xydsrf = ChartTools.toXYDatasetRD(ug);
+    ChartTools.drawChart(xydsfd, "频数--度,幂律分布（已取双对数）");
+    ChartTools.drawChart(xydsrf, "秩---度,幂律分布（已取双对数）");
   }
 
 }

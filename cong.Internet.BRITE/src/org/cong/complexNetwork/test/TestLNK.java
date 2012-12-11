@@ -45,9 +45,9 @@ public class TestLNK {
     logger.debug("同配性系数： " + NetworkTraitUtil.assortativityCoefficient(ug));
 
     NetworkTraitUtil.showRichClubChartByDegree(ug);
-    final XYDataset xyds1 = ChartTools.toXYDatasetFD(ug);
-    final XYDataset xyds = ChartTools.toXYDatasetRD(ug);
-    ChartTools.drawChart(xyds);
-    ChartTools.drawChart(xyds1);
+    final XYDataset xydsfd = ChartTools.toXYDatasetFD(ug);
+    final XYDataset xydsrf = ChartTools.toXYDatasetRD(ug);
+    ChartTools.drawChart(xydsfd, "频数--度,幂律分布（已取双对数）");
+    ChartTools.drawChart(xydsrf, "秩---度,幂律分布（已取双对数）");
   }
 }

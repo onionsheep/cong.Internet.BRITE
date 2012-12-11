@@ -24,7 +24,7 @@ import org.jfree.ui.RefineryUtilities;
 public class ChartTools {
   public static Logger logger = LogManager.getLogger(ChartTools.class);
 
-  public static void drawChart(XYDataset xyds) {
+  public static void drawChart(XYDataset xyds, String title) {
     final NumberAxis localNumberAxis1 = new NumberAxis("X");
     localNumberAxis1.setAutoRangeIncludesZero(false);
     final NumberAxis localNumberAxis2 = new NumberAxis("Y");
@@ -34,7 +34,7 @@ public class ChartTools {
                                           localNumberAxis1,
                                           localNumberAxis2,
                                           localXYSplineRenderer);
-    final JFreeChart localJFreeChart = new JFreeChart("",
+    final JFreeChart localJFreeChart = new JFreeChart(title,
                                                       JFreeChart.DEFAULT_TITLE_FONT,
                                                       localXYPlot,
                                                       true);
@@ -96,7 +96,7 @@ public class ChartTools {
     int f = 1;
     for (final Node element : na) {
       final int d = element.getDegree();
-      if (!ds.contains(d) && d != 0) {
+      if (!ds.contains(d) && (d != 0)) {
         ds.add(d);
         lx.add(1.0 * f);
         ly.add(1.0 * d);

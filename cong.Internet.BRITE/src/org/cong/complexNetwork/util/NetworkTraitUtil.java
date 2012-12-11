@@ -26,7 +26,7 @@ public class NetworkTraitUtil {
       final int d2 = e.getTarget().getDegree();
       a += d1 * d2;
       b += d1 + d2;
-      c += (d1 * d1 + d2 * d2);
+      c += ((d1 * d1) + (d2 * d2));
     }
     a *= m;
 
@@ -45,14 +45,14 @@ public class NetworkTraitUtil {
     for (final Edge e : edges) {
       final Node s = e.getSource();
       final Node t = e.getTarget();
-      if (s.getDegree() >= degree && t.getDegree() >= degree) {
+      if ((s.getDegree() >= degree) && (t.getDegree() >= degree)) {
         nodes.add(t);
         nodes.add(s);
         l++;
       }
     }
     final int num = nodes.size();
-    final double result = 2.0 * l / (num * (num - 1));
+    final double result = (2.0 * l) / (num * (num - 1));
     return result;
   }
 
@@ -70,7 +70,7 @@ public class NetworkTraitUtil {
         l++;
       }
     }
-    final double result = 2.0 * l / (order * (order - 1));
+    final double result = (2.0 * l) / (order * (order - 1));
     return result;
   }
 
@@ -84,7 +84,7 @@ public class NetworkTraitUtil {
       yl.add(RichConnectednessByDegree(ug, i));
     }
     final XYDataset xyds = ChartTools.toXYDataset(xl, yl, "度-连通性");
-    ChartTools.drawChart(xyds);
+    ChartTools.drawChart(xyds,"富人俱乐部特性");
   }
 
   public static void showRichClubChartByOrder(UndirectedGraph ug) throws Exception {
@@ -96,7 +96,7 @@ public class NetworkTraitUtil {
       yl.add(RichConnectednessByOrder(ug, i));
     }
     final XYDataset xyds = ChartTools.toXYDataset(xl, yl, "个数-连通性");
-    ChartTools.drawChart(xyds);
+    ChartTools.drawChart(xyds,"富人俱乐部特性");
   }
 
 }
