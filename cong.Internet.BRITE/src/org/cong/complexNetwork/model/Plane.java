@@ -5,7 +5,7 @@ import java.util.Set;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.cong.complexNetwork.graph.Point;
+import org.cong.complexNetwork.graph.Coordinate;
 import org.cong.complexNetwork.graph.Node;
 import org.cong.complexNetwork.graph.UndirectedGraph;
 
@@ -44,7 +44,7 @@ public class Plane {
     }
   }
 
-  public double EuclideanDistanceBetween(Point u, Point v) {
+  public double EuclideanDistanceBetween(Coordinate u, Coordinate v) {
     double dis = 0;
     final int xd = u.getX() - v.getX();
     final int yd = u.getY() - v.getY();
@@ -74,8 +74,8 @@ public class Plane {
     for (final Node node : nodes) {
       nodesRemain.remove(node);
       for (final Node node2 : nodesRemain) {
-        final double dis = this.EuclideanDistanceBetween(node.getPoint(),
-                                                         node2.getPoint());
+        final double dis = this.EuclideanDistanceBetween(node.getCoordinate(),
+                                                         node2.getCoordinate());
         if (maxDis < dis) {
           maxDis = dis;
         }
@@ -88,8 +88,8 @@ public class Plane {
     Node node = null;
     final int x = java.util.concurrent.ThreadLocalRandom.current().nextInt(this.width);
     final int y = java.util.concurrent.ThreadLocalRandom.current().nextInt(this.height);
-    final Point point = new Point(x, y);
-    node = new Node(point.toLong(), point);
+    final Coordinate coordinate = new Coordinate(x, y);
+    node = new Node(coordinate.toLong(), coordinate);
     return node;
   }
 

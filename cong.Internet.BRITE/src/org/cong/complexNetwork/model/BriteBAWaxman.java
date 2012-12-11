@@ -26,9 +26,9 @@ public class BriteBAWaxman extends BA {
                                    double beta) throws Exception {
     final UndirectedGraph ug = plane.getGraph();
     final Set<Node> nodes = ug.getNodes();
-    final Node[] nodeArray = nodes.toArray(new Node[0]);
     for (int i = 0; i < nodeCount; i++) {
-      logger.debug("这是第" + i + "个节点");
+      final Node[] nodeArray = nodes.toArray(new Node[0]);
+      //logger.debug("这是第" + i + "个节点");
       final Node newNode = plane.randomNodeNoDuplication();
 
       final double[] probabilities = probability(nodeArray, newNode, alpha, beta, plane);
@@ -66,8 +66,8 @@ public class BriteBAWaxman extends BA {
     final double[] numerators = new double[count];
     for (int i = 0; i < count; i++) {
       final double pw = alpha
-          * Math.exp(-plane.EuclideanDistanceBetween(node.getPoint(),
-                                                     nodeArray[i].getPoint())
+          * Math.exp(-plane.EuclideanDistanceBetween(node.getCoordinate(),
+                                                     nodeArray[i].getCoordinate())
                                                      / bm);
       numerators[i] = nodeArray[i].getDegree() * pw;
       denominator += numerators[i];

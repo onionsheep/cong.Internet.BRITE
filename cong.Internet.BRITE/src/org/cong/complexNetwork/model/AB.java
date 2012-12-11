@@ -36,6 +36,20 @@ public class AB {
     return undirectedGraph.connect(newNode, tNode);
   }
 
+  /**
+   * 生成边
+   * 
+   * @param step 步数
+   * @param pNewEdges
+   *          执行生成新边的概率
+   * @param pRestEdge
+   *          执行重连边的概率
+   * @param undirectedGraph
+   *          图
+   * @param count
+   *          生成新边和重连边，每一次的数量
+   * @throws Exception
+   */
   public static void generateGraph(int step,
                                    double pNewEdges,
                                    double pRestEdge,
@@ -47,7 +61,7 @@ public class AB {
       if (r < pNewEdges) {
         // logger.debug("newEdges");
         addNewEdges(undirectedGraph, count);
-      } else if (r < pNewEdges + pRestEdge) {
+      } else if (r < (pNewEdges + pRestEdge)) {
         // logger.debug("resetEdges");
         if (!reSetEdges(undirectedGraph, count)) {
           i--;
@@ -100,7 +114,7 @@ public class AB {
     for (final Node node : nodeArray) {
       sumOfDegree += (node.getDegree() + 1);
     }
-    probability = 1.0 * (i.getDegree() + 1) / sumOfDegree;
+    probability = (1.0 * (i.getDegree() + 1)) / sumOfDegree;
     return probability;
   }
 

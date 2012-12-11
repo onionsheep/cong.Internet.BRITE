@@ -55,8 +55,8 @@ public class BA {
   public static void generateEdges(Plane plane, int oneNodeEdge, int nodeCount) throws Exception {
     final UndirectedGraph ug = plane.getGraph();
     final Set<Node> nodes = ug.getNodes();
-    final Node[] nodeArray = nodes.toArray(new Node[0]);
     for (int i = 0; i < nodeCount; i++) {
+      Node[] nodeArray = nodes.toArray(new Node[0]);
       final Node newNode = plane.randomNodeNoDuplication();
       final double[] probabilities = probability(nodeArray);
       // 添加oneNodeEdge条边，这oneNodeEdge添加边的时候不重新计算原来节点的度，概率

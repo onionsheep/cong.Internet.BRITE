@@ -16,7 +16,7 @@ public class Node {
   protected double weight;
   protected int degree;
   protected Set<Node> connectedNodes;
-  protected Point point;
+  protected Coordinate coordinate;
 
   private static final double defaultWeight = 0;
 
@@ -24,8 +24,8 @@ public class Node {
     this(idCounter--);
   }
 
-  public Node(Point point){
-    this(point.toLong(), point);
+  public Node(Coordinate coordinate){
+    this(coordinate.toLong(), coordinate);
   }
 
   /**
@@ -37,8 +37,8 @@ public class Node {
     this(id, defaultWeight, null);
   }
 
-  public Node(long id, Point point) {
-    this(id, defaultWeight, point);
+  public Node(long id, Coordinate coordinate) {
+    this(id, defaultWeight, coordinate);
   }
   /**
    * id is a String that can identify a Node. one Node, one id. Warn:Nothing
@@ -47,12 +47,12 @@ public class Node {
    * @param id
    * @param weight
    */
-  public Node(long id, double weight, Point point) {
+  public Node(long id, double weight, Coordinate coordinate) {
     this.id = id;
     this.weight = weight;
     this.connectedNodes = new HashSet<>();
     this.degree = 0;
-    this.point = point;
+    this.coordinate = coordinate;
   }
 
   public boolean connectNode(Node node) {
@@ -93,8 +93,8 @@ public class Node {
     return this.connectedNodes;
   }
 
-  public Point getPoint() {
-    return this.point;
+  public Coordinate getCoordinate() {
+    return this.coordinate;
   }
 
   public int getDegree() {

@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import org.cong.complexNetwork.graph.BriteNode;
 import org.cong.complexNetwork.graph.Node;
 import org.cong.complexNetwork.graph.UndirectedGraph;
 
@@ -89,10 +88,10 @@ public class BriteTang extends Tang {
     return n;
   }
 
-  public static double probability(BriteNode i, Set<BriteNode> BriteNodes, double epsilon) {
+  public static double probability(Node i, Set<Node> BriteNodes, double epsilon) {
     double probability = 0;
     double sumOfDegree = 0.0;
-    for (final BriteNode BriteNode : BriteNodes) {
+    for (final Node BriteNode : BriteNodes) {
       sumOfDegree += Math.pow(BriteNode.getDegree(), 1 + epsilon);
     }
     probability = Math.pow(i.getDegree(), 1 + epsilon) / sumOfDegree;
