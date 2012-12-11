@@ -45,8 +45,8 @@ public class TestBrite {
     bcp.addRandomNodes(100);
     BriteWaxman.generateEdges(bcp, 0.1, 0.9);
     log(ug);
-    BriteBAWaxman.generateEdges(bcp, 2, 5900);
-    //BriteBAWaxman.generateEdges(bcp, 2, 900, 0.1, 0.9);
+    //BA.generateEdges(bcp, 2, 5900, new Tang(0.5));
+    BriteBAWaxman.generateEdges(bcp, 2, 900,new BriteBAWaxman(0.1, 0.9,  bcp));
     //Tang.generateEdges(bcp, 2, 2900, 0.5);
     // BriteTang.generateEdges(bcp, 5, 900, 0.1);
     // BA.generateEdges(bcp, 5, 10);

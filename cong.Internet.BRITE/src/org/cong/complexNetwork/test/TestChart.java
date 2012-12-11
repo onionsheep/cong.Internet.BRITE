@@ -24,7 +24,7 @@ public class TestChart {
     logger.debug("Edges " + bp.getGraph().getEdges().size());
 
     // BriteBA.generateEdges(bp, 6, 470);
-    BriteBAWaxman.generateEdges(bp, 5, 970, 0.6, 0.3);
+    BriteBAWaxman.generateEdges(bp, 5, 970,new BriteBAWaxman(0.6, 0.3, bp) );
     // BriteTang.generateEdges(bp, 5, 900, 0.1);
 
     logger.debug("Nodes " + bp.getGraph().getNodes().size());

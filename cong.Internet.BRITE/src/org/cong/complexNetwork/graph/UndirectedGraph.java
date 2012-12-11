@@ -35,6 +35,11 @@ public class UndirectedGraph {
     return this.nodes.add(node);
   }
 
+  /**
+   * 求邻接矩阵的秩，参考《基于大范围模式的互联网拓扑建模》（徐野）这本书上的代码。不知道对不对，经过有限次测试没有发现问题。不理解原理。
+   * 
+   * @return 邻接矩阵的秩
+   */
   public int adjacentMatrixRank() {
     int r = 0;
     for (final Node n : this.nodes) {
@@ -47,8 +52,11 @@ public class UndirectedGraph {
 
   /**
    * 连接给定的两个节点为一条边并添加入图
-   * @param source 源节点
-   * @param target 目标节点
+   * 
+   * @param source
+   *          源节点
+   * @param target
+   *          目标节点
    * @return 连接并添加成功返回true，否则false
    * @throws Exception
    */
@@ -66,10 +74,27 @@ public class UndirectedGraph {
     return result;
   }
 
+  /**
+   * 检查图中是否含有给定节点
+   * 
+   * @param n
+   *          给定节点
+   * @return 含有true，不含有false
+   */
   public boolean containsNode(Node n) {
     return this.nodes.contains(n);
   }
 
+  /**
+   * 断开图中本来相连的两个点
+   * 
+   * @param source
+   *          源节点
+   * @param target
+   *          目标节点
+   * @return 断开成功返回true。图中不存在这两个节点之间的连接则返回false
+   * @throws Exception
+   */
   public boolean disConnect(Node source, Node target) throws Exception {
     boolean result = false;
     final Edge edge = new Edge(source, target);
@@ -85,6 +110,9 @@ public class UndirectedGraph {
     return this.edges;
   }
 
+  /**
+   * @return 图中最大度的点的度数
+   */
   public int getMaxDegree() {
     int maxD = 0;
     for (final Node n : this.nodes) {
@@ -95,6 +123,9 @@ public class UndirectedGraph {
     return maxD;
   }
 
+  /**
+   * @return 图中最小度的点的度数
+   */
   public int getMinDegree() {
     int minD = Integer.MAX_VALUE;
     for (final Node n : this.nodes) {
@@ -105,6 +136,13 @@ public class UndirectedGraph {
     return minD;
   }
 
+  /**
+   * 获取与所给节点equals的图中的节点，不建议使用，效率低下
+   * 
+   * @param node
+   *          给定节点
+   * @return 图中的节点
+   */
   public Node getNode(Node node) {
     Node n0 = null;
     for (final Node n : this.nodes) {
@@ -120,6 +158,13 @@ public class UndirectedGraph {
     return this.nodes;
   }
 
+  /**
+   * 从图中删除给定边
+   * 
+   * @param edge
+   *          给定边
+   * @return 删除成功返回true，图中不存在给定边或者删除失败返回false
+   */
   public boolean removeEdge(Edge edge) {
     boolean result;
     result = this.edges.remove(edge);
@@ -132,6 +177,11 @@ public class UndirectedGraph {
     return result;
   }
 
+  /**
+   * 把图转换成一个邻接矩阵，图的规模比较小的时候适用
+   * 
+   * @return 存放邻接矩阵的二维数组
+   */
   public double[][] toAdjacentMatrix() {
     final int nodeCount = this.nodes.size();
     final double[][] martrix = new double[nodeCount][nodeCount];
@@ -154,6 +204,13 @@ public class UndirectedGraph {
     return martrix;
   }
 
+  /**
+   * 把图转换成一个邻接矩阵并写入指定文件，图的规模比较小的时候适用
+   * 
+   * @param filePath
+   *          文件路径
+   * @throws IOException
+   */
   public void toAdjacentMatrixFile(String filePath) throws IOException {
     final Node[] nodeArray = this.nodes.toArray(new Node[0]);
     // Edge[] edgeArray = edges.toArray(new Edge[0]);
@@ -176,8 +233,12 @@ public class UndirectedGraph {
     FileUtils.writeStringToFile(f, "]", "UTF-8", true);
   }
 
+  /**
+   * 生成GEXF格式的图
+   * 
+   * @return GEXF格式的图
+   */
   public Gexf toGexf() {
-
     final Gexf gexf = new GexfImpl();
     final it.uniroma1.dis.wiserver.gexf4j.core.Graph graph = gexf.getGraph();
     graph.setDefaultEdgeType(EdgeType.UNDIRECTED).setMode(Mode.STATIC);
@@ -189,16 +250,19 @@ public class UndirectedGraph {
     for (final Edge edge : this.edges) {
       final Node source = edge.getSource();
       final Node target = edge.getTarget();
-
       if (source == null) {
         logger.debug("source null");
       }
-
       nodeMap.get(source).connectTo(nodeMap.get(target));
     }
     return gexf;
   }
 
+  /**
+   * 把图转换成一个稀疏矩阵，此处转换为一个元素为Integer型的稀疏矩阵。
+   * 
+   * @return 稀疏矩阵
+   */
   public Sparse<Integer> toSparse() {
     final Sparse<Integer> s = new Sparse<>();
     final List<Node> nl = new ArrayList<>();

@@ -15,7 +15,7 @@ public class TestRichClub {
     final BriteCirclePlane bp = new BriteCirclePlane(10, 1000, 100.0);
     bp.addRandomNodes(30);
     BriteWaxman.generateEdges(bp, 0.7, 0.3);
-    BriteBAWaxman.generateEdges(bp, 5, 970, 0.6, 0.3);
+    BriteBAWaxman.generateEdges(bp, 5, 970, new BriteBAWaxman(0.6, 0.3, bp));
     logger.debug("Nodes " + bp.getGraph().getNodes().size());
     logger.debug("Edges " + bp.getGraph().getEdges().size());
     final UndirectedGraph ug = bp.getGraph();

@@ -27,7 +27,7 @@ public class BriteMain {
     BriteWaxman.generateEdges(britePlane, configuration.waxmanAlpha, configuration.waxmanBeta);
 
     logger.info("正在生成BA图...");
-    BA.generateEdges(britePlane, configuration.baOneNodeEdge, configuration.baNodeCount);
+    BA.generateEdges(britePlane, configuration.baOneNodeEdge, configuration.baNodeCount, new BA());
     logger.info("正在把模型转化为GEXF格式...");
 
     final Gexf gexf = britePlane.getGraph().toGexf();

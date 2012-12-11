@@ -31,7 +31,7 @@ public class Plane {
     return node;
   }
 
-  public boolean addRandomNode() throws Exception {
+  protected boolean addRandomNode() throws Exception {
     return this.ug.addNode(this.randomNodeNoDuplication());
   }
 
