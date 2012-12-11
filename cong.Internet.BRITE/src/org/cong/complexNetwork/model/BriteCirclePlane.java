@@ -25,7 +25,7 @@ public class BriteCirclePlane extends BritePlane {
     boolean outCircle = true;
     while (outCircle) {
       node = super.randomNode();
-      final BriteCoordinate briteCoordinate = (BriteCoordinate)node.getCoordinate();
+      final BriteCoordinate briteCoordinate = (BriteCoordinate) node.getCoordinate();
       int x = briteCoordinate.getLx();
       int y = briteCoordinate.getLy();
       x = x - (this.ls / 2);

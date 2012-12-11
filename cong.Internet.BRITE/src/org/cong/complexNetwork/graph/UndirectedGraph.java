@@ -45,21 +45,28 @@ public class UndirectedGraph {
     return r;
   }
 
+  /**
+   * 连接给定的两个节点为一条边并添加入图
+   * @param source 源节点
+   * @param target 目标节点
+   * @return 连接并添加成功返回true，否则false
+   * @throws Exception
+   */
   public boolean connect(Node source, Node target) throws Exception {
-    if(source.equals(target)){
+    if (source.equals(target)) {
       return false;
     }
     boolean result = false;
     final Edge edge = new Edge(source, target);
     result = this.edges.add(edge);
-    if(result){
+    if (result) {
       source.connectNode(target);
       target.connectNode(source);
     }
     return result;
   }
 
-  public boolean containsNode(Node n){
+  public boolean containsNode(Node n) {
     return this.nodes.contains(n);
   }
 
@@ -67,7 +74,7 @@ public class UndirectedGraph {
     boolean result = false;
     final Edge edge = new Edge(source, target);
     result = this.removeEdge(edge);
-    if(result){
+    if (result) {
       source.disConnectNode(target);
       target.disConnectNode(source);
     }

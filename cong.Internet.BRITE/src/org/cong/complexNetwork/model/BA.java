@@ -28,17 +28,29 @@ public class BA {
                                  Node[] nodeArray,
                                  double[] probabilities,
                                  Node newNode) throws Exception {
-    double rand;
     boolean result;
     int m = 0;
     while (m < edgeCount) {
-      rand = java.util.concurrent.ThreadLocalRandom.current().nextDouble();
-      final int i = ArrayUtil.firstBigger(probabilities, rand);
+      final int i = randomWithProbablities(probabilities);
       result = ug.connect(newNode, nodeArray[i]);
       if (result) {
         m += 1;
       }
     }
+  }
+
+  /**
+   * 以给定的概率，产生一个随机数。随机数的范围是概率数组的下标，概率数组是（0,1）的一个区间，只记录上限。
+   * 
+   * @param probabilities
+   *          概率数组
+   * @return 随机数落在区间的下标
+   */
+  protected static int randomWithProbablities(double[] probabilities) {
+    double rand;
+    rand = java.util.concurrent.ThreadLocalRandom.current().nextDouble();
+    final int i = ArrayUtil.firstBigger(probabilities, rand);
+    return i;
   }
 
   /**
@@ -56,7 +68,7 @@ public class BA {
     final UndirectedGraph ug = plane.getGraph();
     final Set<Node> nodes = ug.getNodes();
     for (int i = 0; i < nodeCount; i++) {
-      Node[] nodeArray = nodes.toArray(new Node[0]);
+      final Node[] nodeArray = nodes.toArray(new Node[0]);
       final Node newNode = plane.randomNodeNoDuplication();
       final double[] probabilities = probability(nodeArray);
       // 添加oneNodeEdge条边，这oneNodeEdge添加边的时候不重新计算原来节点的度，概率
@@ -73,19 +85,26 @@ public class BA {
    *          节点数组
    * @return 概率数组
    */
-  public static double[] probability(Node[] nodeArray) {
+  protected static double[] probability(Node[] nodeArray) {
     final int count = nodeArray.length;
-    int sumOfDegree = 0;// 节点度之和
-    double pbase = 0;
+    double denominator = 0;// 概率的分母,就是节点度的和
+    double p = 0;
     final double[] probability = new double[count];
+    final double[] numerators = new double[count];
     for (final Node node : nodeArray) {
-      sumOfDegree += node.getDegree();
+      denominator += node.getDegree();
     }
+    for (int i = 0; i < count; i++) {
+      numerators[i] = nodeArray[i].getDegree();
+      denominator += numerators[i];
+    }
+
     // 把每一个节点的概率放到0,1的区间上
     for (int i = 0; i < count; i++) {
-      pbase += (1.0 * nodeArray[i].getDegree()) / sumOfDegree;
-      probability[i] = pbase;
+      p += numerators[i] / denominator;
+      probability[i] = p;
     }
+
     return probability;
   }
 }

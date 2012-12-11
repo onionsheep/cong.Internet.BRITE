@@ -31,9 +31,9 @@ public class TestAB {
     // System.out.println();
     // }
 
-    //    final Gexf gexf = ug.toGexf();
-    //    logger.debug("generating file...");
-    //    Tools.writeGexfFile(gexf, "testAB.gexf");
+    // final Gexf gexf = ug.toGexf();
+    // logger.debug("generating file...");
+    // Tools.writeGexfFile(gexf, "testAB.gexf");
   }
 
 }

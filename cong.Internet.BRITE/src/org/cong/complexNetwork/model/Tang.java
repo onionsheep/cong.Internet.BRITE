@@ -1,95 +1,101 @@
 package org.cong.complexNetwork.model;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Set;
 
 import org.cong.complexNetwork.graph.Node;
 import org.cong.complexNetwork.graph.UndirectedGraph;
 
-public class Tang {
+public class Tang extends BA {
 
-  private static Boolean addAndConnectNewNode(UndirectedGraph undirectedGraph,
-                                              Set<Node> nodes,
-                                              Map<Node, Double> nodeProbability,
-                                              Node newNode) throws Exception {
-    Double probability;
-    final Double rand = java.util.concurrent.ThreadLocalRandom.current().nextDouble();
-    probability = 0.0;
-    Boolean result = false;
-    for (final Node oldNode : nodes) {
-      probability = nodeProbability.get(oldNode);
-      if (rand <= probability) {
-        result = undirectedGraph.connect(newNode, oldNode);
-        break;
-      }
-    }
-    return result;
-  }
-
-  public static void generateEdges(Plane plane,
-                                   Integer oneNodeEdge,
-                                   Integer nodeCount,
-                                   Double epsilon) throws Exception {
-    Boolean result = false;
-    final UndirectedGraph undirectedGraph = plane.getGraph();
-    final Set<Node> nodes = undirectedGraph.getNodes();
-    for (Integer i = 0; i < nodeCount; i++) {
-      // 计算节点的概率，并存储在0到1的区间上，只记录上限
-      final Map<Node, Double> nodeProbability = generateNodesProbability(epsilon, nodes);
-      // 新节点
+  /**
+   * 按照给定的参数生成边
+   * 
+   * @param plane
+   *          平面
+   * @param oneNodeEdge
+   *          一个节点伴随添加的边
+   * @param nodeCount
+   *          节点数量
+   * @throws Exception
+   */
+  public static void generateEdges(Plane plane, int oneNodeEdge, int nodeCount, double epsilon) throws Exception {
+    final UndirectedGraph ug = plane.getGraph();
+    final Set<Node> nodes = ug.getNodes();
+    for (int i = 0; i < nodeCount; i++) {
+      final Node[] nodeArray = nodes.toArray(new Node[0]);
       final Node newNode = plane.randomNodeNoDuplication();
-      // 在原来的图中找一个节点，与新节点相连
-      result = addAndConnectNewNode(undirectedGraph, nodes, nodeProbability, newNode);
+      final double[] probabilities = probability(nodeArray, epsilon);
+      // 添加oneNodeEdge条边，这oneNodeEdge添加边的时候不重新计算原来节点的度，概率
+      addEdges(oneNodeEdge, ug, nodeArray, probabilities, newNode);
+      ug.addNode(newNode);
+    }
+  }
+
+
+  /**
+   * 按照Tang模型添加边的法则,添加边。添加一条新节点与旧节点之间的边，其余的边在旧节点之中选择。
+   * 
+   * @param edgeCount
+   *          添加边的条数
+   * @param ug
+   *          图
+   * @param nodeArray
+   *          节点数组
+   * @param probabilities
+   *          概率数组，与节点数组对应
+   * @param newNode
+   *          新节点
+   * @throws Exception
+   */
+  protected static void addEdges(int edgeCount,
+                                 UndirectedGraph ug,
+                                 Node[] nodeArray,
+                                 double[] probabilities,
+                                 Node newNode) throws Exception {
+
+    boolean result = false;
+    while (!result) {
+      final int i = randomWithProbablities(probabilities);
+      result = ug.connect(newNode, nodeArray[i]);
+    }
+
+    int m = 0;
+    final int count = edgeCount - 1;
+    while (m < count) {
+      final int i = randomWithProbablities(probabilities);
+      final int j = randomWithProbablities(probabilities);
+      result = ug.connect(nodeArray[i], nodeArray[j]);
       if (result) {
-        undirectedGraph.getNodes().add(newNode);
-      } else {
-        i -= 1;
-      }
-      // 添加剩余的oneNodeEdge-1条边
-      final Integer m = oneNodeEdge - 1;
-      for (Integer j = 0; j < m; j++) {
-        final Node u = getNodeByProbablity(nodes, nodeProbability);
-        final Node v = getNodeByProbablity(nodes, nodeProbability);
-        result = undirectedGraph.connect(u, v);
-        if (!result) {
-          j -= 1;
-        }
+        m += 1;
       }
     }
   }
 
-  private static Map<Node, Double> generateNodesProbability(Double epsilon, Set<Node> nodes) {
-    double probability;
-    final Map<Node, Double> nodeProbability = new HashMap<>();
-    probability = 0.0;
-    for (final Node oldNode : nodes) {
-      probability += probability(oldNode, nodes, epsilon);
-      nodeProbability.put(oldNode, probability);
+  /**
+   * 计算节点的概率，并存储在数组中，分布在(0,1)的区间上，只记录上限，数组下标与节点下标对应。
+   * 不保存在Map中是为了后续的过程中方便折半查找随机数落在了哪个区间
+   * 
+   * @param nodeArray
+   *          节点数组
+   * @param epsilon
+   *          Tang模型参数
+   * @return 概率数组
+   */
+  public static double[] probability(Node[] nodeArray, double epsilon) {
+    final int count = nodeArray.length;
+    double denominator = 0;// 概率的分母
+    final double[] probability = new double[count];
+    final double[] numerators = new double[count];
+    for (int i = 0; i < count; i++) {
+      numerators[i] = Math.pow(nodeArray[i].getDegree(), 1 + epsilon);
+      denominator += numerators[i];
     }
-    return nodeProbability;
-  }
-
-  private static Node getNodeByProbablity(Set<Node> nodes, Map<Node, Double> nodeProbability) {
-    Node n = null;
-    final Double rand = java.util.concurrent.ThreadLocalRandom.current().nextDouble();
-    for (final Node node : nodes) {
-      final Double probability = nodeProbability.get(node);
-      if (rand <= probability) {
-        n = node;
-        break;
-      }
+    // 把每一个节点的概率放到0,1的区间上
+    double p = 0;
+    for (int i = 0; i < count; i++) {
+      p += numerators[i] / denominator;
+      probability[i] = p;
     }
-    return n;
-  }
-
-  public static Double probability(Node i, Set<Node> nodes, Double epsilon) {
-    Double probability = null;
-    double sumOfDegree = 0.0;
-    for (final Node node : nodes) {
-      sumOfDegree += Math.pow(node.getDegree(), 1 + epsilon);
-    }
-    probability = Math.pow(i.getDegree(), 1 + epsilon) / sumOfDegree;
     return probability;
   }
 }

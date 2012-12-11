@@ -21,14 +21,14 @@ public class BritePlane extends Plane {
   @Override
   public double EuclideanDistanceBetween(Coordinate u, Coordinate v) {
     double dis = 0.0;
-    if((u.getClass() == BriteCoordinate.class) && (v.getClass() == BriteCoordinate.class)){
+    if ((u.getClass() == BriteCoordinate.class) && (v.getClass() == BriteCoordinate.class)) {
       final BriteCoordinate bu = (BriteCoordinate) u;
       final BriteCoordinate bv = (BriteCoordinate) v;
       final int xd = ((bu.getHx() + (bu.getLx() * this.ls)) - bu.getHy()) + (bu.getLy() * this.ls);
       final int yd = ((bv.getHx() + (bv.getLx() * this.ls)) - bv.getHy()) + (bv.getLy() * this.ls);
 
       dis = Math.sqrt((1l * xd * xd) + (1l * yd * yd));
-    }else{
+    } else {
       logger.debug("maybe someting wrong");
       dis = super.EuclideanDistanceBetween(u, v);
     }

@@ -64,8 +64,8 @@ public class Plane {
     return this.width;
   }
 
-  //TODO : 搞一个更高效的算法求最远距离
-  //http://blog.csdn.net/zmlcool/article/details/6727351
+  // TODO : 搞一个更高效的算法求最远距离
+  // http://blog.csdn.net/zmlcool/article/details/6727351
   public double MaxEuclideanDistance() {
     double maxDis = 0.0;
     final Set<Node> nodes = this.ug.getNodes();

@@ -39,7 +39,8 @@ public class AB {
   /**
    * 生成边
    * 
-   * @param step 步数
+   * @param step
+   *          步数
    * @param pNewEdges
    *          执行生成新边的概率
    * @param pRestEdge

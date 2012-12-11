@@ -24,7 +24,7 @@ public class Node {
     this(idCounter--);
   }
 
-  public Node(Coordinate coordinate){
+  public Node(Coordinate coordinate) {
     this(coordinate.toLong(), coordinate);
   }
 
@@ -40,6 +40,7 @@ public class Node {
   public Node(long id, Coordinate coordinate) {
     this(id, defaultWeight, coordinate);
   }
+
   /**
    * id is a String that can identify a Node. one Node, one id. Warn:Nothing
    * will happpen if you create two Node with the same id
