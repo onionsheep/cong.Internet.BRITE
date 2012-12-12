@@ -1,6 +1,7 @@
 package org.cong.complexNetwork.model;
 
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import org.apache.log4j.LogManager;
@@ -8,6 +9,7 @@ import org.apache.log4j.Logger;
 import org.cong.complexNetwork.graph.Coordinate;
 import org.cong.complexNetwork.graph.Node;
 import org.cong.complexNetwork.graph.UndirectedGraph;
+import org.cong.complexNetwork.util.EuclideanDistanceUtil;
 
 public class Plane {
   public static Logger logger = LogManager.getLogger(Plane.class);
@@ -15,7 +17,23 @@ public class Plane {
   protected int width;
   protected int height;
 
-  public Plane(int width, int height) {
+  private static long distanceSqr(final Coordinate u, final Coordinate v) {
+    long dis = 0;
+    final int xd = u.getX() - v.getX();
+    final int yd = u.getY() - v.getY();
+    dis = (1l * xd * xd) + (1l * yd * yd);
+    return dis;
+  }
+
+  private static long distanceSqr(final Node u, final Node v) {
+    return distanceSqr(u.getCoordinate(), v.getCoordinate());
+  }
+
+  public static double EuclideanDistanceBetween(final Coordinate u, final Coordinate v) {
+    return Math.sqrt(distanceSqr(u, v));
+  }
+
+  public Plane(final int width, final int height) {
     this.width = width;
     this.height = height;
     this.ug = new UndirectedGraph();
@@ -35,21 +53,13 @@ public class Plane {
     return this.ug.addNode(this.randomNodeNoDuplication());
   }
 
-  public void addRandomNodes(int count) throws Exception {
+  public void addRandomNodes(final int count) throws Exception {
     int i = 0;
     while (i < count) {
       if (this.addRandomNode()) {
         i++;
       }
     }
-  }
-
-  public double EuclideanDistanceBetween(Coordinate u, Coordinate v) {
-    double dis = 0;
-    final int xd = u.getX() - v.getX();
-    final int yd = u.getY() - v.getY();
-    dis = Math.sqrt((xd * xd) + (yd * yd));
-    return dis;
   }
 
   public UndirectedGraph getGraph() {
@@ -64,24 +74,21 @@ public class Plane {
     return this.width;
   }
 
-  // TODO : 搞一个更高效的算法求最远距离
-  // http://blog.csdn.net/zmlcool/article/details/6727351
+
+  /**
+   * O(n*log(n))的算法，先Graham's Scan法求解凸包，然后旋转卡壳法求凸包直径 Graham's
+   * Scan法求解凸包维基百科http://en.wikipedia.org/wiki/Graham_scan Graham's
+   * Scan法求解凸包中文http://www.cnblogs.com/devymex/archive/2010/08/09/1795392.html
+   * 旋转卡壳法英文http://cgm.cs.mcgill.ca/~orm/rotcal.frame.html
+   * 旋转卡壳法简要的中文网页http://www.cppblog.com/staryjy/archive/2010/09/25/101412.html
+   * 
+   * @return 平面中最远两点之间的距离
+   */
   public double MaxEuclideanDistance() {
-    double maxDis = 0.0;
     final Set<Node> nodes = this.ug.getNodes();
-    final Set<Node> nodesRemain = new HashSet<>();
-    nodesRemain.addAll(nodes);
-    for (final Node node : nodes) {
-      nodesRemain.remove(node);
-      for (final Node node2 : nodesRemain) {
-        final double dis = this.EuclideanDistanceBetween(node.getCoordinate(),
-                                                         node2.getCoordinate());
-        if (maxDis < dis) {
-          maxDis = dis;
-        }
-      }
-    }
-    return maxDis;
+    final List<Node> nl = new ArrayList<>();
+    nl.addAll(nodes);
+    return EuclideanDistanceUtil.maxEd(nl);
   }
 
   public Node randomNode() throws Exception {

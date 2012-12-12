@@ -24,7 +24,7 @@ public class Node {
     this(idCounter--);
   }
 
-  public Node(Coordinate coordinate) {
+  public Node(final Coordinate coordinate) {
     this(coordinate.toLong(), coordinate);
   }
 
@@ -33,11 +33,11 @@ public class Node {
    * 
    * @param id
    */
-  public Node(long id) {
+  public Node(final long id) {
     this(id, defaultWeight, null);
   }
 
-  public Node(long id, Coordinate coordinate) {
+  public Node(final long id, final Coordinate coordinate) {
     this(id, defaultWeight, coordinate);
   }
 
@@ -48,7 +48,7 @@ public class Node {
    * @param id
    * @param weight
    */
-  public Node(long id, double weight, Coordinate coordinate) {
+  public Node(final long id, final double weight, final Coordinate coordinate) {
     this.id = id;
     this.weight = weight;
     this.connectedNodes = new HashSet<>();
@@ -56,15 +56,16 @@ public class Node {
     this.coordinate = coordinate;
   }
 
-  public boolean connectNode(Node node) {
-    final boolean result = this.connectedNodes.add(node);
-    if (result) {
+  public boolean connectNode(final Node node) {
+    if (this.connectedNodes.add(node)) {
       this.degree += 1;
+      return true;
+    }else{
+      return false;
     }
-    return result;
   }
 
-  public boolean disConnectNode(Node node) {
+  public boolean disConnectNode(final Node node) {
     final boolean result = this.connectedNodes.remove(node);
     if (result) {
       this.degree -= 1;
@@ -73,7 +74,7 @@ public class Node {
   }
 
   @Override
-  public boolean equals(Object obj) {
+  public boolean equals(final Object obj) {
     if (this == obj) {
       return true;
     }
@@ -118,7 +119,7 @@ public class Node {
     return result;
   }
 
-  public void setWeight(double weight) {
+  public void setWeight(final double weight) {
     this.weight = weight;
   }
 

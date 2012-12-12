@@ -13,11 +13,11 @@ public class Edge {
   protected boolean directed;
   protected int weight;
 
-  public Edge(Node source, Node target) throws Exception {
+  public Edge(final Node source, final Node target) throws Exception {
     this(source, target, false, 1);
   }
 
-  public Edge(Node source, Node target, boolean directed) throws Exception {
+  public Edge(final Node source, final Node target, final boolean directed) throws Exception {
     this(source, target, directed, 1);
   }
 
@@ -30,24 +30,24 @@ public class Edge {
    * @param weight
    * @throws Exception
    */
-  public Edge(Node source, Node target, boolean directed, int weight) throws Exception {
-    if ((source != null) && (target != null)) {
+  public Edge(final Node source, final Node target, final boolean directed, final int weight)
+      throws Exception {
+    if ((source != null) && (target != null) && !source.equals(target)) {
       this.source = source;
       this.target = target;
       this.directed = directed;
       this.weight = weight;
-
     } else {
       throw new Exception("source and target can not be null");
     }
   }
 
-  public Edge(Node source, Node target, int weight) throws Exception {
+  public Edge(final Node source, final Node target, final int weight) throws Exception {
     this(source, target, false, weight);
   }
 
   @Override
-  public boolean equals(Object obj) {
+  public boolean equals(final Object obj) {
     if (this == obj) {
       return true;
     }
@@ -65,22 +65,10 @@ public class Edge {
       } else {
         return false;
       }
-    } else {
-      if (this.source == null) {
-        if (other.source != null) {
-          return false;
-        }
-      } else if (!this.source.equals(other.source)) {
-        return false;
-      }
-      if (this.target == null) {
-        if (other.target != null) {
-          return false;
-        }
-      } else if (!this.target.equals(other.target)) {
-        return false;
-      }
+    } else if ((this.source.equals(other.getSource()) && this.target.equals(other.getTarget()))) {
       return true;
+    } else {
+      return false;
     }
   }
 
@@ -104,12 +92,18 @@ public class Edge {
   public int hashCode() {
     final int prime = 10007;
     int result = 1;
-    result = (prime * result) + ((this.source == null) ? 0 : this.source.hashCode());
-    result = (prime * result) + ((this.target == null) ? 0 : this.target.hashCode());
+    if (this.directed) {
+      result = (prime * result) + ((this.source == null) ? 0 : this.source.hashCode());
+      result = (prime * result) + ((this.target == null) ? 0 : this.target.hashCode());
+    } else {
+      result = (prime * result)
+          + ((this.source == null) ? 0 : this.source.hashCode())
+          + ((this.target == null) ? 0 : this.target.hashCode());
+    }
     return result;
   }
 
-  public void setWeight(int weight) {
+  public void setWeight(final int weight) {
     this.weight = weight;
   }
 
@@ -120,10 +114,6 @@ public class Edge {
     builder.append(this.source);
     builder.append(", target=");
     builder.append(this.target);
-    builder.append(", directed=");
-    builder.append(this.directed);
-    builder.append(", weight=");
-    builder.append(this.weight);
     builder.append("]");
     return builder.toString();
   }

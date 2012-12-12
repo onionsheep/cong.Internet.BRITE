@@ -4,27 +4,20 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.cong.complexNetwork.graph.Node;
 
-public class BriteBAWaxman extends BA {
-  public static Logger logger = LogManager.getLogger(BriteBAWaxman.class);
+public class BriteTangWaxman extends Tang {
+  public static Logger logger = LogManager.getLogger(BriteTangWaxman.class);
 
   private final double alpha;
   private final double beta;
   private final Plane plane;
   private double maxED;
-  public BriteBAWaxman(final double alpha, final double beta, final Plane plane) {
-    super();
+
+  public BriteTangWaxman(final double epsilon,final double alpha, final double beta, final Plane plane) {
+    super(epsilon);
     this.alpha = alpha;
     this.beta = beta;
     this.plane = plane;
     this.maxED = plane.MaxEuclideanDistance();
-  }
-
-  public double getAlpha() {
-    return this.alpha;
-  }
-
-  public double getBeta() {
-    return this.beta;
   }
 
   @Override
@@ -33,7 +26,7 @@ public class BriteBAWaxman extends BA {
     final double ed = Plane.EuclideanDistanceBetween(n.getCoordinate(),
                                                      newNode.getCoordinate());
     final double pw = this.alpha * Math.exp(-ed / (this.maxED * this.beta));
-    p = n.getDegree() * pw;
+    p = Math.pow(n.getDegree(), this.epsilon) * pw;
     return p;
   }
   @Override

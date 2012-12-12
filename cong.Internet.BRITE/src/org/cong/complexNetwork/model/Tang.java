@@ -4,10 +4,10 @@ import org.cong.complexNetwork.graph.Node;
 import org.cong.complexNetwork.graph.UndirectedGraph;
 
 public class Tang extends BA {
-  private double epsilon; // Tang模型参数
+  protected final double epsilon; // Tang模型参数,此处为提高效率，默认加一
 
-  public Tang(double epsilon) {
-    this.epsilon = epsilon;
+  public Tang(final double epsilon) {
+    this.epsilon = epsilon + 1;
   }
 
   /**
@@ -26,11 +26,11 @@ public class Tang extends BA {
    * @throws Exception
    */
   @Override
-  protected void addEdges(int edgeCount,
-                          UndirectedGraph ug,
-                          Node[] nodeArray,
-                          double[] probabilities,
-                          Node newNode) throws Exception {
+  protected void addEdges(final int edgeCount,
+                          final UndirectedGraph ug,
+                          final Node[] nodeArray,
+                          final double[] probabilities,
+                          final Node newNode) throws Exception {
     boolean result = false;
     while (!result) {
       final int i = randomWithProbablities(probabilities);
@@ -42,26 +42,18 @@ public class Tang extends BA {
     while (m < count) {
       final int i = randomWithProbablities(probabilities);
       final int j = randomWithProbablities(probabilities);
-      result = ug.connect(nodeArray[i], nodeArray[j]);
-      if (result) {
+      if (ug.connect(nodeArray[i], nodeArray[j])) {
         m += 1;
       }
     }
   }
 
   public double getEpsilon() {
-    return this.epsilon;
+    return this.epsilon - 1;
   }
 
   @Override
-  protected double probability(Node n, Node newNode) {
-    double p = 0;
-    p = Math.pow(n.getDegree(), 1 + this.epsilon);
-    return p;
-  }
-
-
-  public void setEpsilon(double epsilon) {
-    this.epsilon = epsilon;
+  protected double probability(final Node n, final Node newNode) {
+    return Math.pow(n.getDegree(), this.epsilon);
   }
 }

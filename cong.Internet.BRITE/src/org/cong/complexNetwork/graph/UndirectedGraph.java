@@ -31,7 +31,7 @@ public class UndirectedGraph {
     this.nodeMap = new HashMap<>();
   }
 
-  public boolean addNode(Node node) {
+  public boolean addNode(final Node node) {
     return this.nodes.add(node);
   }
 
@@ -60,7 +60,7 @@ public class UndirectedGraph {
    * @return 连接并添加成功返回true，否则false
    * @throws Exception
    */
-  public boolean connect(Node source, Node target) throws Exception {
+  public boolean connect(final Node source, final Node target) throws Exception {
     if (source.equals(target)) {
       return false;
     }
@@ -68,8 +68,14 @@ public class UndirectedGraph {
     final Edge edge = new Edge(source, target);
     result = this.edges.add(edge);
     if (result) {
-      source.connectNode(target);
-      target.connectNode(source);
+      final boolean sr = source.connectNode(target);
+      final boolean tr = target.connectNode(source);
+      if(!sr || !tr){
+        source.disConnectNode(target);
+        target.disConnectNode(source);
+        this.edges.remove(edge);
+        throw new Exception("添加边发生异常，节点度可能发生错误.");
+      }
     }
     return result;
   }
@@ -81,7 +87,7 @@ public class UndirectedGraph {
    *          给定节点
    * @return 含有true，不含有false
    */
-  public boolean containsNode(Node n) {
+  public boolean containsNode(final Node n) {
     return this.nodes.contains(n);
   }
 
@@ -95,7 +101,7 @@ public class UndirectedGraph {
    * @return 断开成功返回true。图中不存在这两个节点之间的连接则返回false
    * @throws Exception
    */
-  public boolean disConnect(Node source, Node target) throws Exception {
+  public boolean disConnect(final Node source, final Node target) throws Exception {
     boolean result = false;
     final Edge edge = new Edge(source, target);
     result = this.removeEdge(edge);
@@ -143,7 +149,7 @@ public class UndirectedGraph {
    *          给定节点
    * @return 图中的节点
    */
-  public Node getNode(Node node) {
+  public Node getNode(final Node node) {
     Node n0 = null;
     for (final Node n : this.nodes) {
       if (n.equals(node)) {
@@ -165,7 +171,7 @@ public class UndirectedGraph {
    *          给定边
    * @return 删除成功返回true，图中不存在给定边或者删除失败返回false
    */
-  public boolean removeEdge(Edge edge) {
+  public boolean removeEdge(final Edge edge) {
     boolean result;
     result = this.edges.remove(edge);
     final Node source = edge.getSource();
@@ -211,7 +217,7 @@ public class UndirectedGraph {
    *          文件路径
    * @throws IOException
    */
-  public void toAdjacentMatrixFile(String filePath) throws IOException {
+  public void toAdjacentMatrixFile(final String filePath) throws IOException {
     final Node[] nodeArray = this.nodes.toArray(new Node[0]);
     // Edge[] edgeArray = edges.toArray(new Edge[0]);
     final File f = new File(filePath);
