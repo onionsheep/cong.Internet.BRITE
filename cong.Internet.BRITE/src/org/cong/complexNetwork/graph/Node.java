@@ -8,17 +8,17 @@ import org.apache.log4j.Logger;
 
 public class Node {
 
-  public static Logger logger = LogManager.getLogger(Node.class);
-
-  private static long idCounter = -1;
-
-  protected long id;
-  protected double weight;
-  protected int degree;
   protected Set<Node> connectedNodes;
+
   protected Coordinate coordinate;
 
+  protected int degree;
+  protected long id;
+  protected double weight;
   private static final double defaultWeight = 0;
+  private static long idCounter = -1;
+
+  public static Logger logger = LogManager.getLogger(Node.class);
 
   public Node() {
     this(idCounter--);
@@ -60,7 +60,7 @@ public class Node {
     if (this.connectedNodes.add(node)) {
       this.degree += 1;
       return true;
-    }else{
+    } else {
       return false;
     }
   }

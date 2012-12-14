@@ -11,23 +11,28 @@ import java.io.Writer;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.cong.complexNetwork.model.BA;
+import org.cong.complexNetwork.model.BriteBA;
 import org.cong.complexNetwork.model.BritePlane;
 import org.cong.complexNetwork.model.BriteWaxman;
-import org.nutz.json.Json;
+
+import com.alibaba.fastjson.JSON;
 
 public class BriteMain {
 
   public static Logger logger = LogManager.getLogger(BriteMain.class);
 
-  private static void generate(Configuration configuration) throws Exception {
+  private static void generate(final Configuration configuration) throws Exception {
     final BritePlane britePlane = new BritePlane(configuration.hs, configuration.ls);
     britePlane.addRandomNodes(configuration.waxmanNodeCount);
     logger.info("正在生成Waxman随机图...");
-    BriteWaxman.generateEdges(britePlane, configuration.waxmanAlpha, configuration.waxmanBeta);
+    BriteWaxman.generateEdges(new BriteWaxman(britePlane,
+                                              configuration.waxmanAlpha,
+                                              configuration.waxmanBeta));
 
     logger.info("正在生成BA图...");
-    BA.generateEdges(britePlane, configuration.baOneNodeEdge, configuration.baNodeCount, new BA());
+    BriteBA.generateEdges(new BriteBA(britePlane,
+                                      configuration.baOneNodeEdge,
+                                      configuration.baNodeCount));
     logger.info("正在把模型转化为GEXF格式...");
 
     final Gexf gexf = britePlane.getGraph().toGexf();
@@ -46,13 +51,13 @@ public class BriteMain {
     }
   }
 
-  public static void main(String[] args) throws Exception {
+  public static void main(final String[] args) throws Exception {
     final File file = new File("Configuration.json");
     try {
       final String confStr = FileUtils.readFileToString(file);
-      final Configuration conf = Json.fromJson(Configuration.class, confStr);
+      // final Configuration conf = Json.fromJson(Configuration.class, confStr);
       // nutz的json解析
-      // Configuration conf = JSON.parseObject(confStr, Configuration.class);
+      final Configuration conf = JSON.parseObject(confStr, Configuration.class);
       // fastjson
       generate(conf);
     }

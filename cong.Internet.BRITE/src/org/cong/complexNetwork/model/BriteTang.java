@@ -3,10 +3,14 @@ package org.cong.complexNetwork.model;
 import org.cong.complexNetwork.graph.Node;
 import org.cong.complexNetwork.graph.UndirectedGraph;
 
-public class Tang extends BA {
-  protected final double epsilon; // Tang模型参数,此处为提高效率，默认加一
+public class BriteTang extends BriteBA {
+  protected double epsilon; // Tang模型参数,此处为提高效率，内部默认加一
 
-  public Tang(final double epsilon) {
+  public BriteTang(final Plane plane,
+                   final int oneNodeEdge,
+                   final int nodeCount,
+                   final double epsilon) {
+    super(plane, oneNodeEdge, nodeCount);
     this.epsilon = epsilon + 1;
   }
 
@@ -55,5 +59,9 @@ public class Tang extends BA {
   @Override
   protected double probability(final Node n, final Node newNode) {
     return Math.pow(n.getDegree(), this.epsilon);
+  }
+
+  public void setEpsilon(final double epsilon) {
+    this.epsilon = epsilon;
   }
 }

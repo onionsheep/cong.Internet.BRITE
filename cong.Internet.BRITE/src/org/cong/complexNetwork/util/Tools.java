@@ -21,15 +21,15 @@ import org.cong.complexNetwork.graph.UndirectedGraph;
 public class Tools {
   public static Logger logger = LogManager.getLogger(Tools.class);
 
-  public static double randomDouble(double n) {
+  public static double randomDouble(final double n) {
     return java.util.concurrent.ThreadLocalRandom.current().nextDouble(n);
   }
 
-  public static int randomInt(int n) {
+  public static int randomInt(final int n) {
     return java.util.concurrent.ThreadLocalRandom.current().nextInt(n);
   }
 
-  public static UndirectedGraph readIPNodesFromLnkFile(String filePath) throws Exception {
+  public static UndirectedGraph readIPNodesFromLnkFile(final String filePath) throws Exception {
     final UndirectedGraph ug = new UndirectedGraph();
     final File f = new File(filePath);
     final Map<Node, Node> nnmap = new HashMap<>();
@@ -66,17 +66,18 @@ public class Tools {
     return ug;
   }
 
-  public static void writeAdjacentMatrixtoFile(double[][] am, String filePath) throws IOException {
+  public static void writeAdjacentMatrixtoFile(final double[][] am, final String filePath)
+      throws IOException {
     final StringBuffer sb = new StringBuffer();
     sb.append("AM = [\n");
     for (int i = 0; i < am.length; i++) {
       for (int j = 0; j < am[0].length; j++) {
         sb.append((int) am[i][j]);
-        if (j < am[0].length - 1) {
+        if (j < (am[0].length - 1)) {
           sb.append(",");
         }
       }
-      if (i < am.length - 1) {
+      if (i < (am.length - 1)) {
         sb.append("\n");
       }
     }
@@ -85,7 +86,7 @@ public class Tools {
     FileUtils.writeStringToFile(f, sb.toString(), "UTF-8");
   }
 
-  public static void writeGexfFile(Gexf gexf, String filePath) {
+  public static void writeGexfFile(final Gexf gexf, final String filePath) {
     final StaxGraphWriter graphWriter = new StaxGraphWriter();
     final File f = new File(filePath);
     Writer out;

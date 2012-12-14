@@ -16,12 +16,12 @@ public class NodeDegreeComparator implements Comparator<Node> {
    * @param order
    *          only can be asc or other, default to be asc
    */
-  public NodeDegreeComparator(String order) {
+  public NodeDegreeComparator(final String order) {
     this.order = order;
   }
 
   @Override
-  public int compare(Node n1, Node n2) {
+  public int compare(final Node n1, final Node n2) {
     int result = 0;
     // 未考虑对象为null的情况
 

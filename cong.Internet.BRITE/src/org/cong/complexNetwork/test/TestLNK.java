@@ -14,7 +14,7 @@ import org.jfree.data.xy.XYDataset;
 public class TestLNK {
   public static Logger logger = LogManager.getLogger(TestLNK.class);
 
-  public static void main(String[] args) throws Exception {
+  public static void main(final String[] args) throws Exception {
     tLNK();
   }
 

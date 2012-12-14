@@ -62,7 +62,7 @@ public class NetworkTraitUtil {
       yl.add(result);
     }
     final XYDataset xyds = ChartTools.toXYDataset(xl, yl, "度-连通性");
-    ChartTools.drawChart(xyds,"富人俱乐部特性");
+    ChartTools.drawChart(xyds, "富人俱乐部特性");
   }
 
   public static void showRichClubChartByOrder(final UndirectedGraph ug) throws Exception {
@@ -89,7 +89,7 @@ public class NetworkTraitUtil {
       yl.add(Math.log(result + 1));
     }
     final XYDataset xyds = ChartTools.toXYDataset(xl, yl, "个数-连通性");
-    ChartTools.drawChart(xyds,"富人俱乐部特性(已取双对数)");
+    ChartTools.drawChart(xyds, "富人俱乐部特性(已取双对数)");
   }
 
 }

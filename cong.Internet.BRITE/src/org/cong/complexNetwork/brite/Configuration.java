@@ -1,14 +1,14 @@
 package org.cong.complexNetwork.brite;
 
 public class Configuration {
-  public Integer hs;
-  public Integer ls;
-  public Integer waxmanNodeCount;
-  public Double waxmanAlpha;
-  public Double waxmanBeta;
   public Integer baNodeCount;
   public Integer baOneNodeEdge;
+  public Integer hs;
+  public Integer ls;
   public String outputFileName;
+  public Double waxmanAlpha;
+  public Double waxmanBeta;
+  public Integer waxmanNodeCount;
 
   public Integer getBaNodeCount() {
     return this.baNodeCount;
@@ -42,35 +42,35 @@ public class Configuration {
     return this.waxmanNodeCount;
   }
 
-  public void setBaNodeCount(Integer baNodeCount) {
+  public void setBaNodeCount(final Integer baNodeCount) {
     this.baNodeCount = baNodeCount;
   }
 
-  public void setBaOneNodeEdge(Integer baOneNodeEdge) {
+  public void setBaOneNodeEdge(final Integer baOneNodeEdge) {
     this.baOneNodeEdge = baOneNodeEdge;
   }
 
-  public void setHs(Integer hs) {
+  public void setHs(final Integer hs) {
     this.hs = hs;
   }
 
-  public void setLs(Integer ls) {
+  public void setLs(final Integer ls) {
     this.ls = ls;
   }
 
-  public void setOutputFileName(String outputFileName) {
+  public void setOutputFileName(final String outputFileName) {
     this.outputFileName = outputFileName;
   }
 
-  public void setWaxmanAlpha(Double waxmanAlpha) {
+  public void setWaxmanAlpha(final Double waxmanAlpha) {
     this.waxmanAlpha = waxmanAlpha;
   }
 
-  public void setWaxmanBeta(Double waxmanBeta) {
+  public void setWaxmanBeta(final Double waxmanBeta) {
     this.waxmanBeta = waxmanBeta;
   }
 
-  public void setWaxmanNodeCount(Integer waxmanNodeCount) {
+  public void setWaxmanNodeCount(final Integer waxmanNodeCount) {
     this.waxmanNodeCount = waxmanNodeCount;
   }
 

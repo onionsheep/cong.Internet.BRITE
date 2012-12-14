@@ -2,33 +2,42 @@ package org.cong.complexNetwork.util;
 
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  * 稀疏矩阵,元素是（下标x，下标y，元素值）这种结构。暂时只为导出为Matlab稀疏矩阵使用。
+ * 
  * @author onion_sheep(onion_sheep@163.com)
- * @param <T> 元素之类型
+ * @param <T>
+ *          元素之类型
  */
 public class Sparse<T> {
 
+  protected List<T> vl;
   protected List<Integer> xl;
   protected List<Integer> yl;
-  protected List<T> vl;
 
   public Sparse() {
     this.xl = new ArrayList<>();
     this.yl = new ArrayList<>();
     this.vl = new ArrayList<>();
   }
+
   /**
    * 添加一个元素
-   * @param x 下标x
-   * @param y 下标y
-   * @param value 元素值
+   * 
+   * @param x
+   *          下标x
+   * @param y
+   *          下标y
+   * @param value
+   *          元素值
    */
-  public void addElement(int x, int y, T value) {
+  public void addElement(final int x, final int y, final T value) {
     this.xl.add(x);
     this.yl.add(y);
     this.vl.add(value);
   }
+
   /**
    * @return Matlab所需要的稀疏矩阵的生成字符串
    */

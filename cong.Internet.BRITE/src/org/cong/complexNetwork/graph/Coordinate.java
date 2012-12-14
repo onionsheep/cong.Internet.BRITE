@@ -1,6 +1,6 @@
 package org.cong.complexNetwork.graph;
 
-public class Coordinate{
+public class Coordinate {
   protected int x;
   protected int y;
 

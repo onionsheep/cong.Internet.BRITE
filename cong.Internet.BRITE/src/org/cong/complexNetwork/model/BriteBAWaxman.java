@@ -4,18 +4,21 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.cong.complexNetwork.graph.Node;
 
-public class BriteBAWaxman extends BA {
+public class BriteBAWaxman extends BriteBA {
+  protected final double alpha;
+
+  protected final double beta;
+  protected double maxED;
   public static Logger logger = LogManager.getLogger(BriteBAWaxman.class);
 
-  private final double alpha;
-  private final double beta;
-  private final Plane plane;
-  private double maxED;
-  public BriteBAWaxman(final double alpha, final double beta, final Plane plane) {
-    super();
+  public BriteBAWaxman(final Plane plane,
+                       final int oneNodeEdge,
+                       final int nodeCount,
+                       final double alpha,
+                       final double beta) {
+    super(plane, oneNodeEdge, nodeCount);
     this.alpha = alpha;
     this.beta = beta;
-    this.plane = plane;
     this.maxED = plane.MaxEuclideanDistance();
   }
 
@@ -27,17 +30,25 @@ public class BriteBAWaxman extends BA {
     return this.beta;
   }
 
+  public double getMaxED() {
+    return this.maxED;
+  }
+
   @Override
-  protected  double probability(final Node n, final Node newNode) {
+  protected double probability(final Node n, final Node newNode) {
     double p = 0;
-    final double ed = Plane.EuclideanDistanceBetween(n.getCoordinate(),
-                                                     newNode.getCoordinate());
+    final double ed = Plane.EuclideanDistanceBetween(n.getCoordinate(), newNode.getCoordinate());
     final double pw = this.alpha * Math.exp(-ed / (this.maxED * this.beta));
     p = n.getDegree() * pw;
     return p;
   }
+
   @Override
-  protected void reCalculate(){
+  protected void reCalculate() {
     this.maxED = this.plane.MaxEuclideanDistance();
+  }
+
+  public void setMaxED(final double maxED) {
+    this.maxED = maxED;
   }
 }

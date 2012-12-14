@@ -17,7 +17,8 @@ public class AB {
 
   private static long nodeId = 0;
 
-  public static void addNewEdges(UndirectedGraph undirectedGraph, int count) throws Exception {
+  public static void addNewEdges(final UndirectedGraph undirectedGraph, final int count)
+      throws Exception {
     final Set<Node> nodes = undirectedGraph.getNodes();
     for (int i = 0; i < count; i++) {
       final Node sNode = getRandomNode(nodes);
@@ -28,7 +29,7 @@ public class AB {
     }
   }
 
-  public static boolean addNode(UndirectedGraph undirectedGraph) throws Exception {
+  public static boolean addNode(final UndirectedGraph undirectedGraph) throws Exception {
     final Set<Node> nodes = undirectedGraph.getNodes();
     final Node tNode = getTargetNode(nodes);
     final Node newNode = newNode();
@@ -51,11 +52,11 @@ public class AB {
    *          生成新边和重连边，每一次的数量
    * @throws Exception
    */
-  public static void generateGraph(int step,
-                                   double pNewEdges,
-                                   double pRestEdge,
-                                   UndirectedGraph undirectedGraph,
-                                   int count) throws Exception {
+  public static void generateGraph(final int step,
+                                   final double pNewEdges,
+                                   final double pRestEdge,
+                                   final UndirectedGraph undirectedGraph,
+                                   final int count) throws Exception {
     for (int i = 0; i < step; i++) {
       final double r = Tools.randomDouble(1);
       if (r < pNewEdges) {
@@ -71,7 +72,7 @@ public class AB {
     }
   }
 
-  private static Node getRandomNode(Set<Node> nodes) {
+  private static Node getRandomNode(final Set<Node> nodes) {
     final int size = nodes.size();
     final int rnd = java.util.concurrent.ThreadLocalRandom.current().nextInt(size);
     final Node[] nodeArray = nodes.toArray(new Node[0]);
@@ -79,7 +80,7 @@ public class AB {
     return sNode;
   }
 
-  private static Node getTargetNode(Set<Node> nodes) {
+  private static Node getTargetNode(final Set<Node> nodes) {
     final Node[] nodeArray = nodes.toArray(new Node[0]);
     double probability = 0.0;
     final double[] probabilities = new double[nodeArray.length];
@@ -104,7 +105,7 @@ public class AB {
     return new Node(nodeId++);
   }
 
-  public static double probability(Node i, Node[] nodeArray) {
+  public static double probability(final Node i, final Node[] nodeArray) {
     double probability = 0;
     int sumOfDegree = 0;
     for (final Node node : nodeArray) {
@@ -114,7 +115,8 @@ public class AB {
     return probability;
   }
 
-  public static boolean reSetEdges(UndirectedGraph undirectedGraph, int count) throws Exception {
+  public static boolean reSetEdges(final UndirectedGraph undirectedGraph, final int count)
+      throws Exception {
     boolean result = true;
     final Set<Node> nodes = undirectedGraph.getNodes();
     int sumD = 0;

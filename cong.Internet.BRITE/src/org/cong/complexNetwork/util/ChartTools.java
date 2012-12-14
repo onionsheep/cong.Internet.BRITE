@@ -24,7 +24,7 @@ import org.jfree.ui.RefineryUtilities;
 public class ChartTools {
   public static Logger logger = LogManager.getLogger(ChartTools.class);
 
-  public static void drawChart(XYDataset xyds, String title) {
+  public static void drawChart(final XYDataset xyds, final String title) {
     final NumberAxis localNumberAxis1 = new NumberAxis("X");
     localNumberAxis1.setAutoRangeIncludesZero(false);
     final NumberAxis localNumberAxis2 = new NumberAxis("Y");
@@ -48,8 +48,9 @@ public class ChartTools {
     af.setVisible(true);
   }
 
-  public static XYDataset toLogLogXYDataset(List<Double> xl, List<Double> yl, String title)
-      throws Exception {
+  public static XYDataset toLogLogXYDataset(final List<Double> xl,
+                                            final List<Double> yl,
+                                            final String title) throws Exception {
     final XYSeriesCollection xysc = new XYSeriesCollection();
     final XYSeries xys = new XYSeries(title);
     if (xl.size() == yl.size()) {
@@ -66,8 +67,9 @@ public class ChartTools {
     return xysc;
   }
 
-  public static XYDataset toXYDataset(List<Double> xl, List<Double> yl, String title)
-      throws Exception {
+  public static XYDataset toXYDataset(final List<Double> xl,
+                                      final List<Double> yl,
+                                      final String title) throws Exception {
     final XYSeriesCollection xysc = new XYSeriesCollection();
     final XYSeries xys = new XYSeries(title);
     if (xl.size() == yl.size()) {
@@ -84,7 +86,7 @@ public class ChartTools {
     return xysc;
   }
 
-  public static XYDataset toXYDatasetFD(UndirectedGraph g) throws Exception {
+  public static XYDataset toXYDatasetFD(final UndirectedGraph g) throws Exception {
     final Set<Node> nodes = g.getNodes();
     final Node[] na = nodes.toArray(new Node[0]);
     Arrays.sort(na, new NodeDegreeComparator("desc"));
@@ -107,7 +109,7 @@ public class ChartTools {
     return toLogLogXYDataset(lx, ly, "频-度");
   }
 
-  public static XYDataset toXYDatasetRD(UndirectedGraph g) throws Exception {
+  public static XYDataset toXYDatasetRD(final UndirectedGraph g) throws Exception {
     final Set<Node> nodes = g.getNodes();
     final Node[] na = nodes.toArray(new Node[0]);
     Arrays.sort(na, new NodeDegreeComparator("desc"));

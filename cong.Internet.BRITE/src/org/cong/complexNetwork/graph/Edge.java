@@ -8,9 +8,9 @@ package org.cong.complexNetwork.graph;
  * 
  */
 public class Edge {
+  protected boolean directed;
   protected Node source;
   protected Node target;
-  protected boolean directed;
   protected int weight;
 
   public Edge(final Node source, final Node target) throws Exception {
@@ -97,8 +97,8 @@ public class Edge {
       result = (prime * result) + ((this.target == null) ? 0 : this.target.hashCode());
     } else {
       result = (prime * result)
-          + ((this.source == null) ? 0 : this.source.hashCode())
-          + ((this.target == null) ? 0 : this.target.hashCode());
+               + ((this.source == null) ? 0 : this.source.hashCode())
+               + ((this.target == null) ? 0 : this.target.hashCode());
     }
     return result;
   }

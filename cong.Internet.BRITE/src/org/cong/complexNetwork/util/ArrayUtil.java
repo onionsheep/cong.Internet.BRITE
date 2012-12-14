@@ -13,7 +13,7 @@ public class ArrayUtil {
    * @param target
    * @return
    */
-  public static int firstBigger(double[] a, double target) {
+  public static int firstBigger(final double[] a, final double target) {
     int low = 0;
     int high = a.length - 1;
     int mid = 0;

@@ -3,12 +3,12 @@ package org.cong.complexNetwork.graph;
 public class BriteCoordinate extends Coordinate {
   protected int hx;
   protected int hy;
+  protected int ls;
   protected int lx;
   protected int ly;
-  protected int ls;
 
-  public BriteCoordinate(final int hx, final int hy, final int lx, final int ly, final int ls){
-    super(hx+(ls*ls), hy+(ly*ls));
+  public BriteCoordinate(final int hx, final int hy, final int lx, final int ly, final int ls) {
+    super(hx + (ls * ls), hy + (ly * ls));
     this.hx = hx;
     this.hy = hy;
     this.lx = lx;

@@ -8,7 +8,7 @@ import org.cong.complexNetwork.model.AB;
 public class TestAB {
   public static Logger logger = LogManager.getLogger(TestAB.class);
 
-  public static void main(String[] args) throws Exception {
+  public static void main(final String[] args) throws Exception {
     final UndirectedGraph ug = new UndirectedGraph();
     final int m0 = 10;
     final int steps = 3000;

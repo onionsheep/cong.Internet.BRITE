@@ -12,10 +12,10 @@ import org.cong.complexNetwork.graph.UndirectedGraph;
 import org.cong.complexNetwork.util.EuclideanDistanceUtil;
 
 public class Plane {
-  public static Logger logger = LogManager.getLogger(Plane.class);
+  protected int height;
   protected UndirectedGraph ug;
   protected int width;
-  protected int height;
+  public static Logger logger = LogManager.getLogger(Plane.class);
 
   private static long distanceSqr(final Coordinate u, final Coordinate v) {
     long dis = 0;
@@ -73,7 +73,6 @@ public class Plane {
   public int getWidth() {
     return this.width;
   }
-
 
   /**
    * O(n*log(n))的算法，先Graham's Scan法求解凸包，然后旋转卡壳法求凸包直径 Graham's

@@ -20,9 +20,9 @@ import org.apache.log4j.Logger;
 import org.cong.complexNetwork.util.Sparse;
 
 public class UndirectedGraph {
-  protected Set<Node> nodes;
   protected Set<Edge> edges;
   protected Map<Node, Node> nodeMap;
+  protected Set<Node> nodes;
   public static Logger logger = LogManager.getLogger(UndirectedGraph.class);
 
   public UndirectedGraph() {
@@ -70,7 +70,7 @@ public class UndirectedGraph {
     if (result) {
       final boolean sr = source.connectNode(target);
       final boolean tr = target.connectNode(source);
-      if(!sr || !tr){
+      if (!sr || !tr) {
         source.disConnectNode(target);
         target.disConnectNode(source);
         this.edges.remove(edge);

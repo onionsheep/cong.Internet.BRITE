@@ -7,16 +7,20 @@ public class BriteCirclePlane extends BritePlane {
 
   protected double radius;
 
-  public BriteCirclePlane(int hs, int ls) {
+  public BriteCirclePlane(final int hs, final int ls) {
     this(hs, ls, ls * 0.5);
   }
 
-  public BriteCirclePlane(int hs, int ls, double radius) {
+  public BriteCirclePlane(final int hs, final int ls, double radius) {
     super(hs, ls);
     if ((2 * radius) > ls) {
       radius = ls / 2.0;
     }
     this.radius = radius;
+  }
+
+  public double getRadius() {
+    return this.radius;
   }
 
   @Override
@@ -35,6 +39,10 @@ public class BriteCirclePlane extends BritePlane {
       }
     }
     return node;
+  }
+
+  public void setRadius(final double radius) {
+    this.radius = radius;
   }
 
 }
