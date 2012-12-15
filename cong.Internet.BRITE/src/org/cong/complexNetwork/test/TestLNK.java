@@ -9,7 +9,6 @@ import org.cong.complexNetwork.graph.UndirectedGraph;
 import org.cong.complexNetwork.util.ChartTools;
 import org.cong.complexNetwork.util.NetworkTraitUtil;
 import org.cong.complexNetwork.util.Tools;
-import org.jfree.data.xy.XYDataset;
 
 public class TestLNK {
   public static Logger logger = LogManager.getLogger(TestLNK.class);
@@ -20,8 +19,8 @@ public class TestLNK {
 
   public static void tLNK() throws Exception {
     logger.debug("开始");
-    // UndirectedGraph ug = Tools.readIPNodesFromLnkFile("ips.txt");
-    final UndirectedGraph ug = Tools.readIPNodesFromLnkFile("a-r20030421sr");
+    final UndirectedGraph ug = Tools.readIPNodesFromLnkFile("ips.txt");
+    // final UndirectedGraph ug = Tools.readIPNodesFromLnkFile("a-r20030421sr");
 
     final Set<Node> nodes = ug.getNodes();
 
@@ -44,10 +43,9 @@ public class TestLNK {
     // RichClubUtil.showRichClubChartByOrder(ug);
     logger.debug("同配性系数： " + NetworkTraitUtil.assortativityCoefficient(ug));
 
-    NetworkTraitUtil.showRichClubChartByDegree(ug);
-    final XYDataset xydsfd = ChartTools.toXYDatasetFD(ug);
-    final XYDataset xydsrf = ChartTools.toXYDatasetRD(ug);
-    ChartTools.drawChart(xydsfd, "频数--度,幂律分布（已取双对数）");
-    ChartTools.drawChart(xydsrf, "秩---度,幂律分布（已取双对数）");
+    // NetworkTraitUtil.showRichClubChartByDegree(ug);
+    // final XYDataset xydsfd = ChartTools.toXYDatasetFD(ug);
+    //ChartTools.drawChart(ChartTools.toXYDatasetFD(ug), "频数--度");
+    ChartTools.drawChart(ChartTools.toXYDatasetPowerLaw(ug), "");
   }
 }

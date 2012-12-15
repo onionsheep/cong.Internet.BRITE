@@ -2,7 +2,6 @@ package org.cong.complexNetwork.util;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -52,6 +51,14 @@ public class ChartTools {
                                             final List<Double> yl,
                                             final String title) throws Exception {
     final XYSeriesCollection xysc = new XYSeriesCollection();
+    final XYSeries xys = toLogLogXYSeries(xl, yl, title);
+    xysc.addSeries(xys);
+    return xysc;
+  }
+
+  protected static XYSeries toLogLogXYSeries(final List<Double> xl,
+                                             final List<Double> yl,
+                                             final String title) throws Exception {
     final XYSeries xys = new XYSeries(title);
     if (xl.size() == yl.size()) {
       final int l = xl.size();
@@ -63,14 +70,21 @@ public class ChartTools {
     } else {
       throw new Exception("two list must have the same size");
     }
-    xysc.addSeries(xys);
-    return xysc;
+    return xys;
   }
 
   public static XYDataset toXYDataset(final List<Double> xl,
                                       final List<Double> yl,
                                       final String title) throws Exception {
     final XYSeriesCollection xysc = new XYSeriesCollection();
+    final XYSeries xys = toXYSeries(xl, yl, title);
+    xysc.addSeries(xys);
+    return xysc;
+  }
+
+  protected static XYSeries toXYSeries(final List<Double> xl,
+                                       final List<Double> yl,
+                                       final String title) throws Exception {
     final XYSeries xys = new XYSeries(title);
     if (xl.size() == yl.size()) {
       final int l = xl.size();
@@ -82,51 +96,51 @@ public class ChartTools {
     } else {
       throw new Exception("two list must have the same size");
     }
-    xysc.addSeries(xys);
-    return xysc;
+    return xys;
   }
 
-  public static XYDataset toXYDatasetFD(final UndirectedGraph g) throws Exception {
+  public static XYDataset toXYDatasetPowerLaw(final UndirectedGraph g) throws Exception {
     final Set<Node> nodes = g.getNodes();
     final Node[] na = nodes.toArray(new Node[0]);
     Arrays.sort(na, new NodeDegreeComparator("desc"));
 
-    final List<Double> lx = new ArrayList<>();
-    final List<Double> ly = new ArrayList<>();
+    final List<Double> xl0 = new ArrayList<>();
+    final List<Double> yl0 = new ArrayList<>();
+    final List<Double> xl1 = new ArrayList<>();
+    final List<Double> yl1 = new ArrayList<>();
+    final List<Double> xl2 = new ArrayList<>();
+    final List<Double> yl2 = new ArrayList<>();
 
-    final Set<Integer> ds = new HashSet<>();
-    int f = 1;
-    for (final Node element : na) {
-      final int d = element.getDegree();
-      if (!ds.contains(d) && (d != 0)) {
-        ds.add(d);
-        lx.add(1.0 * f);
-        ly.add(1.0 * d);
-        f += 1;
-      }
-    }
-
-    return toLogLogXYDataset(lx, ly, "频-度");
-  }
-
-  public static XYDataset toXYDatasetRD(final UndirectedGraph g) throws Exception {
-    final Set<Node> nodes = g.getNodes();
-    final Node[] na = nodes.toArray(new Node[0]);
-    Arrays.sort(na, new NodeDegreeComparator("desc"));
-
-    final List<Double> lx = new ArrayList<>();
-    final List<Double> ly = new ArrayList<>();
-
+    int lastd = na[0].getDegree();
+    int f = 0;
+    
     for (int i = 0; i < na.length; i++) {
       final int d = na[i].getDegree();
       if (d != 0) {
-        lx.add(1.0 + i);
-        ly.add(1.0 * na[i].getDegree());
+        xl0.add(1.0 + i);
+        yl0.add(1.0 * d);
+        if (d == lastd) {
+          f++;
+        } else {
+          xl1.add(1.0 * i);
+          yl1.add(1.0 * lastd);
+          xl2.add(1.0 * f);
+          yl2.add(1.0 * lastd);
+          lastd = d;
+          f = 1;
+        }
       }
-
     }
 
-    return toLogLogXYDataset(lx, ly, "秩-度");
+    final XYSeriesCollection xysc = new XYSeriesCollection();
+    final XYSeries xys0 = toLogLogXYSeries(xl0, yl0, "幂律分布（降序序号--度）");
+    final XYSeries xys1 = toLogLogXYSeries(xl1, yl1, "幂律分布（度累计分布--度）");
+    final XYSeries xys2 = toLogLogXYSeries(xl2, yl2, "幂律分布（频数--度）");
+    
+    xysc.addSeries(xys0);
+    xysc.addSeries(xys1);
+    xysc.addSeries(xys2);
+    return xysc;
   }
 
 }

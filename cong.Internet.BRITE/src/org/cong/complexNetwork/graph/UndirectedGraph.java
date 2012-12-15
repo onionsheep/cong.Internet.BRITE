@@ -282,4 +282,19 @@ public class UndirectedGraph {
     return s;
   }
 
+  public int[][] toSparse1() {
+    int size = edges.size();
+    int[][] s = new int[size][3];
+    int k = 0;
+    final List<Node> nl = new ArrayList<>();
+    nl.addAll(this.nodes);
+    for (final Edge e : this.edges) {
+      s[k][0] = 1 + nl.indexOf(e.getTarget());
+      s[k][1] = 1 + nl.indexOf(e.getSource());
+      s[k][2] = e.getWeight();
+      k++;
+    }
+    return s;
+  }
+
 }

@@ -1,5 +1,12 @@
 package org.cong.complexNetwork.test;
 
+import it.uniroma1.dis.wiserver.gexf4j.core.Gexf;
+import it.uniroma1.dis.wiserver.gexf4j.core.impl.StaxGraphWriter;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 import java.util.Set;
 
 import org.apache.log4j.LogManager;
@@ -9,12 +16,12 @@ import org.cong.complexNetwork.graph.Node;
 import org.cong.complexNetwork.graph.UndirectedGraph;
 import org.cong.complexNetwork.model.BriteBA;
 import org.cong.complexNetwork.model.BriteCirclePlane;
-import org.cong.complexNetwork.model.BriteTangWaxman;
 import org.cong.complexNetwork.model.BriteWaxman;
 import org.cong.complexNetwork.model.Plane;
-import org.cong.complexNetwork.util.ChartTools;
 import org.cong.complexNetwork.util.NetworkTraitUtil;
-import org.jfree.data.xy.XYDataset;
+import org.ejml.data.Complex64F;
+import org.ejml.simple.SimpleEVD;
+import org.ejml.simple.SimpleMatrix;
 
 /**
  * 测试类，模型的启动方式这里即可。
@@ -40,6 +47,23 @@ public class TestBrite {
     logger.debug("最大度： " + ug.getMaxDegree());
   }
 
+  public static void saveToGexf(final Plane plane, final String filePath) {
+    final Gexf gexf = plane.getGraph().toGexf();
+    logger.debug("正在输出为文件...");
+    final StaxGraphWriter graphWriter = new StaxGraphWriter();
+    final File f = new File(filePath);
+    Writer out;
+    try {
+      out = new FileWriter(f, false);
+      graphWriter.writeToStream(gexf, out, "UTF-8");
+      logger.info("文件已保存" + f.getAbsolutePath());
+    }
+    catch (final IOException e) {
+      logger.error("保存文件失败");
+      e.printStackTrace();
+    }
+  }
+
   /**
    * @param args
    * @throws Exception
@@ -52,18 +76,27 @@ public class TestBrite {
     BriteWaxman.generateEdges(new BriteWaxman(bcp, 0.1, 0.9));
     final UndirectedGraph ug = bcp.getGraph();
     log(ug);
-    // BriteBA.generateEdges(new BriteBA(bcp, 2, 4900));
+    BriteBA.generateEdges(new BriteBA(bcp, 2, 900));
     // BriteBA.generateEdges(new BriteBAWaxman(bcp, 2, 4900, 0.1, 0.9));
     // BriteBA.generateEdges(new BriteTang(bcp, 2, 4900, 0.5));
-    BriteBA.generateEdges(new BriteTangWaxman(bcp, 2, 4900, 0.5, 0.1, 0.9));
+    // BriteBA.generateEdges(new BriteTangWaxman(bcp, 2, 4900, 0.5, 0.1, 0.9));
     log(ug);
 
-    NetworkTraitUtil.showRichClubChartByDegree(ug);
-    NetworkTraitUtil.showRichClubChartByOrder(ug);
-    final XYDataset xydsfd = ChartTools.toXYDatasetFD(ug);
-    final XYDataset xydsrf = ChartTools.toXYDatasetRD(ug);
-    ChartTools.drawChart(xydsfd, "频数--度,幂律分布（已取双对数）");
-    ChartTools.drawChart(xydsrf, "秩---度,幂律分布（已取双对数）");
+    // NetworkTraitUtil.showRichClubChartByDegree(ug);
+    // NetworkTraitUtil.showRichClubChartByOrder(ug);
+    // ChartTools.drawChart(ChartTools.toXYDatasetFD(ug), "频数--度");
+    // ChartTools.drawChart(ChartTools.toXYDatasetPowerLaw(ug), "幂律分布");
+
+    // Matrix m = new Matrix(ug.toAdjacentMatrix());
+    // EigenvalueDecomposition eig = m.eig();
+    // eig.getD();
+    SimpleMatrix m = new SimpleMatrix(ug.toAdjacentMatrix());
+    SimpleEVD<?> evd = m.eig();
+    int ecount = evd.getNumberOfEigenvalues();
+    for(int i = 0; i < ecount; i++){
+      Complex64F c = evd.getEigenvalue(i);
+      logger.debug(c);
+    }
   }
 
 }
