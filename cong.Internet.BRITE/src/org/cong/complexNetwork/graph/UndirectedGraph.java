@@ -20,10 +20,10 @@ import org.apache.log4j.Logger;
 import org.cong.complexNetwork.util.Sparse;
 
 public class UndirectedGraph {
-  protected Set<Edge> edges;
+  protected Set<Edge>       edges;
   protected Map<Node, Node> nodeMap;
-  protected Set<Node> nodes;
-  public static Logger logger = LogManager.getLogger(UndirectedGraph.class);
+  protected Set<Node>       nodes;
+  public static Logger      logger = LogManager.getLogger(UndirectedGraph.class);
 
   public UndirectedGraph() {
     this.nodes = new HashSet<>();
@@ -37,6 +37,7 @@ public class UndirectedGraph {
 
   /**
    * 求邻接矩阵的秩，参考《基于大范围模式的互联网拓扑建模》（徐野）这本书上的代码。不知道对不对，经过有限次测试没有发现问题。不理解原理。
+   * 暂时认为这样的做法是有问题的，但是误差不大，可以接受。而且目前没有用到这个方法。
    * 
    * @return 邻接矩阵的秩
    */
@@ -222,9 +223,10 @@ public class UndirectedGraph {
     // Edge[] edgeArray = edges.toArray(new Edge[0]);
     final File f = new File(filePath);
     StringBuffer sb;
+    int size = 2 * nodeArray.length;
     FileUtils.writeStringToFile(f, "AM = [\n", "UTF-8");
     for (final Node element : nodeArray) {
-      sb = new StringBuffer();
+      sb = new StringBuffer(size);
       for (final Node element2 : nodeArray) {
         if (element.getConnectedNodes().contains(element2)) {
           sb.append("1,");
@@ -273,16 +275,27 @@ public class UndirectedGraph {
     final Sparse<Integer> s = new Sparse<>();
     final List<Node> nl = new ArrayList<>();
     nl.addAll(this.nodes);
+    int size = nl.size();
+    Map<Node, Integer> map = new HashMap<>();
+    for (int i = 0; i < size; i++) {
+      map.put(nl.get(i), i);
+    }
+    
     for (final Edge e : this.edges) {
-      final int i = 1 + nl.indexOf(e.getSource());
-      final int j = 1 + nl.indexOf(e.getTarget());
+      final int i = 1 + map.get(e.getSource());// nl.indexOf(e.getSource());
+      final int j = 1 + map.get(e.getTarget());// nl.indexOf(e.getTarget());
       s.addElement(i, j, e.getWeight());
       s.addElement(j, i, e.getWeight());
     }
     return s;
   }
 
-  public int[][] toSparse1() {
+  /**
+   * 转换为一个n*3的二维数组存储的矩阵，第二维度的下标：0行下标1列下标2权重
+   * 
+   * @return 稀疏矩阵
+   */
+  public int[][] toSparseArray() {
     int size = edges.size();
     int[][] s = new int[size][3];
     int k = 0;

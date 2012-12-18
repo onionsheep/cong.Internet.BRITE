@@ -12,5 +12,6 @@
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.USER_LIBRARY/nutz"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.USER_LIBRARY/fastjson"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/jFreeChart"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/jama"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

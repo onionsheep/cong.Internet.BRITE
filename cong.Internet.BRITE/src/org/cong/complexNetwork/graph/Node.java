@@ -113,7 +113,7 @@ public class Node {
 
   @Override
   public int hashCode() {
-    final int prime = 31;
+    final int prime = 1009;
     int result = 1;
     result = (prime * result) + (int) (this.id ^ (this.id >>> 32));
     return result;

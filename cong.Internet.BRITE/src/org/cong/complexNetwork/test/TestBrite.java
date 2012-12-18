@@ -19,9 +19,6 @@ import org.cong.complexNetwork.model.BriteCirclePlane;
 import org.cong.complexNetwork.model.BriteWaxman;
 import org.cong.complexNetwork.model.Plane;
 import org.cong.complexNetwork.util.NetworkTraitUtil;
-import org.ejml.data.Complex64F;
-import org.ejml.simple.SimpleEVD;
-import org.ejml.simple.SimpleMatrix;
 
 /**
  * 测试类，模型的启动方式这里即可。
@@ -82,21 +79,12 @@ public class TestBrite {
     // BriteBA.generateEdges(new BriteTangWaxman(bcp, 2, 4900, 0.5, 0.1, 0.9));
     log(ug);
 
-    // NetworkTraitUtil.showRichClubChartByDegree(ug);
-    // NetworkTraitUtil.showRichClubChartByOrder(ug);
+     NetworkTraitUtil.showRichClubChartByDegree(ug);
+     NetworkTraitUtil.showRichClubChartByOrder(ug);
     // ChartTools.drawChart(ChartTools.toXYDatasetFD(ug), "频数--度");
     // ChartTools.drawChart(ChartTools.toXYDatasetPowerLaw(ug), "幂律分布");
 
-    // Matrix m = new Matrix(ug.toAdjacentMatrix());
-    // EigenvalueDecomposition eig = m.eig();
-    // eig.getD();
-    SimpleMatrix m = new SimpleMatrix(ug.toAdjacentMatrix());
-    SimpleEVD<?> evd = m.eig();
-    int ecount = evd.getNumberOfEigenvalues();
-    for(int i = 0; i < ecount; i++){
-      Complex64F c = evd.getEigenvalue(i);
-      logger.debug(c);
-    }
+    //ChartTools.drawChart(ChartTools.eigPowerLaw(ug), "null");
   }
 
 }

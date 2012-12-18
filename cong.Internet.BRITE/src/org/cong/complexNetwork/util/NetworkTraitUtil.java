@@ -2,16 +2,21 @@ package org.cong.complexNetwork.util;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.cong.complexNetwork.graph.Edge;
 import org.cong.complexNetwork.graph.Node;
 import org.cong.complexNetwork.graph.UndirectedGraph;
 import org.jfree.data.xy.XYDataset;
 
 public class NetworkTraitUtil {
+  public static Logger logger = LogManager.getLogger(NetworkTraitUtil.class);
 
   public static double assortativityCoefficient(final UndirectedGraph ug) {
     double ac = 0;
@@ -43,10 +48,12 @@ public class NetworkTraitUtil {
     final int maxD = ug.getMaxDegree();
     final List<Double> xl = new ArrayList<>();
     final List<Double> yl = new ArrayList<>();
-    final Set<Edge> edges = ug.getEdges();
-    for (int i = minD; i <= maxD; i++) {
-      int l = 0;
-      final Set<Node> nodes = new HashSet<>();
+    final Set<Edge> edges = new HashSet<>();
+    edges.addAll(ug.getEdges());
+    final Set<Node> nodes = new HashSet<>();
+    int l = 0;// 实际存在的边的数量
+    for (int i = maxD; i >= minD; i--) {
+      Set<Edge> egdesToRemove = new HashSet<>();
       for (final Edge e : edges) {
         final Node s = e.getSource();
         final Node t = e.getTarget();
@@ -54,9 +61,11 @@ public class NetworkTraitUtil {
           nodes.add(t);
           nodes.add(s);
           l++;
+          egdesToRemove.add(e);
         }
       }
-      final int num = nodes.size();
+      edges.removeAll(egdesToRemove);
+      final int num = nodes.size();// 节点的数量
       final double result = (2.0 * l) / (num * (num - 1));
       xl.add(i * 1.0);
       yl.add(result);
@@ -66,28 +75,32 @@ public class NetworkTraitUtil {
   }
 
   public static void showRichClubChartByOrder(final UndirectedGraph ug) throws Exception {
-    final int count = ug.getNodes().size();
-    final Set<Edge> edges = ug.getEdges();
-    final Node[] na = ug.getNodes().toArray(new Node[0]);
-    Arrays.sort(na, new NodeDegreeComparator("desc"));
     final List<Double> xl = new ArrayList<>();
     final List<Double> yl = new ArrayList<>();
-    for (int i = 1; i <= count; i++) {
-      final Node[] nap = Arrays.copyOf(na, i);
-      final Set<Node> ns = new HashSet<>();
-      ns.addAll(Arrays.asList(nap));
-      int l = 0;
-      for (final Edge e : edges) {
-        final Node s = e.getSource();
-        final Node t = e.getTarget();
-        if (ns.contains(s) && ns.contains(t)) {
+    final int count = ug.getNodes().size();
+    //final Set<Edge> edges = new HashSet<>();
+    //edges.addAll(ug.getEdges());
+    final Node[] na = ug.getNodes().toArray(new Node[0]);
+    Arrays.sort(na, new NodeDegreeComparator("desc"));
+    //用Map存放节点和其对应的顺序,方便查找
+    Map<Node, Integer> map = new HashMap<>();
+    for(int i = 0; i < count; i++){
+      map.put(na[i], i);
+    }
+    
+    int l = 0;// 实际存在的边的数量
+    for(int i = 1; i < count; i++){
+      Set<Node> s = na[i].getConnectedNodes();
+      for(Node n : s){
+        if(map.get(n) < i){
           l++;
         }
       }
       final double result = (2.0 * l) / (i * (i - 1));
       xl.add(Math.log(i));
-      yl.add(Math.log(result + 1));
+      yl.add(Math.log(result == 0 ? Double.MIN_VALUE : result));
     }
+
     final XYDataset xyds = ChartTools.toXYDataset(xl, yl, "个数-连通性");
     ChartTools.drawChart(xyds, "富人俱乐部特性(已取双对数)");
   }

@@ -20,6 +20,8 @@ import org.jfree.data.xy.XYSeriesCollection;
 import org.jfree.ui.ApplicationFrame;
 import org.jfree.ui.RefineryUtilities;
 
+import Jama.Matrix;
+
 public class ChartTools {
   public static Logger logger = LogManager.getLogger(ChartTools.class);
 
@@ -143,4 +145,25 @@ public class ChartTools {
     return xysc;
   }
 
+  public static XYDataset eigPowerLaw(UndirectedGraph ug) throws Exception{
+//    SimpleMatrix m = new SimpleMatrix(ug.toAdjacentMatrix());
+//    SimpleEVD<?> evd = m.eig();
+//    int ecount = evd.getNumberOfEigenvalues();
+//    double[] es = new double[ecount];
+//    for(int i = 0; i < ecount; i++){
+//      Complex64F c = evd.getEigenvalue(i);
+//      es[i] = c.getReal();
+//    }
+    Matrix ma = new Matrix(ug.toAdjacentMatrix());
+    double[] es = ma.eig().getRealEigenvalues();
+    int ecount = es.length;
+    Arrays.sort(es);
+    final List<Double> xl0 = new ArrayList<>();
+    final List<Double> yl0 = new ArrayList<>();
+    for(int i = 0; i < ecount; i++){
+      xl0.add(ecount - i + 0.0);
+      yl0.add(es[i]);
+    }
+    return toXYDataset(xl0,yl0,"幂律分布");
+  }
 }

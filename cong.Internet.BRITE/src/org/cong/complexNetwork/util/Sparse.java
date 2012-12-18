@@ -42,30 +42,35 @@ public class Sparse<T> {
    * @return Matlab所需要的稀疏矩阵的生成字符串
    */
   public String toMatlabString() {
-    final StringBuffer sb = new StringBuffer();
+    int length = 3 * vl.size();
+    final StringBuffer sb = new StringBuffer(length);
     sb.append("xl = [");
     final int l = this.vl.size();
     for (int i = 0; i < l; i++) {
       sb.append(this.xl.get(i));
-      sb.append(", ");
+      sb.append(",");
     }
     sb.append("];\n");
     sb.append("yl = [");
     for (int i = 0; i < l; i++) {
       sb.append(this.yl.get(i));
-      sb.append(", ");
+      sb.append(",");
     }
     sb.append("];\n");
     sb.append("vl = [");
     for (int i = 0; i < l; i++) {
       sb.append(this.vl.get(i));
-      sb.append(", ");
+      sb.append(",");
     }
     sb.append("];\n");
     sb.append("S = sparse(xl, yl, vl);");
     return sb.toString();
   }
 
+  public void toMatlabFile(String fileName){
+    
+  }
+  
   @Override
   public String toString() {
     final StringBuilder builder = new StringBuilder();
