@@ -17,23 +17,23 @@ public class AB {
 
   private static long  nodeId = 0;
 
-  public static void addNewEdges(final Graph undirectedGraph, final int count) throws Exception {
-    final Set<Node> nodes = undirectedGraph.getNodes();
+  public static void addNewEdges(final Graph ug, final int count) throws Exception {
+    final Set<Node> nodes = ug.getNodes();
     for (int i = 0; i < count; i++) {
       final Node sNode = AB.getRandomNode(nodes);
       final Node tNode = AB.getTargetNode(nodes);
-      if (undirectedGraph.connect(sNode, tNode)) {
+      if (ug.connect(sNode, tNode)) {
         i--;
       }
     }
   }
 
-  public static boolean addNode(final Graph undirectedGraph) throws Exception {
-    final Set<Node> nodes = undirectedGraph.getNodes();
+  public static boolean addNode(final Graph ug) throws Exception {
+    final Set<Node> nodes = ug.getNodes();
     final Node tNode = AB.getTargetNode(nodes);
     final Node newNode = AB.newNode();
-    nodes.add(newNode);
-    return undirectedGraph.connect(newNode, tNode);
+    ug.addNode(newNode);
+    return ug.connect(newNode, tNode);
   }
 
   /**

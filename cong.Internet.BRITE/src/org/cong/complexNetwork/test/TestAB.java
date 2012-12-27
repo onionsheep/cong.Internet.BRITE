@@ -14,12 +14,12 @@ public class TestAB {
     final int steps = 3000;
 
     for (int i = 0; i < m0; i++) {
-      ug.getNodes().add(AB.newNode());
+      ug.addNode(AB.newNode());
     }
 
     TestAB.logger.debug("初始边添加OK");
     TestAB.logger.debug(ug.getNodes().size());
-    AB.generateGraph(steps, 0.1, 0.6, ug, 4);
+    AB.generateGraph(steps, 0.2, 0.5, ug, 3);
 
     TestBrite.log(ug);
     // double[][] m = ug.toAdjacentMatrix();

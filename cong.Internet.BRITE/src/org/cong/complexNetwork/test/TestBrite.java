@@ -59,16 +59,16 @@ public class TestBrite {
     BriteWaxman.generateEdges(new BriteWaxman(bcp, 0.1, 0.9));
     final Graph ug = bcp.getGraph();
     TestBrite.log(ug);
-    // BriteBA.generateEdges(new BriteBA(bcp, 2, 900));
+    // BriteBA.generateEdges(new BriteBA(bcp, 2, 9900));
     // BriteBA.generateEdges(new BriteBAWaxman(bcp, 2, 9900, 0.1, 0.9));
     // BriteBA.generateEdges(new BriteTang(bcp, 2, 9900, 0.5));
-    BriteBA.generateEdges(new BriteTangWaxman(bcp, 2, 900, 0.5, 0.1, 0.9));
+    BriteBA.generateEdges(new BriteTangWaxman(bcp, 2, 9900, 0.5, 0.1, 0.9));
     TestBrite.log(ug);
-    TestBrite.savetoSparse(ug, "C:\\users\\cong\\desktop\\Sparse.m");
+    //TestBrite.savetoSparse(ug, "C:\\users\\cong\\desktop\\Sparse.m");
     // NetworkTraitUtil.showRichClubChartByDegree(ug);
     // NetworkTraitUtil.showRichClubChartByOrder(ug);
-    // ChartTools.drawChart(ChartTools.toXYDatasetPowerLaw(ug), "三个幂率分布图像");
-    ChartTools.drawChart(ChartTools.eigPowerLaw(ug), "部分特征向量的幂律分布(已取双对数)");
+     ChartTools.drawChart(ChartTools.toXYDatasetPowerLaw(ug), "三个幂率分布图像");
+    //ChartTools.drawChart(ChartTools.eigPowerLaw(ug), "部分特征向量的幂律分布(已取双对数)");
   }
 
   public static void saveToGexf(final Plane plane, final String filePath) {

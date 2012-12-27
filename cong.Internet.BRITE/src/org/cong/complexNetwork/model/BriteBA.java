@@ -35,7 +35,7 @@ public class BriteBA {
     final Set<Node> nodes = ug.getNodes();
     for (int i = 0; i < nodeCount; i++) {
       final Node[] nodeArray = nodes.toArray(new Node[0]);
-      final Node newNode = plane.addOneRandomNode();
+      final Node newNode = plane.addRandomNode();
       final double[] probabilities = BriteBA.probability(nodeArray, newNode, briteBA);
       // 添加oneNodeEdge条边，这oneNodeEdge添加边的时候不重新计算原来节点的度，概率,节省时间，误差很小
       briteBA.addEdges(oneNodeEdge, ug, nodeArray, probabilities, newNode);

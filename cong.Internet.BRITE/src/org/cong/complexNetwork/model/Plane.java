@@ -39,18 +39,6 @@ public class Plane {
     this.ug = new Graph();
   }
 
-  public Node addOneRandomNode() throws Exception {
-    boolean result = true;
-    Node node = null;
-    while (result) {
-      node = this.randomNode();
-      if (this.ug.addNode(node) == null) {
-        result = false;
-      }
-    }
-    return node;
-  }
-
   protected Node addRandomNode() throws Exception {
     return this.ug.addNode(this.randomNodeNoDuplication());
   }

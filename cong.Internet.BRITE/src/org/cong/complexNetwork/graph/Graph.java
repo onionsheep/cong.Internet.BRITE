@@ -51,7 +51,8 @@ public class Graph {
     if (this.nodesMap.containsKey(node)) {
       return null;
     } else {
-      return this.nodesMap.put(node, node);
+      this.nodesMap.put(node, node);
+      return node;
     }
   }
 
