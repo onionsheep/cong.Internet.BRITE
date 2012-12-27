@@ -7,8 +7,8 @@ import java.util.Set;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.cong.complexNetwork.graph.Graph;
 import org.cong.complexNetwork.graph.Node;
-import org.cong.complexNetwork.graph.UndirectedGraph;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.NumberAxis;
@@ -101,7 +101,7 @@ public class ChartTools {
     return xys;
   }
 
-  public static XYDataset toXYDatasetPowerLaw(final UndirectedGraph g) throws Exception {
+  public static XYDataset toXYDatasetPowerLaw(final Graph g) throws Exception {
     final Set<Node> nodes = g.getNodes();
     final Node[] na = nodes.toArray(new Node[0]);
     Arrays.sort(na, new NodeDegreeComparator("desc"));
@@ -115,7 +115,7 @@ public class ChartTools {
 
     int lastd = na[0].getDegree();
     int f = 0;
-    
+
     for (int i = 0; i < na.length; i++) {
       final int d = na[i].getDegree();
       if (d != 0) {
@@ -138,32 +138,38 @@ public class ChartTools {
     final XYSeries xys0 = toLogLogXYSeries(xl0, yl0, "幂律分布（降序序号--度）");
     final XYSeries xys1 = toLogLogXYSeries(xl1, yl1, "幂律分布（度累计分布--度）");
     final XYSeries xys2 = toLogLogXYSeries(xl2, yl2, "幂律分布（频数--度）");
-    
+
     xysc.addSeries(xys0);
     xysc.addSeries(xys1);
     xysc.addSeries(xys2);
     return xysc;
   }
 
-  public static XYDataset eigPowerLaw(UndirectedGraph ug) throws Exception{
-//    SimpleMatrix m = new SimpleMatrix(ug.toAdjacentMatrix());
-//    SimpleEVD<?> evd = m.eig();
-//    int ecount = evd.getNumberOfEigenvalues();
-//    double[] es = new double[ecount];
-//    for(int i = 0; i < ecount; i++){
-//      Complex64F c = evd.getEigenvalue(i);
-//      es[i] = c.getReal();
-//    }
+  public static XYDataset eigPowerLaw(Graph ug) throws Exception {
+    // SimpleMatrix m = new SimpleMatrix(ug.toAdjacentMatrix());
+    // SimpleEVD<?> evd = m.eig();
+    // int ecount = evd.getNumberOfEigenvalues();
+    // double[] es = new double[ecount];
+    // for(int i = 0; i < ecount; i++){
+    // Complex64F c = evd.getEigenvalue(i);
+    // es[i] = c.getReal();
+    // }
     Matrix ma = new Matrix(ug.toAdjacentMatrix());
     double[] es = ma.eig().getRealEigenvalues();
     int ecount = es.length;
     Arrays.sort(es);
     final List<Double> xl0 = new ArrayList<>();
     final List<Double> yl0 = new ArrayList<>();
-    for(int i = 0; i < ecount; i++){
-      xl0.add(ecount - i + 0.0);
-      yl0.add(es[i]);
+    for (int i = 0; i < ecount; i++) {
+      if (es[i] > 1) {
+        double x = Math.log(ecount - i);
+        double y = Math.log(es[i]);
+        if (!Double.isInfinite(y) && !Double.isNaN(y)) {
+          xl0.add(x);
+          yl0.add(y);
+        }
+      }
     }
-    return toXYDataset(xl0,yl0,"幂律分布");
+    return toXYDataset(xl0, yl0, "序号--特征向量");
   }
 }

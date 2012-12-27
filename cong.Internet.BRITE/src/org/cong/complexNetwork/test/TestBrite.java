@@ -9,15 +9,18 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.Set;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.cong.complexNetwork.graph.Edge;
+import org.cong.complexNetwork.graph.Graph;
 import org.cong.complexNetwork.graph.Node;
-import org.cong.complexNetwork.graph.UndirectedGraph;
 import org.cong.complexNetwork.model.BriteBA;
 import org.cong.complexNetwork.model.BriteCirclePlane;
+import org.cong.complexNetwork.model.BriteTangWaxman;
 import org.cong.complexNetwork.model.BriteWaxman;
 import org.cong.complexNetwork.model.Plane;
+import org.cong.complexNetwork.util.ChartTools;
 import org.cong.complexNetwork.util.NetworkTraitUtil;
 
 /**
@@ -29,7 +32,7 @@ public class TestBrite {
 
   public static Logger logger = LogManager.getLogger(TestBrite.class);
 
-  public static void log(final UndirectedGraph ug) {
+  public static void log(final Graph ug) {
     final Set<Node> ns = ug.getNodes();
     final Set<Edge> es = ug.getEdges();
     int d = 0;
@@ -61,6 +64,12 @@ public class TestBrite {
     }
   }
 
+  public static void savetoSparse(Graph ug, String filePath) throws IOException {
+    String s = ug.toSparse().toMatlabString();
+    FileUtils.writeStringToFile(new File(filePath), s);
+    logger.debug(filePath);
+  }
+
   /**
    * @param args
    * @throws Exception
@@ -71,20 +80,18 @@ public class TestBrite {
     // final BritePlane bcp = new BritePlane(10, 1000);
     bcp.addRandomNodes(100);
     BriteWaxman.generateEdges(new BriteWaxman(bcp, 0.1, 0.9));
-    final UndirectedGraph ug = bcp.getGraph();
+    final Graph ug = bcp.getGraph();
     log(ug);
-    BriteBA.generateEdges(new BriteBA(bcp, 2, 900));
-    // BriteBA.generateEdges(new BriteBAWaxman(bcp, 2, 4900, 0.1, 0.9));
-    // BriteBA.generateEdges(new BriteTang(bcp, 2, 4900, 0.5));
-    // BriteBA.generateEdges(new BriteTangWaxman(bcp, 2, 4900, 0.5, 0.1, 0.9));
+    //BriteBA.generateEdges(new BriteBA(bcp, 2, 900));
+    // BriteBA.generateEdges(new BriteBAWaxman(bcp, 2, 9900, 0.1, 0.9));
+    // BriteBA.generateEdges(new BriteTang(bcp, 2, 9900, 0.5));
+    BriteBA.generateEdges(new BriteTangWaxman(bcp, 2, 900, 0.5, 0.1, 0.9));
     log(ug);
-
-     NetworkTraitUtil.showRichClubChartByDegree(ug);
-     NetworkTraitUtil.showRichClubChartByOrder(ug);
-    // ChartTools.drawChart(ChartTools.toXYDatasetFD(ug), "频数--度");
-    // ChartTools.drawChart(ChartTools.toXYDatasetPowerLaw(ug), "幂律分布");
-
-    //ChartTools.drawChart(ChartTools.eigPowerLaw(ug), "null");
+    savetoSparse(ug, "C:\\users\\cong\\desktop\\Sparse.m");
+    // NetworkTraitUtil.showRichClubChartByDegree(ug);
+    // NetworkTraitUtil.showRichClubChartByOrder(ug);
+    // ChartTools.drawChart(ChartTools.toXYDatasetPowerLaw(ug), "三个幂率分布图像");
+     ChartTools.drawChart(ChartTools.eigPowerLaw(ug), "部分特征向量的幂律分布(已取双对数)");
   }
 
 }

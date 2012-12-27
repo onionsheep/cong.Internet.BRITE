@@ -3,8 +3,8 @@ package org.cong.complexNetwork.model;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.cong.complexNetwork.graph.Graph;
 import org.cong.complexNetwork.graph.Node;
-import org.cong.complexNetwork.graph.UndirectedGraph;
 
 public class BriteWaxman {
   protected double alpha;
@@ -29,7 +29,7 @@ public class BriteWaxman {
     double p = 0; // 概率
     double ed = 0; // 欧氏距离
     final double maxEdb = beta * plane.MaxEuclideanDistance();// 最大欧氏距离
-    final UndirectedGraph ug = plane.getGraph();
+    final Graph ug = plane.getGraph();
     final Set<Node> nodes = ug.getNodes();
     final Node[] na = nodes.toArray(new Node[0]);
     final Set<Node> nodesR = new HashSet<>();

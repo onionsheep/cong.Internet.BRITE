@@ -7,13 +7,13 @@ import java.util.Set;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.cong.complexNetwork.graph.Coordinate;
+import org.cong.complexNetwork.graph.Graph;
 import org.cong.complexNetwork.graph.Node;
-import org.cong.complexNetwork.graph.UndirectedGraph;
 import org.cong.complexNetwork.util.EuclideanDistanceUtil;
 
 public class Plane {
   protected int height;
-  protected UndirectedGraph ug;
+  protected Graph ug;
   protected int width;
   public static Logger logger = LogManager.getLogger(Plane.class);
 
@@ -36,7 +36,7 @@ public class Plane {
   public Plane(final int width, final int height) {
     this.width = width;
     this.height = height;
-    this.ug = new UndirectedGraph();
+    this.ug = new Graph();
   }
 
   public Node addOneRandomNode() throws Exception {
@@ -44,25 +44,27 @@ public class Plane {
     Node node = null;
     while (result) {
       node = this.randomNode();
-      result = !this.ug.addNode(node);
+      if(this.ug.addNode(node) == null){
+        result = false;
+      }
     }
     return node;
   }
 
-  protected boolean addRandomNode() throws Exception {
+  protected Node addRandomNode() throws Exception {
     return this.ug.addNode(this.randomNodeNoDuplication());
   }
 
   public void addRandomNodes(final int count) throws Exception {
     int i = 0;
     while (i < count) {
-      if (this.addRandomNode()) {
+      if (this.addRandomNode() != null) {
         i++;
       }
     }
   }
 
-  public UndirectedGraph getGraph() {
+  public Graph getGraph() {
     return this.ug;
   }
 

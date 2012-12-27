@@ -1,8 +1,7 @@
 package org.cong.complexNetwork.graph;
 
 /**
- * Two Edges that has the same source and targets will be equals; weight and
- * directed will not be considered when compares
+ * Two Edges that has the same source and targets will be equals; weight will not be considered when compares
  * 
  * @author cong
  * 
@@ -38,7 +37,7 @@ public class Edge {
       this.directed = directed;
       this.weight = weight;
     } else {
-      throw new Exception("source and target can not be null");
+      throw new Exception("source or target can not be null");
     }
   }
 

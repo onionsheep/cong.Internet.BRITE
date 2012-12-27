@@ -1,7 +1,9 @@
 package org.cong.complexNetwork.model;
 
+
+
+import org.cong.complexNetwork.graph.Graph;
 import org.cong.complexNetwork.graph.Node;
-import org.cong.complexNetwork.graph.UndirectedGraph;
 
 public class BriteTang extends BriteBA {
   protected double epsilon; // Tang模型参数,此处为提高效率，内部默认加一
@@ -31,7 +33,7 @@ public class BriteTang extends BriteBA {
    */
   @Override
   protected void addEdges(final int edgeCount,
-                          final UndirectedGraph ug,
+                          final Graph ug,
                           final Node[] nodeArray,
                           final double[] probabilities,
                           final Node newNode) throws Exception {

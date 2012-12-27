@@ -8,17 +8,19 @@ import org.apache.log4j.Logger;
 
 public class Node {
 
-  protected Set<Node> connectedNodes;
+  protected Set<Node>         connectedNodes;
 
-  protected Coordinate coordinate;
+  protected Coordinate        coordinate;
 
-  protected int degree;
-  protected long id;
-  protected double weight;
+  // protected int degree;
+  protected int               inDegree;
+  protected int               outDegree;
+  protected long              id;
+  protected double            weight;
   private static final double defaultWeight = 0;
-  private static long idCounter = -1;
+  private static long         idCounter     = -1;
 
-  public static Logger logger = LogManager.getLogger(Node.class);
+  public static Logger        logger        = LogManager.getLogger(Node.class);
 
   public Node() {
     this(idCounter--);
@@ -52,13 +54,17 @@ public class Node {
     this.id = id;
     this.weight = weight;
     this.connectedNodes = new HashSet<>();
-    this.degree = 0;
+    // this.degree = 0;
+    this.inDegree = 0;
+    this.outDegree = 0;
     this.coordinate = coordinate;
   }
 
   public boolean connectNode(final Node node) {
     if (this.connectedNodes.add(node)) {
-      this.degree += 1;
+      this.outDegree += 1;
+      node.inDegree += 1;
+      // this.degree += 1;
       return true;
     } else {
       return false;
@@ -68,7 +74,9 @@ public class Node {
   public boolean disConnectNode(final Node node) {
     final boolean result = this.connectedNodes.remove(node);
     if (result) {
-      this.degree -= 1;
+      this.outDegree -= 1;
+      node.inDegree -= 1;
+      // this.degree -= 1;
     }
     return result;
   }
@@ -100,7 +108,7 @@ public class Node {
   }
 
   public int getDegree() {
-    return this.degree;
+    return this.inDegree + this.outDegree;
   }
 
   public long getId() {
@@ -111,11 +119,19 @@ public class Node {
     return this.weight;
   }
 
+  public int getInDegree() {
+    return inDegree;
+  }
+
+  public int getOutDegree() {
+    return outDegree;
+  }
+
   @Override
   public int hashCode() {
     final int prime = 1009;
     int result = 1;
-    result = (prime * result) + (int) (this.id ^ (this.id >>> 32));
+    result = prime + (int) (this.id ^ (this.id >>> 32));
     return result;
   }
 
@@ -129,7 +145,7 @@ public class Node {
     builder.append("Node [id=");
     builder.append(this.id);
     builder.append(", degree=");
-    builder.append(this.degree);
+    builder.append(this.inDegree + this.outDegree);
     builder.append("]");
     return builder.toString();
   }

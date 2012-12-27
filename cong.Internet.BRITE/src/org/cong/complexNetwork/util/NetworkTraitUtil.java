@@ -11,14 +11,14 @@ import java.util.Set;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.cong.complexNetwork.graph.Edge;
+import org.cong.complexNetwork.graph.Graph;
 import org.cong.complexNetwork.graph.Node;
-import org.cong.complexNetwork.graph.UndirectedGraph;
 import org.jfree.data.xy.XYDataset;
 
 public class NetworkTraitUtil {
   public static Logger logger = LogManager.getLogger(NetworkTraitUtil.class);
 
-  public static double assortativityCoefficient(final UndirectedGraph ug) {
+  public static double assortativityCoefficient(final Graph ug) {
     double ac = 0;
     final Set<Edge> edges = ug.getEdges();
     final double m = 1.0 / edges.size();
@@ -43,7 +43,7 @@ public class NetworkTraitUtil {
     return ac;
   }
 
-  public static void showRichClubChartByDegree(final UndirectedGraph ug) throws Exception {
+  public static void showRichClubChartByDegree(final Graph ug) throws Exception {
     final int minD = ug.getMinDegree();
     final int maxD = ug.getMaxDegree();
     final List<Double> xl = new ArrayList<>();
@@ -74,31 +74,32 @@ public class NetworkTraitUtil {
     ChartTools.drawChart(xyds, "富人俱乐部特性");
   }
 
-  public static void showRichClubChartByOrder(final UndirectedGraph ug) throws Exception {
+  public static void showRichClubChartByOrder(final Graph ug) throws Exception {
     final List<Double> xl = new ArrayList<>();
     final List<Double> yl = new ArrayList<>();
     final int count = ug.getNodes().size();
-    //final Set<Edge> edges = new HashSet<>();
-    //edges.addAll(ug.getEdges());
     final Node[] na = ug.getNodes().toArray(new Node[0]);
     Arrays.sort(na, new NodeDegreeComparator("desc"));
-    //用Map存放节点和其对应的顺序,方便查找
+    // 用Map存放节点和其对应的顺序,方便查找
     Map<Node, Integer> map = new HashMap<>();
-    for(int i = 0; i < count; i++){
+    for (int i = 0; i < count; i++) {
       map.put(na[i], i);
     }
-    
     int l = 0;// 实际存在的边的数量
-    for(int i = 1; i < count; i++){
+    for (int i = 1; i < count; i++) {
       Set<Node> s = na[i].getConnectedNodes();
-      for(Node n : s){
-        if(map.get(n) < i){
+      for (Node n : s) {
+        if (map.get(n) < i) {
           l++;
         }
       }
-      final double result = (2.0 * l) / (i * (i - 1));
-      xl.add(Math.log(i));
-      yl.add(Math.log(result == 0 ? Double.MIN_VALUE : result));
+      final double result = (2.0 * l) / (i * (i + 1));
+      double y = Math.log(result);
+      //logger.debug(y);
+      if (result > Double.MIN_VALUE && !Double.isInfinite(y) && !Double.isNaN(y)) {
+        xl.add(Math.log(i));
+        yl.add(y);
+      }
     }
 
     final XYDataset xyds = ChartTools.toXYDataset(xl, yl, "个数-连通性");

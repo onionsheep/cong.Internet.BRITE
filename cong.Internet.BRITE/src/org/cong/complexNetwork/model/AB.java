@@ -8,8 +8,8 @@ import java.util.Set;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.cong.complexNetwork.graph.Edge;
+import org.cong.complexNetwork.graph.Graph;
 import org.cong.complexNetwork.graph.Node;
-import org.cong.complexNetwork.graph.UndirectedGraph;
 import org.cong.complexNetwork.util.Tools;
 
 public class AB {
@@ -17,7 +17,7 @@ public class AB {
 
   private static long nodeId = 0;
 
-  public static void addNewEdges(final UndirectedGraph undirectedGraph, final int count)
+  public static void addNewEdges(final Graph undirectedGraph, final int count)
       throws Exception {
     final Set<Node> nodes = undirectedGraph.getNodes();
     for (int i = 0; i < count; i++) {
@@ -29,7 +29,7 @@ public class AB {
     }
   }
 
-  public static boolean addNode(final UndirectedGraph undirectedGraph) throws Exception {
+  public static boolean addNode(final Graph undirectedGraph) throws Exception {
     final Set<Node> nodes = undirectedGraph.getNodes();
     final Node tNode = getTargetNode(nodes);
     final Node newNode = newNode();
@@ -55,7 +55,7 @@ public class AB {
   public static void generateGraph(final int step,
                                    final double pNewEdges,
                                    final double pRestEdge,
-                                   final UndirectedGraph undirectedGraph,
+                                   final Graph undirectedGraph,
                                    final int count) throws Exception {
     for (int i = 0; i < step; i++) {
       final double r = Tools.randomDouble(1);
@@ -115,7 +115,7 @@ public class AB {
     return probability;
   }
 
-  public static boolean reSetEdges(final UndirectedGraph undirectedGraph, final int count)
+  public static boolean reSetEdges(final Graph undirectedGraph, final int count)
       throws Exception {
     boolean result = true;
     final Set<Node> nodes = undirectedGraph.getNodes();

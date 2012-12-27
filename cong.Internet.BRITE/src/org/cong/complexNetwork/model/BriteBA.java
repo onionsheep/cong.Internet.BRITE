@@ -4,8 +4,8 @@ import java.util.Set;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.cong.complexNetwork.graph.Graph;
 import org.cong.complexNetwork.graph.Node;
-import org.cong.complexNetwork.graph.UndirectedGraph;
 import org.cong.complexNetwork.util.ArrayUtil;
 
 public class BriteBA {
@@ -31,7 +31,7 @@ public class BriteBA {
     final Plane plane = briteBA.getPlane();
     final int nodeCount = briteBA.getNodeCount();
     final int oneNodeEdge = briteBA.getOneNodeEdge();
-    final UndirectedGraph ug = plane.getGraph();
+    final Graph ug = plane.getGraph();
     final Set<Node> nodes = ug.getNodes();
     for (int i = 0; i < nodeCount; i++) {
       final Node[] nodeArray = nodes.toArray(new Node[0]);
@@ -105,7 +105,7 @@ public class BriteBA {
    * @throws Exception
    */
   protected void addEdges(final int edgeCount,
-                          final UndirectedGraph ug,
+                          final Graph ug,
                           final Node[] nodeArray,
                           final double[] probabilities,
                           final Node newNode) throws Exception {

@@ -14,9 +14,9 @@ import java.util.Map;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.cong.complexNetwork.graph.Graph;
 import org.cong.complexNetwork.graph.IPNode;
 import org.cong.complexNetwork.graph.Node;
-import org.cong.complexNetwork.graph.UndirectedGraph;
 
 public class Tools {
   public static Logger logger = LogManager.getLogger(Tools.class);
@@ -29,8 +29,8 @@ public class Tools {
     return java.util.concurrent.ThreadLocalRandom.current().nextInt(n);
   }
 
-  public static UndirectedGraph readIPNodesFromLnkFile(final String filePath) throws Exception {
-    final UndirectedGraph ug = new UndirectedGraph();
+  public static Graph readIPNodesFromLnkFile(final String filePath) throws Exception {
+    final Graph ug = new Graph();
     final File f = new File(filePath);
     final Map<Node, Node> nnmap = new HashMap<>();
     try {

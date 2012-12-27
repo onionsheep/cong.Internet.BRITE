@@ -2,14 +2,14 @@ package org.cong.complexNetwork.test;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.cong.complexNetwork.graph.UndirectedGraph;
+import org.cong.complexNetwork.graph.Graph;
 import org.cong.complexNetwork.model.AB;
 
 public class TestAB {
   public static Logger logger = LogManager.getLogger(TestAB.class);
 
   public static void main(final String[] args) throws Exception {
-    final UndirectedGraph ug = new UndirectedGraph();
+    final Graph ug = new Graph();
     final int m0 = 10;
     final int steps = 3000;
 
