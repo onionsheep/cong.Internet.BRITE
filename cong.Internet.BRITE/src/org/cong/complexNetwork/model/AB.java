@@ -15,14 +15,13 @@ import org.cong.complexNetwork.util.Tools;
 public class AB {
   public static Logger logger = LogManager.getLogger(AB.class);
 
-  private static long nodeId = 0;
+  private static long  nodeId = 0;
 
-  public static void addNewEdges(final Graph undirectedGraph, final int count)
-      throws Exception {
+  public static void addNewEdges(final Graph undirectedGraph, final int count) throws Exception {
     final Set<Node> nodes = undirectedGraph.getNodes();
     for (int i = 0; i < count; i++) {
-      final Node sNode = getRandomNode(nodes);
-      final Node tNode = getTargetNode(nodes);
+      final Node sNode = AB.getRandomNode(nodes);
+      final Node tNode = AB.getTargetNode(nodes);
       if (undirectedGraph.connect(sNode, tNode)) {
         i--;
       }
@@ -31,8 +30,8 @@ public class AB {
 
   public static boolean addNode(final Graph undirectedGraph) throws Exception {
     final Set<Node> nodes = undirectedGraph.getNodes();
-    final Node tNode = getTargetNode(nodes);
-    final Node newNode = newNode();
+    final Node tNode = AB.getTargetNode(nodes);
+    final Node newNode = AB.newNode();
     nodes.add(newNode);
     return undirectedGraph.connect(newNode, tNode);
   }
@@ -60,14 +59,14 @@ public class AB {
     for (int i = 0; i < step; i++) {
       final double r = Tools.randomDouble(1);
       if (r < pNewEdges) {
-        addNewEdges(undirectedGraph, count);
+        AB.addNewEdges(undirectedGraph, count);
       } else if (r < (pNewEdges + pRestEdge)) {
-        if (!reSetEdges(undirectedGraph, count)) {
+        if (!AB.reSetEdges(undirectedGraph, count)) {
           i--;
-          logger.error("resetEdges Failed");
+          AB.logger.error("resetEdges Failed");
         }
       } else {
-        addNode(undirectedGraph);
+        AB.addNode(undirectedGraph);
       }
     }
   }
@@ -102,7 +101,7 @@ public class AB {
   }
 
   public static Node newNode() {
-    return new Node(nodeId++);
+    return new Node(AB.nodeId++);
   }
 
   public static double probability(final Node i, final Node[] nodeArray) {
@@ -115,8 +114,7 @@ public class AB {
     return probability;
   }
 
-  public static boolean reSetEdges(final Graph undirectedGraph, final int count)
-      throws Exception {
+  public static boolean reSetEdges(final Graph undirectedGraph, final int count) throws Exception {
     boolean result = true;
     final Set<Node> nodes = undirectedGraph.getNodes();
     int sumD = 0;
@@ -152,8 +150,8 @@ public class AB {
           if (undirectedGraph.connect(sNode, tNode)) {
             undirectedGraph.removeEdge(eg);
           } else {
-            logger.debug(eg);
-            logger.debug("connect Failed");
+            AB.logger.debug(eg);
+            AB.logger.debug("connect Failed");
             i--;
           }
         } else {

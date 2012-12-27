@@ -3,11 +3,11 @@ package org.cong.complexNetwork.graph;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-public class IPNode extends Node {
-  protected String ip;
-  public static Logger logger = LogManager.getLogger(IPNode.class);
+public class StringNameNode extends Node {
+  protected String     ip;
+  public static Logger logger = LogManager.getLogger(StringNameNode.class);
 
-  public IPNode(final String ip) {
+  public StringNameNode(final String ip) {
     super(ip.hashCode());
     this.ip = ip;
   }
@@ -23,7 +23,7 @@ public class IPNode extends Node {
     if (this.getClass() != obj.getClass()) {
       return false;
     }
-    final IPNode other = (IPNode) obj;
+    final StringNameNode other = (StringNameNode) obj;
     if (this.ip == null) {
       if (other.ip != null) {
         return false;
@@ -49,7 +49,7 @@ public class IPNode extends Node {
   @Override
   public String toString() {
     final StringBuilder builder = new StringBuilder();
-    builder.append("IPNode[");
+    builder.append("StringNameNode[");
     builder.append(this.ip);
     builder.append("]");
     return builder.toString();

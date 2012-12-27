@@ -53,7 +53,7 @@ public class NetworkTraitUtil {
     final Set<Node> nodes = new HashSet<>();
     int l = 0;// 实际存在的边的数量
     for (int i = maxD; i >= minD; i--) {
-      Set<Edge> egdesToRemove = new HashSet<>();
+      final Set<Edge> egdesToRemove = new HashSet<>();
       for (final Edge e : edges) {
         final Node s = e.getSource();
         final Node t = e.getTarget();
@@ -81,22 +81,22 @@ public class NetworkTraitUtil {
     final Node[] na = ug.getNodes().toArray(new Node[0]);
     Arrays.sort(na, new NodeDegreeComparator("desc"));
     // 用Map存放节点和其对应的顺序,方便查找
-    Map<Node, Integer> map = new HashMap<>();
+    final Map<Node, Integer> map = new HashMap<>();
     for (int i = 0; i < count; i++) {
       map.put(na[i], i);
     }
     int l = 0;// 实际存在的边的数量
     for (int i = 1; i < count; i++) {
-      Set<Node> s = na[i].getConnectedNodes();
-      for (Node n : s) {
+      final Set<Node> s = na[i].getConnectedNodes();
+      for (final Node n : s) {
         if (map.get(n) < i) {
           l++;
         }
       }
       final double result = (2.0 * l) / (i * (i + 1));
-      double y = Math.log(result);
-      //logger.debug(y);
-      if (result > Double.MIN_VALUE && !Double.isInfinite(y) && !Double.isNaN(y)) {
+      final double y = Math.log(result);
+      // logger.debug(y);
+      if ((result > Double.MIN_VALUE) && !Double.isInfinite(y) && !Double.isNaN(y)) {
         xl.add(Math.log(i));
         yl.add(y);
       }

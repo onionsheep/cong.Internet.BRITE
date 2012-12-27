@@ -39,35 +39,12 @@ public class TestBrite {
     for (final Node n : ns) {
       d += n.getDegree();
     }
-    logger.debug("节点数: " + ns.size());
-    logger.debug("边数: " + es.size() + (" * 2 = " + (es.size() * 2)));
-    logger.debug("节点度之和: " + d);
-    logger.debug("同配性系数: " + NetworkTraitUtil.assortativityCoefficient(ug));
-    logger.debug("最小度： " + ug.getMinDegree());
-    logger.debug("最大度： " + ug.getMaxDegree());
-  }
-
-  public static void saveToGexf(final Plane plane, final String filePath) {
-    final Gexf gexf = plane.getGraph().toGexf();
-    logger.debug("正在输出为文件...");
-    final StaxGraphWriter graphWriter = new StaxGraphWriter();
-    final File f = new File(filePath);
-    Writer out;
-    try {
-      out = new FileWriter(f, false);
-      graphWriter.writeToStream(gexf, out, "UTF-8");
-      logger.info("文件已保存" + f.getAbsolutePath());
-    }
-    catch (final IOException e) {
-      logger.error("保存文件失败");
-      e.printStackTrace();
-    }
-  }
-
-  public static void savetoSparse(Graph ug, String filePath) throws IOException {
-    String s = ug.toSparse().toMatlabString();
-    FileUtils.writeStringToFile(new File(filePath), s);
-    logger.debug(filePath);
+    TestBrite.logger.debug("节点数: " + ns.size());
+    TestBrite.logger.debug("边数: " + es.size() + (" * 2 = " + (es.size() * 2)));
+    TestBrite.logger.debug("节点度之和: " + d);
+    TestBrite.logger.debug("同配性系数: " + NetworkTraitUtil.assortativityCoefficient(ug));
+    TestBrite.logger.debug("最小度： " + ug.getMinDegree());
+    TestBrite.logger.debug("最大度： " + ug.getMaxDegree());
   }
 
   /**
@@ -75,23 +52,46 @@ public class TestBrite {
    * @throws Exception
    */
   public static void main(final String[] args) throws Exception {
-    logger.debug("开始");
+    TestBrite.logger.debug("开始");
     final Plane bcp = new BriteCirclePlane(10, 1000, 1000.0);
     // final BritePlane bcp = new BritePlane(10, 1000);
     bcp.addRandomNodes(100);
     BriteWaxman.generateEdges(new BriteWaxman(bcp, 0.1, 0.9));
     final Graph ug = bcp.getGraph();
-    log(ug);
-    //BriteBA.generateEdges(new BriteBA(bcp, 2, 900));
+    TestBrite.log(ug);
+    // BriteBA.generateEdges(new BriteBA(bcp, 2, 900));
     // BriteBA.generateEdges(new BriteBAWaxman(bcp, 2, 9900, 0.1, 0.9));
     // BriteBA.generateEdges(new BriteTang(bcp, 2, 9900, 0.5));
     BriteBA.generateEdges(new BriteTangWaxman(bcp, 2, 900, 0.5, 0.1, 0.9));
-    log(ug);
-    savetoSparse(ug, "C:\\users\\cong\\desktop\\Sparse.m");
+    TestBrite.log(ug);
+    TestBrite.savetoSparse(ug, "C:\\users\\cong\\desktop\\Sparse.m");
     // NetworkTraitUtil.showRichClubChartByDegree(ug);
     // NetworkTraitUtil.showRichClubChartByOrder(ug);
     // ChartTools.drawChart(ChartTools.toXYDatasetPowerLaw(ug), "三个幂率分布图像");
-     ChartTools.drawChart(ChartTools.eigPowerLaw(ug), "部分特征向量的幂律分布(已取双对数)");
+    ChartTools.drawChart(ChartTools.eigPowerLaw(ug), "部分特征向量的幂律分布(已取双对数)");
+  }
+
+  public static void saveToGexf(final Plane plane, final String filePath) {
+    final Gexf gexf = plane.getGraph().toGexf();
+    TestBrite.logger.debug("正在输出为文件...");
+    final StaxGraphWriter graphWriter = new StaxGraphWriter();
+    final File f = new File(filePath);
+    Writer out;
+    try {
+      out = new FileWriter(f, false);
+      graphWriter.writeToStream(gexf, out, "UTF-8");
+      TestBrite.logger.info("文件已保存" + f.getAbsolutePath());
+    }
+    catch (final IOException e) {
+      TestBrite.logger.error("保存文件失败");
+      e.printStackTrace();
+    }
+  }
+
+  public static void savetoSparse(final Graph ug, final String filePath) throws IOException {
+    final String s = ug.toSparse().toMatlabString();
+    FileUtils.writeStringToFile(new File(filePath), s);
+    TestBrite.logger.debug(filePath);
   }
 
 }

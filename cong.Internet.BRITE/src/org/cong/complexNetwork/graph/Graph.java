@@ -20,15 +20,15 @@ import org.apache.log4j.Logger;
 import org.cong.complexNetwork.util.Sparse;
 
 public class Graph {
-  protected Set<Edge>       edges;
-  protected Map<Node, Node> nodesMap;
   // 使用Map存储Node,方便检索
   protected boolean         directed;
+  protected Set<Edge>       edges;
+  protected Map<Node, Node> nodesMap;
 
-  public static Logger      logger           = LogManager.getLogger(Graph.class);
+  public static int         defaultEdgeCount = 5000;
 
   public static int         defaultNodeCount = 5000;
-  public static int         defaultEdgeCount = 5000;
+  public static Logger      logger           = LogManager.getLogger(Graph.class);
 
   /**
    * 默认构造一个无向图
@@ -41,10 +41,10 @@ public class Graph {
    * @param directed
    *          true为有向图,false为无向图
    */
-  public Graph(boolean directed) {
+  public Graph(final boolean directed) {
     this.directed = directed;
-    this.edges = new HashSet<>(defaultEdgeCount);
-    this.nodesMap = new HashMap<>(defaultNodeCount);
+    this.edges = new HashSet<>(Graph.defaultEdgeCount);
+    this.nodesMap = new HashMap<>(Graph.defaultNodeCount);
   }
 
   public Node addNode(final Node node) {
@@ -53,6 +53,11 @@ public class Graph {
     } else {
       return this.nodesMap.put(node, node);
     }
+  }
+
+  public boolean addNodes(final Set<Node> nodes) {
+
+    return false;
   }
 
   /**
@@ -70,17 +75,17 @@ public class Graph {
       return false;
     }
     boolean result = false;
-    final Edge edge = new Edge(source, target, directed);
+    final Edge edge = new Edge(source, target, this.directed);
     result = this.edges.add(edge);
     if (result) {
       boolean sr = false;
       boolean tr = false;
-      if (!directed) {
+      if (!this.directed) {
         tr = target.connectNode(source);
       }
       sr = source.connectNode(target);
       if (!sr || !tr) {
-        if (!directed) {
+        if (!this.directed) {
           target.disConnectNode(source);
         }
         source.disConnectNode(target);
@@ -117,7 +122,7 @@ public class Graph {
     final Edge edge = new Edge(source, target);
     result = this.removeEdge(edge);
     if (result) {
-      if (!directed) {
+      if (!this.directed) {
         target.disConnectNode(source);
       }
       source.disConnectNode(target);
@@ -127,6 +132,32 @@ public class Graph {
 
   public Set<Edge> getEdges() {
     return this.edges;
+  }
+
+  /**
+   * @return 图中最大度的点的度数
+   */
+  public int getMaxDegree() {
+    int maxD = 0;
+    for (final Node n : this.getNodes()) {
+      if (maxD < n.getDegree()) {
+        maxD = n.getDegree();
+      }
+    }
+    return maxD;
+  }
+
+  /**
+   * @return 图中最小度的点的度数
+   */
+  public int getMinDegree() {
+    int minD = Integer.MAX_VALUE;
+    for (final Node n : this.getNodes()) {
+      if (minD > n.getDegree()) {
+        minD = n.getDegree();
+      }
+    }
+    return minD;
   }
 
   /**
@@ -157,44 +188,13 @@ public class Graph {
     final Node source = edge.getSource();
     final Node target = edge.getTarget();
     if (result) {
-      if (!directed) {
+      if (!this.directed) {
         target.disConnectNode(source);
       }
       source.disConnectNode(target);
     }
     return result;
   }
-  
-  
-  
-
-  /**
-   * @return 图中最大度的点的度数
-   */
-  public int getMaxDegree() {
-    int maxD = 0;
-    for (final Node n : this.getNodes()) {
-      if (maxD < n.getDegree()) {
-        maxD = n.getDegree();
-      }
-    }
-    return maxD;
-  }
-
-  /**
-   * @return 图中最小度的点的度数
-   */
-  public int getMinDegree() {
-    int minD = Integer.MAX_VALUE;
-    for (final Node n : this.getNodes()) {
-      if (minD > n.getDegree()) {
-        minD = n.getDegree();
-      }
-    }
-    return minD;
-  }
-
-  
 
   /**
    * 把图转换成一个邻接矩阵，图的规模比较小的时候适用
@@ -214,7 +214,7 @@ public class Graph {
           for (int j = 0; j < nodeArray.length; j++) {
             if (e.getTarget().equals(nodeArray[j])) {
               martrix[i][j] = e.getWeight();
-              if (!directed) {
+              if (!this.directed) {
                 martrix[j][i] = e.getWeight();
               }
             }
@@ -237,7 +237,7 @@ public class Graph {
     // Edge[] edgeArray = edges.toArray(new Edge[0]);
     final File f = new File(filePath);
     StringBuffer sb;
-    int size = 2 * nodeArray.length;
+    final int size = 2 * nodeArray.length;
     FileUtils.writeStringToFile(f, "AM = [\n", "UTF-8");
     for (final Node element : nodeArray) {
       sb = new StringBuffer(size);
@@ -263,7 +263,7 @@ public class Graph {
   public Gexf toGexf() {
     final Gexf gexf = new GexfImpl();
     final it.uniroma1.dis.wiserver.gexf4j.core.Graph graph = gexf.getGraph();
-    if (!directed) {
+    if (!this.directed) {
       graph.setDefaultEdgeType(EdgeType.UNDIRECTED);
     } else {
       graph.setDefaultEdgeType(EdgeType.DIRECTED);
@@ -278,7 +278,7 @@ public class Graph {
       final Node source = edge.getSource();
       final Node target = edge.getTarget();
       if (source == null) {
-        logger.debug("source null");
+        Graph.logger.debug("source null");
       }
       nodeMap.get(source).connectTo(nodeMap.get(target));
     }
@@ -294,8 +294,8 @@ public class Graph {
     final Sparse<Integer> s = new Sparse<>();
     final List<Node> nl = new ArrayList<>();
     nl.addAll(this.getNodes());
-    int size = nl.size();
-    Map<Node, Integer> map = new HashMap<>();
+    final int size = nl.size();
+    final Map<Node, Integer> map = new HashMap<>();
     for (int i = 0; i < size; i++) {
       map.put(nl.get(i), i);
     }
@@ -303,13 +303,13 @@ public class Graph {
       final int i = 1 + map.get(e.getSource());// nl.indexOf(e.getSource());
       final int j = 1 + map.get(e.getTarget());// nl.indexOf(e.getTarget());
       s.addElement(i, j, e.getWeight());
-      if (!directed) {
+      if (!this.directed) {
         s.addElement(j, i, e.getWeight());
       }
     }
     return s;
   }
-  
+
   /**
    * 转换为一个n*3的二维数组存储的矩阵，第二维度的下标：0行下标1列下标2权重
    * 

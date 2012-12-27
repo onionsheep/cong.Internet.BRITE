@@ -14,19 +14,19 @@ public class EuclideanDistanceUtil {
    * 比较器compare，left.y < right.y 返回1。若y相等，left.x < right.x 返回1。相等返回0.其余返回-1
    */
   public static Comparator<Node> cmp = new Comparator<Node>() {
-    @Override
-    public int compare(final Node u, final Node v) {
-      final Coordinate left = u.getCoordinate();
-      final Coordinate right = v.getCoordinate();
-      if (((left.getY() < right.getY()) || ((left.getY() == right.getY()) && (left.getX() < right.getX())))) {
-        return 1;
-      } else if (left.equals(right)) {
-        return 0;
-      } else {
-        return -1;
-      }
-    }
-  };
+                                       @Override
+                                       public int compare(final Node u, final Node v) {
+                                         final Coordinate left = u.getCoordinate();
+                                         final Coordinate right = v.getCoordinate();
+                                         if (((left.getY() < right.getY()) || ((left.getY() == right.getY()) && (left.getX() < right.getX())))) {
+                                           return 1;
+                                         } else if (left.equals(right)) {
+                                           return 0;
+                                         } else {
+                                           return -1;
+                                         }
+                                       }
+                                     };
 
   /**
    * 求两个向量的内积
@@ -72,7 +72,7 @@ public class EuclideanDistanceUtil {
     final List<Node> result = new ArrayList<>();
 
     // 按照y进行排序，y相等则按照x。由小到大。
-    Collections.sort(nl, cmp);
+    Collections.sort(nl, EuclideanDistanceUtil.cmp);
     final int size = nl.size();
     if (size < 3) {
       result.addAll(nl);
@@ -82,7 +82,10 @@ public class EuclideanDistanceUtil {
       result.add(nl.get(2));
       int top = 2;
       for (int i = 3; i < size; i++) {
-        while ((top > 0) && (CrossProduct(result.get(top - 1), result.get(top), nl.get(i)) >= 0)) {
+        while ((top > 0)
+               && (EuclideanDistanceUtil.CrossProduct(result.get(top - 1),
+                                                      result.get(top),
+                                                      nl.get(i)) >= 0)) {
           result.remove(result.size() - 1);
           top--;
         }
@@ -99,8 +102,8 @@ public class EuclideanDistanceUtil {
   }
 
   public static double maxEd(final List<Node> nodes) {
-    final List<Node> convexHull = GetConvexHull(nodes);
-    final long d = RotatingCalipers(convexHull);
+    final List<Node> convexHull = EuclideanDistanceUtil.GetConvexHull(nodes);
+    final long d = EuclideanDistanceUtil.RotatingCalipers(convexHull);
     return Math.sqrt(d);
   }
 
@@ -116,13 +119,16 @@ public class EuclideanDistanceUtil {
     long maxLength = 0;// 存储最大值
     nl.add(nl.get(0));
     for (int i = 0; i < n; i++) {
-      while (CrossProduct(nl.get(i + 1), nl.get(j + 1), nl.get(i)) > CrossProduct(nl.get(i + 1),
-                                                                                  nl.get(j),
-                                                                                  nl.get(i))) {
+      while (EuclideanDistanceUtil.CrossProduct(nl.get(i + 1), nl.get(j + 1), nl.get(i)) > EuclideanDistanceUtil.CrossProduct(nl.get(i + 1),
+                                                                                                                              nl.get(j),
+                                                                                                                              nl.get(i))) {
         j = (j + 1) % n;
       }
-      maxLength = max(maxLength,
-                      max(Distance(nl.get(i), nl.get(j)), Distance(nl.get(i + 1), nl.get(j + 1))));
+      maxLength = EuclideanDistanceUtil.max(maxLength,
+                                            EuclideanDistanceUtil.max(EuclideanDistanceUtil.Distance(nl.get(i),
+                                                                                                     nl.get(j)),
+                                                                      EuclideanDistanceUtil.Distance(nl.get(i + 1),
+                                                                                                     nl.get(j + 1))));
     }
     return maxLength;
   }

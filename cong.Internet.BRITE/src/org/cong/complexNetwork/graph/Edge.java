@@ -1,16 +1,17 @@
 package org.cong.complexNetwork.graph;
 
 /**
- * Two Edges that has the same source and targets will be equals; weight will not be considered when compares
+ * Two Edges that has the same source and targets will be equals; weight will
+ * not be considered when compares
  * 
  * @author cong
  * 
  */
 public class Edge {
   protected boolean directed;
-  protected Node source;
-  protected Node target;
-  protected int weight;
+  protected Node    source;
+  protected Node    target;
+  protected int     weight;
 
   public Edge(final Node source, final Node target) throws Exception {
     this(source, target, false, 1);

@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class Sparse<T> {
 
-  protected List<T> vl;
+  protected List<T>       vl;
   protected List<Integer> xl;
   protected List<Integer> yl;
 
@@ -38,11 +38,15 @@ public class Sparse<T> {
     this.vl.add(value);
   }
 
+  public void toMatlabFile(final String fileName) {
+
+  }
+
   /**
    * @return Matlab所需要的稀疏矩阵的生成字符串
    */
   public String toMatlabString() {
-    int length = 3 * vl.size();
+    final int length = 3 * this.vl.size();
     final StringBuffer sb = new StringBuffer(length);
     sb.append("xl = [");
     final int l = this.vl.size();
@@ -67,10 +71,6 @@ public class Sparse<T> {
     return sb.toString();
   }
 
-  public void toMatlabFile(String fileName){
-    
-  }
-  
   @Override
   public String toString() {
     final StringBuilder builder = new StringBuilder();

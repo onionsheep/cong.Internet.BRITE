@@ -9,9 +9,9 @@ import org.cong.complexNetwork.graph.Node;
 import org.cong.complexNetwork.util.ArrayUtil;
 
 public class BriteBA {
-  protected int nodeCount;
-  protected int oneNodeEdge;
-  protected Plane plane;
+  protected int        nodeCount;
+  protected int        oneNodeEdge;
+  protected Plane      plane;
   public static Logger logger = LogManager.getLogger(BriteBA.class);
 
   /**
@@ -36,7 +36,7 @@ public class BriteBA {
     for (int i = 0; i < nodeCount; i++) {
       final Node[] nodeArray = nodes.toArray(new Node[0]);
       final Node newNode = plane.addOneRandomNode();
-      final double[] probabilities = probability(nodeArray, newNode, briteBA);
+      final double[] probabilities = BriteBA.probability(nodeArray, newNode, briteBA);
       // 添加oneNodeEdge条边，这oneNodeEdge添加边的时候不重新计算原来节点的度，概率,节省时间，误差很小
       briteBA.addEdges(oneNodeEdge, ug, nodeArray, probabilities, newNode);
       // 重新计算添加节点和边之后需要重新计算的参数
@@ -112,7 +112,7 @@ public class BriteBA {
     boolean result;
     int m = 0;
     while (m < edgeCount) {
-      final int i = randomWithProbablities(probabilities);
+      final int i = BriteBA.randomWithProbablities(probabilities);
       result = ug.connect(newNode, nodeArray[i]);
       if (result) {
         m += 1;

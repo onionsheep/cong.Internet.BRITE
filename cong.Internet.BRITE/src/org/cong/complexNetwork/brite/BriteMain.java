@@ -24,29 +24,29 @@ public class BriteMain {
   private static void generate(final Configuration configuration) throws Exception {
     final BritePlane britePlane = new BritePlane(configuration.hs, configuration.ls);
     britePlane.addRandomNodes(configuration.waxmanNodeCount);
-    logger.info("正在生成Waxman随机图...");
+    BriteMain.logger.info("正在生成Waxman随机图...");
     BriteWaxman.generateEdges(new BriteWaxman(britePlane,
                                               configuration.waxmanAlpha,
                                               configuration.waxmanBeta));
 
-    logger.info("正在生成BA图...");
+    BriteMain.logger.info("正在生成BA图...");
     BriteBA.generateEdges(new BriteBA(britePlane,
                                       configuration.baOneNodeEdge,
                                       configuration.baNodeCount));
-    logger.info("正在把模型转化为GEXF格式...");
+    BriteMain.logger.info("正在把模型转化为GEXF格式...");
 
     final Gexf gexf = britePlane.getGraph().toGexf();
-    logger.debug("正在输出为文件...");
+    BriteMain.logger.debug("正在输出为文件...");
     final StaxGraphWriter graphWriter = new StaxGraphWriter();
     final File f = new File(configuration.outputFileName);
     Writer out;
     try {
       out = new FileWriter(f, false);
       graphWriter.writeToStream(gexf, out, "UTF-8");
-      logger.info("文件已保存" + f.getAbsolutePath());
+      BriteMain.logger.info("文件已保存" + f.getAbsolutePath());
     }
     catch (final IOException e) {
-      logger.error("保存文件失败");
+      BriteMain.logger.error("保存文件失败");
       e.printStackTrace();
     }
   }
@@ -59,10 +59,10 @@ public class BriteMain {
       // nutz的json解析
       final Configuration conf = JSON.parseObject(confStr, Configuration.class);
       // fastjson
-      generate(conf);
+      BriteMain.generate(conf);
     }
     catch (final IOException e) {
-      logger.error("配置文件读取错误，请检查。");
+      BriteMain.logger.error("配置文件读取错误，请检查。");
       e.printStackTrace();
     }
   }

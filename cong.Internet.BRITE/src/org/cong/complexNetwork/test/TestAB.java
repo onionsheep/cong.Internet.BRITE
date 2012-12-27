@@ -17,8 +17,8 @@ public class TestAB {
       ug.getNodes().add(AB.newNode());
     }
 
-    logger.debug("初始边添加OK");
-    logger.debug(ug.getNodes().size());
+    TestAB.logger.debug("初始边添加OK");
+    TestAB.logger.debug(ug.getNodes().size());
     AB.generateGraph(steps, 0.1, 0.6, ug, 4);
 
     TestBrite.log(ug);

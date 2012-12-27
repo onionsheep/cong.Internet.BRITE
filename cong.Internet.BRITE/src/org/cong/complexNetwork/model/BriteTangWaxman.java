@@ -5,10 +5,10 @@ import org.apache.log4j.Logger;
 import org.cong.complexNetwork.graph.Node;
 
 public class BriteTangWaxman extends BriteTang {
-  protected double alpha;
+  protected double     alpha;
 
-  protected double beta;
-  private double maxED;
+  protected double     beta;
+  private double       maxED;
 
   public static Logger logger = LogManager.getLogger(BriteTangWaxman.class);
 

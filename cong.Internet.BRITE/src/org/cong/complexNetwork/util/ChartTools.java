@@ -49,11 +49,39 @@ public class ChartTools {
     af.setVisible(true);
   }
 
+  public static XYDataset eigPowerLaw(final Graph ug) throws Exception {
+    // SimpleMatrix m = new SimpleMatrix(ug.toAdjacentMatrix());
+    // SimpleEVD<?> evd = m.eig();
+    // int ecount = evd.getNumberOfEigenvalues();
+    // double[] es = new double[ecount];
+    // for(int i = 0; i < ecount; i++){
+    // Complex64F c = evd.getEigenvalue(i);
+    // es[i] = c.getReal();
+    // }
+    final Matrix ma = new Matrix(ug.toAdjacentMatrix());
+    final double[] es = ma.eig().getRealEigenvalues();
+    final int ecount = es.length;
+    Arrays.sort(es);
+    final List<Double> xl0 = new ArrayList<>();
+    final List<Double> yl0 = new ArrayList<>();
+    for (int i = 0; i < ecount; i++) {
+      if (es[i] > 1) {
+        final double x = Math.log(ecount - i);
+        final double y = Math.log(es[i]);
+        if (!Double.isInfinite(y) && !Double.isNaN(y)) {
+          xl0.add(x);
+          yl0.add(y);
+        }
+      }
+    }
+    return ChartTools.toXYDataset(xl0, yl0, "序号--特征向量");
+  }
+
   public static XYDataset toLogLogXYDataset(final List<Double> xl,
                                             final List<Double> yl,
                                             final String title) throws Exception {
     final XYSeriesCollection xysc = new XYSeriesCollection();
-    final XYSeries xys = toLogLogXYSeries(xl, yl, title);
+    final XYSeries xys = ChartTools.toLogLogXYSeries(xl, yl, title);
     xysc.addSeries(xys);
     return xysc;
   }
@@ -79,26 +107,9 @@ public class ChartTools {
                                       final List<Double> yl,
                                       final String title) throws Exception {
     final XYSeriesCollection xysc = new XYSeriesCollection();
-    final XYSeries xys = toXYSeries(xl, yl, title);
+    final XYSeries xys = ChartTools.toXYSeries(xl, yl, title);
     xysc.addSeries(xys);
     return xysc;
-  }
-
-  protected static XYSeries toXYSeries(final List<Double> xl,
-                                       final List<Double> yl,
-                                       final String title) throws Exception {
-    final XYSeries xys = new XYSeries(title);
-    if (xl.size() == yl.size()) {
-      final int l = xl.size();
-      for (int i = 0; i < l; i++) {
-        final double x = xl.get(i);
-        final double y = yl.get(i);
-        xys.add(x, y);
-      }
-    } else {
-      throw new Exception("two list must have the same size");
-    }
-    return xys;
   }
 
   public static XYDataset toXYDatasetPowerLaw(final Graph g) throws Exception {
@@ -135,9 +146,9 @@ public class ChartTools {
     }
 
     final XYSeriesCollection xysc = new XYSeriesCollection();
-    final XYSeries xys0 = toLogLogXYSeries(xl0, yl0, "幂律分布（降序序号--度）");
-    final XYSeries xys1 = toLogLogXYSeries(xl1, yl1, "幂律分布（度累计分布--度）");
-    final XYSeries xys2 = toLogLogXYSeries(xl2, yl2, "幂律分布（频数--度）");
+    final XYSeries xys0 = ChartTools.toLogLogXYSeries(xl0, yl0, "幂律分布（降序序号--度）");
+    final XYSeries xys1 = ChartTools.toLogLogXYSeries(xl1, yl1, "幂律分布（度累计分布--度）");
+    final XYSeries xys2 = ChartTools.toLogLogXYSeries(xl2, yl2, "幂律分布（频数--度）");
 
     xysc.addSeries(xys0);
     xysc.addSeries(xys1);
@@ -145,31 +156,20 @@ public class ChartTools {
     return xysc;
   }
 
-  public static XYDataset eigPowerLaw(Graph ug) throws Exception {
-    // SimpleMatrix m = new SimpleMatrix(ug.toAdjacentMatrix());
-    // SimpleEVD<?> evd = m.eig();
-    // int ecount = evd.getNumberOfEigenvalues();
-    // double[] es = new double[ecount];
-    // for(int i = 0; i < ecount; i++){
-    // Complex64F c = evd.getEigenvalue(i);
-    // es[i] = c.getReal();
-    // }
-    Matrix ma = new Matrix(ug.toAdjacentMatrix());
-    double[] es = ma.eig().getRealEigenvalues();
-    int ecount = es.length;
-    Arrays.sort(es);
-    final List<Double> xl0 = new ArrayList<>();
-    final List<Double> yl0 = new ArrayList<>();
-    for (int i = 0; i < ecount; i++) {
-      if (es[i] > 1) {
-        double x = Math.log(ecount - i);
-        double y = Math.log(es[i]);
-        if (!Double.isInfinite(y) && !Double.isNaN(y)) {
-          xl0.add(x);
-          yl0.add(y);
-        }
+  protected static XYSeries toXYSeries(final List<Double> xl,
+                                       final List<Double> yl,
+                                       final String title) throws Exception {
+    final XYSeries xys = new XYSeries(title);
+    if (xl.size() == yl.size()) {
+      final int l = xl.size();
+      for (int i = 0; i < l; i++) {
+        final double x = xl.get(i);
+        final double y = yl.get(i);
+        xys.add(x, y);
       }
+    } else {
+      throw new Exception("two list must have the same size");
     }
-    return toXYDataset(xl0, yl0, "序号--特征向量");
+    return xys;
   }
 }

@@ -1,7 +1,5 @@
 package org.cong.complexNetwork.model;
 
-
-
 import org.cong.complexNetwork.graph.Graph;
 import org.cong.complexNetwork.graph.Node;
 
@@ -39,15 +37,15 @@ public class BriteTang extends BriteBA {
                           final Node newNode) throws Exception {
     boolean result = false;
     while (!result) {
-      final int i = randomWithProbablities(probabilities);
+      final int i = BriteBA.randomWithProbablities(probabilities);
       result = ug.connect(newNode, nodeArray[i]);
     }
 
     int m = 0;
     final int count = edgeCount - 1;
     while (m < count) {
-      final int i = randomWithProbablities(probabilities);
-      final int j = randomWithProbablities(probabilities);
+      final int i = BriteBA.randomWithProbablities(probabilities);
+      final int j = BriteBA.randomWithProbablities(probabilities);
       if (ug.connect(nodeArray[i], nodeArray[j])) {
         m += 1;
       }

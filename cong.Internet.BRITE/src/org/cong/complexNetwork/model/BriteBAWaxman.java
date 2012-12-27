@@ -8,8 +8,8 @@ public class BriteBAWaxman extends BriteBA {
   protected final double alpha;
 
   protected final double beta;
-  protected double maxED;
-  public static Logger logger = LogManager.getLogger(BriteBAWaxman.class);
+  protected double       maxED;
+  public static Logger   logger = LogManager.getLogger(BriteBAWaxman.class);
 
   public BriteBAWaxman(final Plane plane,
                        final int oneNodeEdge,

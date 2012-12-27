@@ -9,7 +9,7 @@ import org.cong.complexNetwork.graph.Node;
 public class BriteWaxman {
   protected double alpha;
   protected double beta;
-  protected Plane plane;
+  protected Plane  plane;
 
   /**
    * 

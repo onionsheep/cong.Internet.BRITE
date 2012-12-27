@@ -7,15 +7,13 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.cong.complexNetwork.graph.Graph;
-import org.cong.complexNetwork.graph.IPNode;
+import org.cong.complexNetwork.graph.StringNameNode;
 import org.cong.complexNetwork.graph.Node;
 
 public class Tools {
@@ -32,35 +30,31 @@ public class Tools {
   public static Graph readIPNodesFromLnkFile(final String filePath) throws Exception {
     final Graph ug = new Graph();
     final File f = new File(filePath);
-    final Map<Node, Node> nnmap = new HashMap<>();
     try {
       final List<String> lines = FileUtils.readLines(f, "UTF-8");
-      logger.debug("read ok");
+      Tools.logger.debug("read ok");
       for (final String line : lines) {
         final String[] p = line.split(" ");
         if (p.length >= 2) {
-          Node n0 = new IPNode(p[0]);
-          final Node n1 = new IPNode(p[1]);
-          /*
-           * HashMap.put:添加成功返回null，key已存在则返回原来的value
-           */
-          if (nnmap.containsKey(n0)) {
-            n0 = nnmap.get(n0);
+          Node n0 = new StringNameNode(p[0]);
+          Node n1 = new StringNameNode(p[1]);
+
+          if (ug.containsNode(n0)) {
+            n0 = ug.getNode(n0);
           } else {
-            nnmap.put(n0, n0);
+            ug.addNode(n0);
           }
-          if (nnmap.containsKey(n1)) {
-            n0 = nnmap.get(n1);
+          if (ug.containsNode(n1)) {
+            n1 = ug.getNode(n1);
           } else {
-            nnmap.put(n1, n1);
+            ug.addNode(n1);
           }
           ug.connect(n0, n1);
         }
       }
-      ug.getNodes().addAll(nnmap.values());
     }
     catch (final IOException e) {
-      logger.debug("Read file error");
+      Tools.logger.debug("Read file error");
       e.printStackTrace();
     }
     return ug;
@@ -93,7 +87,7 @@ public class Tools {
     try {
       out = new FileWriter(f, false);
       graphWriter.writeToStream(gexf, out, "UTF-8");
-      logger.info(f.getAbsolutePath());
+      Tools.logger.info(f.getAbsolutePath());
     }
     catch (final IOException e) {
       e.printStackTrace();

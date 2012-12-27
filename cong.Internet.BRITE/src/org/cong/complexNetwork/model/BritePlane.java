@@ -7,8 +7,8 @@ import org.cong.complexNetwork.graph.Node;
 
 public class BritePlane extends Plane {
 
-  protected int hs;
-  protected int ls;
+  protected int        hs;
+  protected int        ls;
   public static Logger logger = LogManager.getLogger(BritePlane.class);
 
   public BritePlane(final int hs, final int ls) {

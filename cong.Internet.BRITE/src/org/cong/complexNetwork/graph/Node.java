@@ -12,10 +12,10 @@ public class Node {
 
   protected Coordinate        coordinate;
 
+  protected long              id;
   // protected int degree;
   protected int               inDegree;
   protected int               outDegree;
-  protected long              id;
   protected double            weight;
   private static final double defaultWeight = 0;
   private static long         idCounter     = -1;
@@ -23,7 +23,7 @@ public class Node {
   public static Logger        logger        = LogManager.getLogger(Node.class);
 
   public Node() {
-    this(idCounter--);
+    this(Node.idCounter--);
   }
 
   public Node(final Coordinate coordinate) {
@@ -36,11 +36,11 @@ public class Node {
    * @param id
    */
   public Node(final long id) {
-    this(id, defaultWeight, null);
+    this(id, Node.defaultWeight, null);
   }
 
   public Node(final long id, final Coordinate coordinate) {
-    this(id, defaultWeight, coordinate);
+    this(id, Node.defaultWeight, coordinate);
   }
 
   /**
@@ -107,24 +107,27 @@ public class Node {
     return this.coordinate;
   }
 
+  /**
+   * @return 无向图时出度和入度是一样的，这里返回出度。这个方法只适合无向图用。千万注意。
+   */
   public int getDegree() {
-    return this.inDegree + this.outDegree;
+    return this.outDegree;
   }
 
   public long getId() {
     return this.id;
   }
 
-  public double getWeight() {
-    return this.weight;
-  }
-
   public int getInDegree() {
-    return inDegree;
+    return this.inDegree;
   }
 
   public int getOutDegree() {
-    return outDegree;
+    return this.outDegree;
+  }
+
+  public double getWeight() {
+    return this.weight;
   }
 
   @Override

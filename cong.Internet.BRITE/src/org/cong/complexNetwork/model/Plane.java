@@ -12,9 +12,9 @@ import org.cong.complexNetwork.graph.Node;
 import org.cong.complexNetwork.util.EuclideanDistanceUtil;
 
 public class Plane {
-  protected int height;
-  protected Graph ug;
-  protected int width;
+  protected int        height;
+  protected Graph      ug;
+  protected int        width;
   public static Logger logger = LogManager.getLogger(Plane.class);
 
   private static long distanceSqr(final Coordinate u, final Coordinate v) {
@@ -26,11 +26,11 @@ public class Plane {
   }
 
   private static long distanceSqr(final Node u, final Node v) {
-    return distanceSqr(u.getCoordinate(), v.getCoordinate());
+    return Plane.distanceSqr(u.getCoordinate(), v.getCoordinate());
   }
 
   public static double EuclideanDistanceBetween(final Coordinate u, final Coordinate v) {
-    return Math.sqrt(distanceSqr(u, v));
+    return Math.sqrt(Plane.distanceSqr(u, v));
   }
 
   public Plane(final int width, final int height) {
@@ -44,7 +44,7 @@ public class Plane {
     Node node = null;
     while (result) {
       node = this.randomNode();
-      if(this.ug.addNode(node) == null){
+      if (this.ug.addNode(node) == null) {
         result = false;
       }
     }

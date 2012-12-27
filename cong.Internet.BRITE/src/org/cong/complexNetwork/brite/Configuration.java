@@ -5,9 +5,9 @@ public class Configuration {
   public Integer baOneNodeEdge;
   public Integer hs;
   public Integer ls;
-  public String outputFileName;
-  public Double waxmanAlpha;
-  public Double waxmanBeta;
+  public String  outputFileName;
+  public Double  waxmanAlpha;
+  public Double  waxmanBeta;
   public Integer waxmanNodeCount;
 
   public Integer getBaNodeCount() {
