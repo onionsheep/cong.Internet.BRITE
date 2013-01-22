@@ -95,6 +95,7 @@ public class AB {
       probability = probabilities[j];
       if (rand <= probability) {
         tNode = nodeArray[j];
+        break;
       }
     }
     return tNode;
@@ -108,9 +109,13 @@ public class AB {
     double probability = 0;
     int sumOfDegree = 0;
     for (final Node node : nodeArray) {
-      sumOfDegree += (node.getDegree() + 1);
+      sumOfDegree += node.getDegree();
     }
-    probability = (1.0 * (i.getDegree() + 1)) / sumOfDegree;
+    if (sumOfDegree != 0) {
+      probability = (1.0 * i.getDegree()) / sumOfDegree;
+    } else {
+      probability = 1.0 / nodeArray.length;
+    }
     return probability;
   }
 

@@ -108,10 +108,12 @@ public class Node {
   }
 
   /**
-   * @return 无向图时出度和入度是一样的，这里返回出度。这个方法只适合无向图用。千万注意。
+   * 返回无向图节点的度，出度和入度是一样的，不作区分
+   * @return 返回无向图节点的度，出度和入度是一样的，不作区分。这个方法只适合无向图用。千万注意。
    */
   public int getDegree() {
-    return this.outDegree;
+    //return this.outDegree;
+    return this.inDegree;
   }
 
   public long getId() {

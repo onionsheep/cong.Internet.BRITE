@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.List;
 
-import org.apache.commons.io.FileUtils;
+import cong.commons.io.FileUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.cong.complexNetwork.graph.Graph;
@@ -27,11 +27,10 @@ public class Tools {
     return java.util.concurrent.ThreadLocalRandom.current().nextInt(n);
   }
 
-  public static Graph readIPNodesFromLnkFile(final String filePath) throws Exception {
-    final Graph ug = new Graph();
-    final File f = new File(filePath);
+  public static Graph readStringNodesFromFile(final String filePath, boolean directed) throws Exception {
+    final Graph ug = new Graph(directed);
     try {
-      final List<String> lines = FileUtils.readLines(f, "UTF-8");
+      final List<String> lines = FileUtils.readLines(filePath,"UTF-8");
       Tools.logger.debug("read ok");
       for (final String line : lines) {
         final String[] p = line.split(" ");
@@ -77,7 +76,7 @@ public class Tools {
     }
     sb.append("];");
     final File f = new File(filePath);
-    FileUtils.writeStringToFile(f, sb.toString(), "UTF-8");
+    FileUtils.writeStringToFile(f, sb.toString(), false);
   }
 
   public static void writeGexfFile(final Gexf gexf, final String filePath) {

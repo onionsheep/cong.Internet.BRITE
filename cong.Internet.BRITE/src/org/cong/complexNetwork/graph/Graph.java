@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.commons.io.FileUtils;
+import cong.commons.io.FileUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.cong.complexNetwork.util.Sparse;
@@ -85,7 +85,7 @@ public class Graph {
         tr = target.connectNode(source);
       }
       sr = source.connectNode(target);
-      if (!sr || !tr) {
+      if ((!directed && (!sr || !tr)) || (directed && !sr)) {
         if (!this.directed) {
           target.disConnectNode(source);
         }
@@ -239,7 +239,7 @@ public class Graph {
     final File f = new File(filePath);
     StringBuffer sb;
     final int size = 2 * nodeArray.length;
-    FileUtils.writeStringToFile(f, "AM = [\n", "UTF-8");
+    FileUtils.writeStringToFile(f, "AM = [\n", false);
     for (final Node element : nodeArray) {
       sb = new StringBuffer(size);
       for (final Node element2 : nodeArray) {
@@ -251,9 +251,9 @@ public class Graph {
       }
       sb.deleteCharAt(sb.length() - 1);
       sb.append("\n");
-      FileUtils.writeStringToFile(f, sb.toString(), "UTF-8", true);
+      FileUtils.writeStringToFile(f, sb.toString(), true);
     }
-    FileUtils.writeStringToFile(f, "]", "UTF-8", true);
+    FileUtils.writeStringToFile(f, "]", true);
   }
 
   /**

@@ -8,7 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 
-import org.apache.commons.io.FileUtils;
+import cong.commons.io.FileUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.cong.complexNetwork.model.BriteBA;
@@ -54,7 +54,7 @@ public class BriteMain {
   public static void main(final String[] args) throws Exception {
     final File file = new File("Configuration.json");
     try {
-      final String confStr = FileUtils.readFileToString(file);
+      final String confStr = FileUtils.readFileToString(file, "UTF-8");
       // final Configuration conf = Json.fromJson(Configuration.class, confStr);
       // nutz的json解析
       final Configuration conf = JSON.parseObject(confStr, Configuration.class);

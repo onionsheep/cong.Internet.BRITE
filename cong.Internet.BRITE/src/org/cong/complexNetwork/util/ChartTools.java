@@ -1,5 +1,8 @@
 package org.cong.complexNetwork.util;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -10,6 +13,7 @@ import org.apache.log4j.Logger;
 import org.cong.complexNetwork.graph.Graph;
 import org.cong.complexNetwork.graph.Node;
 import org.jfree.chart.ChartPanel;
+import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.plot.XYPlot;
@@ -25,7 +29,24 @@ import Jama.Matrix;
 public class ChartTools {
   public static Logger logger = LogManager.getLogger(ChartTools.class);
 
-  public static void drawChart(final XYDataset xyds, final String title) {
+  public static void showChart(final XYDataset xyds, final String title) {
+    final JFreeChart localJFreeChart = drawChart(xyds, title);
+
+    final ChartPanel cp = new ChartPanel(localJFreeChart);
+
+    final ApplicationFrame af = new ApplicationFrame("");
+    af.setContentPane(cp);
+    af.pack();
+    RefineryUtilities.centerFrameOnScreen(af);
+    af.setVisible(true);
+  }
+
+  /**
+   * @param xyds
+   * @param title
+   * @return
+   */
+  public static JFreeChart drawChart(final XYDataset xyds, final String title) {
     final NumberAxis localNumberAxis1 = new NumberAxis("X");
     localNumberAxis1.setAutoRangeIncludesZero(false);
     final NumberAxis localNumberAxis2 = new NumberAxis("Y");
@@ -39,14 +60,22 @@ public class ChartTools {
                                                       JFreeChart.DEFAULT_TITLE_FONT,
                                                       localXYPlot,
                                                       true);
+    return localJFreeChart;
+  }
 
-    final ChartPanel cp = new ChartPanel(localJFreeChart);
+  public static boolean writeChartToFile(JFreeChart chart, File file) {
+    try (FileOutputStream fos = new FileOutputStream(file);) {
+      ChartUtilities.writeChartAsPNG(fos, chart, 800, 600);
+      return true;
+    }
+    catch (IOException e) {
+      e.printStackTrace();
+    }
+    return false;
+  }
 
-    final ApplicationFrame af = new ApplicationFrame("");
-    af.setContentPane(cp);
-    af.pack();
-    RefineryUtilities.centerFrameOnScreen(af);
-    af.setVisible(true);
+  public static boolean writeChartToFile(JFreeChart chart, String filePath) {
+    return writeChartToFile(chart, new File(filePath));
   }
 
   public static XYDataset eigPowerLaw(final Graph ug) throws Exception {
@@ -86,7 +115,7 @@ public class ChartTools {
     return xysc;
   }
 
-  protected static XYSeries toLogLogXYSeries(final List<Double> xl,
+  public static XYSeries toLogLogXYSeries(final List<Double> xl,
                                              final List<Double> yl,
                                              final String title) throws Exception {
     final XYSeries xys = new XYSeries(title);

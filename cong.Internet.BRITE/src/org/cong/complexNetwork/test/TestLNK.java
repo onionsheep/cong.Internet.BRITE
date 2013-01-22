@@ -15,9 +15,9 @@ public class TestLNK {
 
   public static void tLNK() throws Exception {
     TestLNK.logger.debug("开始");
-    // final UndirectedGraph ug = Tools.readIPNodesFromLnkFile("ips.txt");
-    // final UndirectedGraph ug = Tools.readIPNodesFromLnkFile("a-r20030421sr");
-    final Graph ug = Tools.readIPNodesFromLnkFile("test.txt");
+    // final Graph ug = Tools.readStringNodesFromFile("ips.txt");
+     final Graph ug = Tools.readStringNodesFromFile("CAIDA_DATA/a-r20030421sr", false);
+    //final Graph ug = Tools.readStringNodesFromFile("test.txt", false);
     TestBrite.log(ug);
 
     // String s = ug.toSparse().toMatlabString();
@@ -31,7 +31,9 @@ public class TestLNK {
     // ug.toAdjacentMatrixFile("C:\\users\\cong\\desktop\\matrix.m");
     // NetworkTraitUtil.showRichClubChartByDegree(ug);
     // NetworkTraitUtil.showRichClubChartByOrder(ug);
-    ChartTools.drawChart(ChartTools.toXYDatasetPowerLaw(ug), "三个幂率分布图像");
+    //ChartTools.showChart(ChartTools.toXYDatasetPowerLaw(ug), "三个幂率分布图像");
+    ChartTools.writeChartToFile(ChartTools.drawChart(ChartTools.toXYDatasetPowerLaw(ug), "三个幂率分布图像"), "Charts/test.png");
+    logger.debug("finished");
     // ChartTools.drawChart(ChartTools.eigPowerLaw(ug), "null");
   }
 }

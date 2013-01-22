@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.Set;
 
-import org.apache.commons.io.FileUtils;
+import cong.commons.io.FileUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.cong.complexNetwork.graph.Edge;
@@ -67,7 +67,7 @@ public class TestBrite {
     //TestBrite.savetoSparse(ug, "C:\\users\\cong\\desktop\\Sparse.m");
     // NetworkTraitUtil.showRichClubChartByDegree(ug);
     // NetworkTraitUtil.showRichClubChartByOrder(ug);
-     ChartTools.drawChart(ChartTools.toXYDatasetPowerLaw(ug), "三个幂率分布图像");
+     ChartTools.showChart(ChartTools.toXYDatasetPowerLaw(ug), "三个幂率分布图像");
     //ChartTools.drawChart(ChartTools.eigPowerLaw(ug), "部分特征向量的幂律分布(已取双对数)");
   }
 
@@ -90,7 +90,7 @@ public class TestBrite {
 
   public static void savetoSparse(final Graph ug, final String filePath) throws IOException {
     final String s = ug.toSparse().toMatlabString();
-    FileUtils.writeStringToFile(new File(filePath), s);
+    FileUtils.writeStringToFile(new File(filePath), s, false);
     TestBrite.logger.debug(filePath);
   }
 
