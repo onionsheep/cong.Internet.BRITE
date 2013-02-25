@@ -2,6 +2,7 @@ package org.cong.complexNetwork.model;
 
 import org.cong.complexNetwork.graph.Graph;
 import org.cong.complexNetwork.graph.Node;
+import org.cong.complexNetwork.graph.Plane;
 
 public class BriteTang extends BriteBA {
   protected double epsilon; // Tang模型参数,此处为提高效率，内部默认加一

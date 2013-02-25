@@ -1,6 +1,7 @@
 package org.cong.complexNetwork.model;
 
 import org.cong.complexNetwork.graph.BriteCoordinate;
+import org.cong.complexNetwork.graph.BritePlane;
 import org.cong.complexNetwork.graph.Node;
 
 public class BriteCirclePlane extends BritePlane {

@@ -1,9 +1,7 @@
-package org.cong.complexNetwork.model;
+package org.cong.complexNetwork.graph;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.cong.complexNetwork.graph.BriteCoordinate;
-import org.cong.complexNetwork.graph.Node;
 
 public class BritePlane extends Plane {
 

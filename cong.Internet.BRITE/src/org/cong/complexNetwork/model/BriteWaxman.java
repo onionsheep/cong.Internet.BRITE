@@ -5,6 +5,7 @@ import java.util.Set;
 
 import org.cong.complexNetwork.graph.Graph;
 import org.cong.complexNetwork.graph.Node;
+import org.cong.complexNetwork.graph.Plane;
 
 public class BriteWaxman {
   protected double alpha;

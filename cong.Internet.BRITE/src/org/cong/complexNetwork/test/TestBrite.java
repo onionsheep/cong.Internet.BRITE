@@ -15,11 +15,11 @@ import org.apache.log4j.Logger;
 import org.cong.complexNetwork.graph.Edge;
 import org.cong.complexNetwork.graph.Graph;
 import org.cong.complexNetwork.graph.Node;
+import org.cong.complexNetwork.graph.Plane;
 import org.cong.complexNetwork.model.BriteBA;
 import org.cong.complexNetwork.model.BriteCirclePlane;
 import org.cong.complexNetwork.model.BriteTangWaxman;
 import org.cong.complexNetwork.model.BriteWaxman;
-import org.cong.complexNetwork.model.Plane;
 import org.cong.complexNetwork.util.ChartTools;
 import org.cong.complexNetwork.util.NetworkTraitUtil;
 

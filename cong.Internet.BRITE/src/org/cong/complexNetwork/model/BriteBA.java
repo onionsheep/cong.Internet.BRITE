@@ -6,6 +6,7 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.cong.complexNetwork.graph.Graph;
 import org.cong.complexNetwork.graph.Node;
+import org.cong.complexNetwork.graph.Plane;
 import org.cong.complexNetwork.util.ArrayUtil;
 
 public class BriteBA {

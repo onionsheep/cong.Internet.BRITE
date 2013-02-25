@@ -11,8 +11,8 @@ import java.io.Writer;
 import cong.commons.io.FileUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.cong.complexNetwork.graph.BritePlane;
 import org.cong.complexNetwork.model.BriteBA;
-import org.cong.complexNetwork.model.BritePlane;
 import org.cong.complexNetwork.model.BriteWaxman;
 
 import com.alibaba.fastjson.JSON;

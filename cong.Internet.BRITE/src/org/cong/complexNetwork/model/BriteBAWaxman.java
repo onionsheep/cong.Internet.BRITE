@@ -3,6 +3,7 @@ package org.cong.complexNetwork.model;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.cong.complexNetwork.graph.Node;
+import org.cong.complexNetwork.graph.Plane;
 
 public class BriteBAWaxman extends BriteBA {
   protected final double alpha;

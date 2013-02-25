@@ -1,4 +1,4 @@
-package org.cong.complexNetwork.model;
+package org.cong.complexNetwork.graph;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,9 +6,6 @@ import java.util.Set;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.cong.complexNetwork.graph.Coordinate;
-import org.cong.complexNetwork.graph.Graph;
-import org.cong.complexNetwork.graph.Node;
 import org.cong.complexNetwork.util.EuclideanDistanceUtil;
 
 public class Plane {
@@ -25,7 +22,7 @@ public class Plane {
     return dis;
   }
 
-  private static long distanceSqr(final Node u, final Node v) {
+  public static long distanceSqr(final Node u, final Node v) {
     return Plane.distanceSqr(u.getCoordinate(), v.getCoordinate());
   }
 
@@ -39,7 +36,7 @@ public class Plane {
     this.ug = new Graph();
   }
 
-  protected Node addRandomNode() throws Exception {
+  public Node addRandomNode() throws Exception {
     return this.ug.addNode(this.randomNodeNoDuplication());
   }
 
